@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" style="background: transparent;">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- World map continents -->
+  <g fill="rgba(255, 255, 255, 0.1)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="0.5">
+    
+    <!-- North America -->
+    <path d="M50,80 Q70,60 120,70 Q180,65 220,80 Q260,90 270,130 Q265,180 250,200 Q220,210 170,215 Q120,212 80,200 Q50,160 50,80Z"/>
+    <path d="M80,200 Q100,190 140,195 Q180,200 200,220 Q195,250 180,260 Q150,265 120,260 Q90,250 80,200Z"/>
+    
+    <!-- South America -->
+    <path d="M200,240 Q220,230 240,240 Q260,260 265,290 Q270,340 260,390 Q250,420 230,430 Q210,425 200,410 Q190,370 195,340 Q198,290 200,240Z"/>
+    
+    <!-- Europe -->
+    <path d="M430,80 Q460,70 500,80 Q530,85 550,100 Q560,120 555,140 Q550,160 530,165 Q500,162 460,155 Q430,145 420,120 Q425,100 430,80Z"/>
+    
+    <!-- Africa -->
+    <path d="M460,160 Q500,150 530,160 Q560,170 570,200 Q575,240 570,280 Q565,320 555,340 Q540,355 520,360 Q500,358 480,350 Q460,340 455,320 Q450,280 455,240 Q458,200 460,160Z"/>
+    
+    <!-- Asia -->
+    <path d="M580,60 Q630,50 700,65 Q780,75 830,100 Q860,120 865,150 Q870,180 860,210 Q850,230 830,240 Q780,245 730,240 Q680,235 630,225 Q580,215 560,190 Q550,160 560,130 Q570,100 580,60Z"/>
+    
+    <!-- Russia/Northern Asia -->
+    <path d="M580,40 Q650,30 750,40 Q850,50 900,70 Q920,90 915,110 Q900,130 870,135 Q820,138 750,133 Q680,128 630,120 Q580,110 570,90 Q575,70 580,40Z"/>
+    
+    <!-- China -->
+    <path d="M680,120 Q720,115 750,125 Q780,135 790,155 Q795,175 785,190 Q775,205 750,210 Q720,207 690,200 Q660,190 655,170 Q650,150 660,135 Q670,122 680,120Z"/>
+    
+    <!-- India -->
+    <path d="M650,180 Q680,175 700,190 Q715,205 710,225 Q705,245 685,250 Q665,247 650,237 Q635,225 640,207 Q645,190 650,180Z"/>
+    
+    <!-- Southeast Asia -->
+    <path d="M720,220 Q750,215 780,225 Q800,235 805,255 Q800,275 785,285 Q770,290 750,287 Q730,282 715,272 Q700,260 705,245 Q710,230 720,220Z"/>
+    
+    <!-- Australia -->
+    <path d="M730,300 Q760,290 800,295 Q830,300 840,320 Q845,340 835,355 Q825,365 800,368 Q770,365 740,358 Q720,348 715,330 Q710,312 730,300Z"/>
+    
+    <!-- Japan -->
+    <path d="M820,160 Q835,155 845,165 Q850,175 845,185 Q840,195 825,198 Q810,195 805,185 Q800,175 805,165 Q810,157 820,160Z"/>
+    
+    <!-- Indonesia -->
+    <path d="M720,260 Q740,255 760,265 Q780,275 785,285 Q780,295 765,300 Q750,297 735,290 Q720,282 715,272 Q710,262 720,260Z"/>
+    <path d="M760,270 Q775,265 790,275 Q800,285 795,295 Q790,305 775,308 Q760,305 750,297 Q740,287 745,277 Q750,270 760,270Z"/>
+    
+    <!-- Madagascar -->
+    <path d="M580,320 Q590,315 595,325 Q600,335 595,345 Q590,355 580,358 Q570,355 565,345 Q560,335 565,325 Q570,317 580,320Z"/>
+    
+    <!-- Philippines -->
+    <path d="M800,230 Q815,225 825,235 Q830,245 825,255 Q820,265 805,268 Q790,265 785,255 Q780,245 785,235 Q790,227 800,230Z"/>
+    
+    <!-- New Zealand -->
+    <path d="M850,360 Q860,355 865,365 Q870,375 865,385 Q860,395 850,398 Q840,395 835,385 Q830,375 835,365 Q840,357 850,360Z"/>
+    
+    <!-- Greenland -->
+    <path d="M320,20 Q350,10 380,25 Q390,40 385,55 Q380,70 350,75 Q320,72 300,60 Q290,45 295,30 Q305,17 320,20Z"/>
+    
+    <!-- Iceland -->
+    <path d="M380,90 Q390,85 395,95 Q400,105 395,115 Q390,125 380,128 Q370,125 365,115 Q360,105 365,95 Q370,87 380,90Z"/>
+    
+    <!-- United Kingdom -->
+    <path d="M420,100 Q430,95 435,105 Q440,115 435,125 Q430,135 420,138 Q410,135 405,125 Q400,115 405,105 Q410,97 420,100Z"/>
+    
+    <!-- Scandinavia -->
+    <path d="M460,60 Q480,50 500,65 Q510,80 505,95 Q500,110 480,115 Q460,112 450,100 Q440,85 445,70 Q450,57 460,60Z"/>
+    
+  </g>
+  
+  <!-- Mission countries highlighted -->
+  <g fill="rgba(102, 126, 234, 0.3)" stroke="rgba(102, 126, 234, 0.8)" stroke-width="2">
+    
+    <!-- Bangladesh - South Asia -->
+    <circle cx="710" cy="200" r="8" filter="url(#glow)">
+      <animate attributeName="r" values="6;10;6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Burundi - East Africa -->
+    <circle cx="550" cy="270" r="8" filter="url(#glow)">
+      <animate attributeName="r" values="6;10;6" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Kongo (DRC) - Central Africa -->
+    <circle cx="530" cy="260" r="8" filter="url(#glow)">
+      <animate attributeName="r" values="6;10;6" dur="3s" begin="1s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Rwanda - East Africa -->
+    <circle cx="545" cy="265" r="8" filter="url(#glow)">
+      <animate attributeName="r" values="6;10;6" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Sri Lanka - South Asia (island south of India) -->
+    <circle cx="675" cy="235" r="8" filter="url(#glow)">
+      <animate attributeName="r" values="6;10;6" dur="3s" begin="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Tanzania - East Africa -->
+    <circle cx="555" cy="275" r="8" filter="url(#glow)">
+      <animate attributeName="r" values="6;10;6" dur="3s" begin="2.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Tchad (Chad) - Central Africa -->
+    <circle cx="520" cy="220" r="8" filter="url(#glow)">
+      <animate attributeName="r" values="6;10;6" dur="3s" begin="3s" repeatCount="indefinite"/>
+    </circle>
+    
+  </g>
+  
+  <!-- Connection lines from center point -->
+  <g stroke="rgba(102, 126, 234, 0.4)" stroke-width="1" stroke-dasharray="3,3" opacity="0.6">
+    <!-- Bangladesh -->
+    <line x1="500" y1="250" x2="710" y2="200"/>
+    <!-- Burundi -->
+    <line x1="500" y1="250" x2="550" y2="270"/>
+    <!-- Kongo (DRC) -->
+    <line x1="500" y1="250" x2="530" y2="260"/>
+    <!-- Rwanda -->
+    <line x1="500" y1="250" x2="545" y2="265"/>
+    <!-- Sri Lanka -->
+    <line x1="500" y1="250" x2="675" y2="235"/>
+    <!-- Tanzania -->
+    <line x1="500" y1="250" x2="555" y2="275"/>
+    <!-- Tchad (Chad) -->
+    <line x1="500" y1="250" x2="520" y2="220"/>
+  </g>
+  
+  <!-- Center point -->
+  <circle cx="500" cy="250" r="4" fill="rgba(102, 126, 234, 0.8)" filter="url(#glow)">
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+</svg>

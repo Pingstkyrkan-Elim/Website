@@ -1,0 +1,195 @@
+# ELIM Church Website - Git Ignore File
+
+# ===== PYTHON/DJANGO =====
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+backend/venv/
+backend/env/
+backend/.venv/
+venv/
+env/
+.venv/
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Django migrations (keep structure, ignore auto-generated)
+# Uncomment if you want to ignore all migrations
+# */migrations/
+# !*/migrations/__init__.py
+
+# Django static files (will be collected in production)
+backend/staticfiles/
+backend/static/
+backend/media/
+
+# Django secret key and environment files
+backend/.env
+backend/.env.local
+backend/.env.production
+
+# ===== NODE.JS/REACT =====
+# Dependencies
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Production build
+frontend/build/
+frontend/dist/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Runtime data
+frontend/pids
+frontend/*.pid
+frontend/*.seed
+frontend/*.pid.lock
+
+# Coverage directory used by tools like istanbul
+frontend/coverage/
+
+# ESLint cache
+frontend/.eslintcache
+
+# ===== DOCKER =====
+# Production environment files (sensitive)
+.env
+.env.production
+# .env.synology is committed as a template (contains only placeholder values)
+
+# Docker volumes and data
+postgres_data/
+redis_data/
+backup_data/
+
+# ===== DEVELOPMENT =====
+# IDE and Editor files
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ===== LOGS =====
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+
+# ===== BACKUPS =====
+# Backup files (these can be large)
+backups/
+*.sql
+*.sql.gz
+*.dump
+*.backup
+
+# ===== SSL CERTIFICATES =====
+# SSL certificates and private keys
+*.key
+*.crt
+*.pem
+ssl/
+certificates/
+
+# ===== SYNOLOGY/PRODUCTION =====
+# Production deployment files — docker-compose.synology.yml and .env.synology
+# are committed as templates (placeholder values only, not real secrets)
+
+# ===== TEMPORARY FILES =====
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# ===== PROJECT SPECIFIC =====
+# Claude Code specific
+.claude/
+
+# Test files
+test-results/
+coverage/
+
+# Documentation builds
+docs/_build/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# ===== KEEP BUT IGNORE CONTENT =====
+# Media uploads (structure yes, content no)
+media/*
+!media/.gitkeep
+
+# Static files (structure yes, content no)
+static/*
+!static/.gitkeep
+
+# Logs directory (structure yes, logs no)
+logs/*
+!logs/.gitkeep
+!logs/README.md
+
+# ===== SENSITIVE INFORMATION =====
+# Any file containing secrets
+secrets.txt
+credentials.json
+config.json
+*.key
+*.secret
+*password*
+*token*
+
+# Database files
+*.sqlite
+*.db
+
+# ===== END =====

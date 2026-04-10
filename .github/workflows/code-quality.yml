@@ -1,0 +1,126 @@
+name: Code Quality & Formatting
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  code-formatting:
+    name: Check Code Formatting
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Install Python formatting tools
+      run: |
+        pip install black isort flake8
+
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm ci
+
+    - name: Check Python formatting with Black
+      run: |
+        cd backend
+        black --check --diff .
+        
+    - name: Check Python import sorting with isort
+      run: |
+        cd backend
+        isort --check-only --diff .
+
+    - name: Check Python linting with flake8
+      run: |
+        cd backend
+        flake8 .
+
+    - name: Check frontend formatting with Prettier
+      run: |
+        cd frontend
+        npx prettier --check "src/**/*.{ts,tsx,js,jsx,json,css,md}"
+
+    - name: Check frontend linting with ESLint
+      run: |
+        cd frontend
+        npm run lint
+
+  auto-format:
+    name: Auto-format Code (PR only)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: code-formatting
+    # Only run if formatting check fails
+    continue-on-error: true
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        ref: ${{ github.head_ref }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Install formatting tools
+      run: |
+        pip install black isort
+        cd frontend && npm ci
+
+    - name: Format Python code
+      run: |
+        cd backend
+        black .
+        isort .
+
+    - name: Format frontend code
+      run: |
+        cd frontend
+        npx prettier --write "src/**/*.{ts,tsx,js,jsx,json,css,md}"
+
+    - name: Check for changes
+      id: verify-changed-files
+      run: echo "changed=$(git diff --name-only | wc -l)" >> $GITHUB_OUTPUT
+
+    - name: Commit formatted code
+      if: steps.verify-changed-files.outputs.changed > 0
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "style: auto-format code with Black and Prettier
+
+        🤖 This commit was created automatically by GitHub Actions
+        - Python code formatted with Black and isort
+        - Frontend code formatted with Prettier
+        
+        Co-authored-by: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+        git push

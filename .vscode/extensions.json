@@ -1,0 +1,35 @@
+{
+  "recommendations": [
+    // Python Development
+    "ms-python.python",
+    "ms-python.black-formatter",
+    "ms-python.isort",
+    "ms-python.flake8",
+    
+    // JavaScript/TypeScript/React
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "formulahendry.auto-rename-tag",
+    "ms-vscode.vscode-json",
+    
+    // General Development
+    "christian-kohler.path-intellisense",
+    "ms-vscode.sublime-keybindings",
+    "gruntfuggly.todo-tree",
+    "streetsidesoftware.code-spell-checker",
+    
+    // Git & Version Control
+    "eamodio.gitlens",
+    "donjayamanne.githistory",
+    
+    // Database & Docker
+    "ms-vscode-remote.remote-containers",
+    "ms-azuretools.vscode-docker",
+    
+    // Productivity
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-toolsai.jupyter"
+  ]
+}
