@@ -1,4 +1,4 @@
-test("GlobalStyles module loads", () => {
-  const mod = require("./GlobalStyles");
+test('GlobalStyles module loads', () => {
+  const mod = require('./GlobalStyles');
   expect(mod).toBeDefined();
 });

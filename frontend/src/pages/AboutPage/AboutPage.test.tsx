@@ -1,4 +1,4 @@
-test("AboutPage module loads", () => {
-  const mod = require("./AboutPage");
+test('AboutPage module loads', () => {
+  const mod = require('./AboutPage');
   expect(mod).toBeDefined();
 });
