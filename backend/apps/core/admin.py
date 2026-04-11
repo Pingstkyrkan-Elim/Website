@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Contact, Donation, Event, NewsPost, Program, Service, TeamMember
+from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, Service, TeamMember
 
 
 @admin.register(Service)
@@ -151,6 +151,23 @@ class DonationAdmin(admin.ModelAdmin):
             {"fields": ("created_at", "updated_at"), "classes": ("collapse",)},
         ),
     )
+
+
+@admin.register(MissionCountry)
+class MissionCountryAdmin(admin.ModelAdmin):
+    list_display = ("name", "continent", "is_active", "order")
+    list_filter = ("continent", "is_active")
+    list_editable = ("is_active", "order")
+    search_fields = ("name", "description")
+    ordering = ("order", "name")
+
+
+@admin.register(HistoryEntry)
+class HistoryEntryAdmin(admin.ModelAdmin):
+    list_display = ("period", "title", "year_start", "order")
+    list_editable = ("order",)
+    search_fields = ("period", "title", "content")
+    ordering = ("order", "year_start")
 
 
 @admin.register(TeamMember)

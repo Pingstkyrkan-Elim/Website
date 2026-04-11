@@ -253,6 +253,70 @@ class Donation(BaseModel):
         return f"Donation: {self.amount} SEK - {self.get_donation_type_display()}"
 
 
+class MissionCountry(BaseModel):
+    """Active mission fields supported by Pingstkyrkan Elim"""
+
+    CONTINENTS = [
+        ('Afrika', 'Afrika'),
+        ('Asien', 'Asien'),
+        ('Europa', 'Europa'),
+        ('Amerika', 'Amerika'),
+    ]
+
+    name = models.CharField(max_length=100)
+    continent = models.CharField(max_length=20, choices=CONTINENTS)
+    description = models.TextField()
+    images = models.JSONField(
+        default=list, blank=True,
+        help_text="List of image filenames served from /images/mission/ folder",
+    )
+    coordinates_x = models.FloatField(
+        default=50.0, help_text="Horizontal % position on world map (0-100)"
+    )
+    coordinates_y = models.FloatField(
+        default=50.0, help_text="Vertical % position on world map (0-100)"
+    )
+    is_active = models.BooleanField(default=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "mission_countries"
+        ordering = ["order", "name"]
+
+    def __str__(self):
+        return f"{self.name} ({self.continent})"
+
+
+class HistoryEntry(BaseModel):
+    """Church history timeline entries"""
+
+    period = models.CharField(
+        max_length=100,
+        help_text="e.g. '1919' or '1920- och 1930-talet'",
+    )
+    year_start = models.IntegerField(help_text="Starting year for sorting")
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    images = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="List of image filenames served from /images/ folder",
+    )
+    leaders = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="List of leader strings, e.g. 'Georg Steen 1919–1921'",
+    )
+    order = models.IntegerField(default=0, help_text="Display order")
+
+    class Meta:
+        db_table = "history_entries"
+        ordering = ["order", "year_start"]
+
+    def __str__(self):
+        return f"{self.period} — {self.title}"
+
+
 class TeamMember(BaseModel):
     """Church team members and leadership"""
 

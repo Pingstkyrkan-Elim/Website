@@ -6,11 +6,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 
-from .models import Contact, Donation, Event, NewsPost, Program, Service, TeamMember
+from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, Service, TeamMember
 from .serializers import (
     ContactSerializer,
     DonationSerializer,
     EventSerializer,
+    HistoryEntrySerializer,
+    MissionCountrySerializer,
     NewsPostSerializer,
     ProgramSerializer,
     ServiceSerializer,
@@ -100,6 +102,21 @@ class DonationCreateView(generics.CreateAPIView):
 
     queryset = Donation.objects.all()
     serializer_class = DonationSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class MissionCountryListView(generics.ListAPIView):
+    """List all active mission countries"""
+    queryset = MissionCountry.objects.filter(is_active=True)
+    serializer_class = MissionCountrySerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class HistoryEntryListView(generics.ListAPIView):
+    """List all history entries ordered by display order"""
+
+    queryset = HistoryEntry.objects.all()
+    serializer_class = HistoryEntrySerializer
     permission_classes = [permissions.AllowAny]
 
 

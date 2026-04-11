@@ -1,107 +1,103 @@
-export interface HistoryItem {
-  id: number;
-  title: string;
-  date: string;
-  content: string;
-  image?: string[];
-  details?: string[];
-}
+import { HistoryEntry } from '../../types';
 
-export const historyStories: HistoryItem[] = [
+// Static fallback data — mirrors the database seed in populate_history.py
+// Used when the API is unavailable (e.g. during development without backend).
+
+export const staticHistoryData: HistoryEntry[] = [
   {
     id: 1,
-    title: "Den förste pingst-missionären i Österrike",
-    date: "1920 - 1930",
-    content: "Pastor Steen åkte 1921 till Wien, där han blev förste pingst-missionären i Österrike. Följande år bildades församlingar i Rumänien, Jugoslavien och Ungern. I Berlin bildades en fri församling som växte till den största i Tyskland. På grund av nazisterna fick Steen tillsammans med hustru Frida lämna landet 1937. Efter kriget ledde de pingströrelsens hjälparbete i Hamburg och Ungern. 1948 flyttade paret till Bryssel där de tjänstgjorde fram till pensionen 1958, då de flyttade tillbaka till Trelleborg. När de senare flyttade till Sala behöll de kontakten hela livet med vänner i Elim där de var uppskattade gäster i bönegruppen och förebedjare fram till 1970-talet.",
-    image: ["1920.png"],
-    details: ["Georg Steen 1919-1921", "Algot Vikström 1921-1922"]
+    period: '1919',
+    year_start: 1919,
+    title: 'Församlingens Grundande',
+    content:
+      'Elimförsamlingen i Trelleborg bildades i mars 1919 när ett 25-tal personer lämnade Baptisterna för att under den unge evangelisten Georg Steens ledning bilda Elimförsamlingen. Den första lokalen man samlades i hette Sveasalen och låg strax söder om den kyrka som senare byggdes på Valldammsgatan 2.',
+    images: ['historia/Steen.webp'],
+    leaders: [],
+    order: 1,
   },
   {
     id: 2,
-    title: "Första Lokalen",
-    date: "1920 - 1930",
-    content: "Så småningom fick församlingen möjlighet att bygga en mera funktionell kyrka, i alla fall efter tidens mått. Den kände arkitekten Ragnar Näsman anlitades och han ritade en kubisk funkisbyggnad. Den blev mycket uppmärksammad och Näsman använde denna som exempel på sin kompetens. Kyrkan byggdes med grunden delvis på den gamla Sveasalen och stod färdig 1936. Den förblev församlingens huvudkvarter fram till 1981.\n\nI fondväggen bakom estraden fanns ett runt fönster som lyste som solen.",
-    image: ["1921.png", "1922.png"],
-    details: ["Gunnar Pettersson 1922-1923", "Johannes Hedin 1924-1927", "Helmer Freijd 1927-1931", "Gunnar Pettersson 1931-1944"]
+    period: '1920- och 1930-talet',
+    year_start: 1920,
+    title: 'Expansion och Missionstid',
+    content:
+      'Pastor Steen åkte 1921 till Wien, där han blev förste pingst-missionären i Österrike. Följande år bildades församlingar i Rumänien, Jugoslavien och Ungern. I Berlin bildades en fri församling som växte till den största i Tyskland. På grund av nazisterna fick Steen tillsammans med hustru Frida lämna landet 1937. Efter kriget ledde de pingströrelsens hjälparbete i Hamburg och Ungern.\n\nSå småningom fick församlingen möjlighet att bygga en mera funktionell kyrka. Den kände arkitekten Ragnar Näsman anlitades och han ritade en kubisk funkisbyggnad. Den blev mycket uppmärksammad och stod färdig 1936 — församlingens huvudkvarter fram till 1981. I fondväggen bakom estraden fanns ett runt fönster som lyste som solen.\n\nFörsamlingen hade tidigt ett rikt sång- och musikliv.',
+    images: ['historia/Valldammsgatan.webp', 'historia/Screenshot_18.webp', 'historia/image007.webp', 'historia/Music_groups.webp', 'historia/Song_groups.webp'],
+    leaders: [
+      'Georg Steen 1919–1921',
+      'Algot Vikström 1921–1922',
+      'Gunnar Pettersson 1922–1923',
+      'Johannes Hedin 1924–1927',
+      'Helmer Freijd 1927–1931',
+      'Gunnar Pettersson 1931–1944',
+    ],
+    order: 2,
   },
   {
     id: 3,
-    title: "Pastorer",
-    date: "1920 - 1930",
-    content: "Tre pastorer som betytt mycket för församlingen i Trelleborg under lång tid:\n\nErnst Almqvist,\n\nGeorg Steen\n\noch Gunnar Pettersson.\n\nHär har alla samlats på estraden i kyrkan på Valldammsgatan, kanske under något jubileum.",
-    image: ["1923.png"],
-    details: ["Under 1920- och 1930-talen utförde många pastorer och föreståndare ett exceptionellt arbete som hade ett stort inflytande på pingstsamfundets framsteg och tillväxt."]
+    period: '1940- och 1950-talet',
+    year_start: 1940,
+    title: 'Pastorer, Utposter och Barnverksamhet',
+    content:
+      'Harald Strömstedt var en mycket varm och nitisk människa med stort hjärta för de nyfrälsta och ungdomarna. Han var en andlig fader för alla i församlingen och en god förkunnare.\n\nKarl Wärn tillbringade fyra år i församlingen från 1950. Han hade talets gåva — hans levande och intressanta förkunnelse berörde alla som lyssnade. Han hade också en gåva att be för sjuka.\n\nFörsamlingen bedrev möten och söndagsskola på många platser runt om Trelleborg: Smygehamn, Skegrie och Kurland. I Smygehamn hölls varje år den välkända Smygehamnskonferensen. Söndagsskola och barnverksamhet samlade många barn och ledare under slutet av 1940-talet och framåt.',
+    images: ['historia/Screenshot_1.webp', 'historia/Screenshot_3.webp', 'historia/Styrelsen_1950.webp', 'historia/Kurland.webp', 'historia/Söndagsskola.webp'],
+    leaders: [
+      'Gunnar Pettersson 1931–1944',
+      'Harald Strömstedt 1944–1950',
+      'Karl Wärn 1950–1954',
+      'Stig Ohrle 1954–1956',
+      'Åke Axelsson 1956–1957',
+      'Ernst Almqvist 1957–1965',
+    ],
+    order: 3,
   },
   {
     id: 4,
-    title: "Egen Byggnad",
-    date: "1935",
-    content: "Ett historiskt ögonblick inträffar när församlingen köper sin första egna byggnad på Storgatan. Detta representerar inte bara ekonomisk stabilitet utan också en djupare förankring i samhället.\n\nDen nya lokalen möjliggör expansion av verksamheterna och skapar möjligheter för större sammankomster. Medlemsantalet har nu vuxit till 100 personer, och ungdomsarbetet tar sina första steg. Byggnaden blir snart känd som en plats för bön, gemenskap och social hjälp under de ekonomiskt svåra 1930-talet.",
-    image: ["storgatan-building.jpg"],
-    details: ["Storgatan 42", "100 medlemmar", "Ungdomsverksamhet"]
+    period: '1960- och 1970-talet',
+    year_start: 1960,
+    title: 'Blåsorkester och Ungdomstid',
+    content:
+      'Efter tiden med Ernst Almqvist hade församlingen flera vakanspredikanter tills Philip Nilsson accepterade kallelsen som föreståndare. Philip var en god predikant som predikade med stor inlevelse och stort personligt engagemang.\n\nFörsamlingen hade en blåsorkester som verkade under många år under ledning av Åke Svensson. Denna var ett verktyg att samla människor utomhus och dela evangelium. Den blev samtidigt en samlingspunkt för ungdomarna.',
+    images: ['historia/image009.webp', 'historia/image029.webp', 'historia/Wiborn.webp'],
+    leaders: [
+      'Ernst Almqvist 1957–1965',
+      'Karl Eriksson 1965–1968',
+      'Gustav Söderholm 1968–1969',
+      'Philip Nilsson 1969–1973',
+      'Knut Wiborn 1973–1977',
+      'Nils Sjöström 1977–1990',
+    ],
+    order: 4,
   },
   {
     id: 5,
-    title: "Efterkrigstillväxt",
-    date: "1945-1950",
-    content: "Efter andra världskrigets slut upplever församlingen en period av enorm tillväxt och förnyelse. Många familjer, påverkade av krigsårens vedermödor, söker hopp och mening i tron.\n\nMedlemsantalet växer dramatiskt till 180 personer, och barnarbetet expanderar kraftigt för att möta behoven hos de många nya familjerna. Denna period karakteriseras av stark gemenskap, praktisk hjälp till behövande och en växande missionskänsla som sträcker sig långt utanför Trelleborgs gränser.",
-    image: ["post-war.jpg"],
-    details: ["180 medlemmar", "Familjetillväxt", "Missionssatsning"]
+    period: '1980- och 1990-talet',
+    year_start: 1980,
+    title: 'Kyrkobranden och Återuppbyggnad',
+    content:
+      'Nils Sjöström satte sin prägel på församlingen som ingen annan pastor på senare tid. Han var föreståndare 1977–1990 och full av idéer och visioner. Han engagerade sig starkt för flyktingar och utsågs av Sveriges Radio till "Sveriges modigaste man".\n\nBeslut fattades att bygga en ny kyrka, finansierad av ett testamente från Victor Palson. Men den 24 april 1982 — tre veckor före invigningen — sattes kyrkan i brand av några ungdomar och hela byggnaden fick rivas. Efter en nattlig samling med bön och samtal beslutades att gå vidare.\n\nKyrkan byggdes upp igen och invigdes till Advent samma år, 1982. Den är en luftig byggnad med synliga limträbalkar och furupanel i taket. I sidobyggnaden startades Sveriges första kristna fritidshem.\n\nUnder 1990-talet ledde Torbjörn Söder (1994–2001) församlingen mot en folkligare inriktning med aktiviteter för äldre och samarbete med Trelleborgs Kommun.',
+    images: ['historia/Screenshot_4.webp', 'historia/image011.webp', 'historia/image019.webp', 'historia/Fire1.webp', 'historia/Fire2.webp', 'historia/Fire3.webp', 'historia/Fire4.webp', 'historia/Screenshot_10.webp', 'historia/Screenshot_16.webp', 'historia/Tunhav.webp', 'historia/Söder.webp'],
+    leaders: [
+      'Nils Sjöström 1977–1990',
+      'Bosse Tunhav 1991–1993',
+      'Nils Sjöström 1993–1994',
+      'Torbjörn Söder 1994–2001',
+    ],
+    order: 5,
   },
   {
     id: 6,
-    title: "50-talets Guldålder",
-    date: "1955",
-    content: "1950-talet blir en guldålder för Pingstkyrkan Elim. Församlingen når 250 medlemmar och etablerar sig som en betydande kraft i Trelleborgs religiösa landskap.\n\nDamkören bildas och blir snart känd för sina vackra framföranden vid både gudstjänster och speciella evenemang. Den första församlingsbilen köps, vilket revolutionerar möjligheterna för utflykter, konferenser och missionärsresor. Denna period präglasav optimism, tillväxt och en stark känsla av gemenskap.",
-    image: ["50s-boom.jpg"],
-    details: ["250 medlemmar", "Damkör", "Första bilen"]
+    period: '2000- och 2010-talet',
+    year_start: 2000,
+    title: 'En Levande Församling Idag',
+    content:
+      'Under 2000- och 2010-talet fortsatte Pingstkyrkan Elim att växa som en levande, mångkulturell församling. Joakim Freiman ledde församlingen 2002–2016 och Ingmar Aronson tillträdde 2018.\n\nIdag är Elim en åldersblandad och multietnisk pingstkyrka med många barn och ungdomar och flera olika verksamheter för alla åldrar. Predikan tolkas ofta till engelska och predikotexten finns även översatt till flera olika språk.\n\nVi brinner för att göra Jesus känd, trodd och efterföljd i Trelleborg med omnejd och välkomnar alla som vill uppleva livet med Jesus.',
+    images: ['historia/ElimPastors2.webp'],
+    leaders: [
+      'Torbjörn Söder 1994–2001',
+      'Joakim Freiman 2002–2016',
+      'Ingmar Aronson 2018–',
+    ],
+    order: 6,
   },
-  {
-    id: 7,
-    title: "Karismatisk Förnyelse",
-    date: "1965",
-    content: "Den karismatiska förnyelsen sveper över kristenheten globalt och påverkar även Elim på djupet. Nya uttryck för tillbedjan introduceras, och gudstjänsterna blir mer spontana och livfulla.\n\nProfetiska gåvor och gudomlig helning blir mer framträdande, och många medlemmar upplever en fördjupad andlig gemenskap. Nya sånger och musikstilar introduceras, vilket attraherar både yngre medlemmar och besökare. Denna förnyelse skapar ny energi och passion för evangelisation och gemenskap.",
-    image: ["charismatic-renewal.jpg"],
-    details: ["Nya sånger", "Profetisk tjänst", "Helande möten"]
-  },
-  {
-    id: 8,
-    title: "Nya Kyrkobyggnaden",
-    date: "1982",
-    content: "En dröm blir verklighet när den nuvarande kyrkobyggnaden invigs på den adress som fortfarande används idag. Med 400 sittplatser representerar denna byggnad församlingens största investering och ett starkt uttryck för framtidstro.\n\nDen moderna utrustningen möjliggör större evenemang, konferenser och kulturella aktiviteter. Byggnaden blir snart ett nav för kristna aktiviteter i regionen och välkomnar besökare från många andra församlingar. Denna milstolpe markerar början på en ny era av tillväxt och inflytande.",
-    image: ["current-building.jpg"],
-    details: ["400 platser", "Modern teknik", "Regionalt center"]
-  },
-  {
-    id: 9,
-    title: "Mångkulturell Gemenskap",
-    date: "1985",
-    content: "I takt med Sveriges ökande mångfald blir även Elim en alltmer internationell församling. Medlemmar från tolv olika nationaliteter skapar en rik kulturell mosaik som berikar församlingslivet enormt.\n\nFlerspråkiga möten introduceras för att välkomna alla, och kulturell mångfald fieras genom internationella evenemang och festivaler. Denna utveckling speglar församlingens öppna hjärta och dess förståelse av kristendomens universella budskap som överskrider alla kulturella gränser.",
-    image: ["international.jpg"],
-    details: ["12 nationaliteter", "Flerspråkiga möten", "Kulturutbyte"]
-  },
-  {
-    id: 10,
-    title: "Digital Revolution",
-    date: "2000",
-    content: "Det nya millenniet för med sig teknologisk revolution även för Elim. Den första hemsidan lanseras, vilket öppnar nya möjligheter för kommunikation och utåtverksamhet.\n\nProjektorteknik installeras i kyrkan, vilket revolutionerar gudstjänstupplevelsen med visuella element och moderna presentationer. CD-inspelningar av körmusik och predikningar gör det möjligt att sprida församlingens budskap långt utanför kyrkans väggar. Denna digitala satsning positionerar Elim i framkant av kyrklig innovation.",
-    image: ["digital-era.jpg"],
-    details: ["Första hemsidan", "Projektor", "CD-inspelningar"]
-  },
-  {
-    id: 11,
-    title: "Total Renovering",
-    date: "2010",
-    content: "En omfattande renoveringsprocess påbörjas för att modernisera och förbättra kyrkans faciliteter. LED-belysning installeras för att skapa en varmre och mer energieffektiv miljö.\n\nLjudsystemet får en komplett uppgradering med modern digital teknik som förbättrar ljudkvaliteten dramatiskt. Tillgänglighetsanpassningar genomförs för att säkerställa att alla människor, oavsett fysiska begränsningar, kan delta fullt ut i församlingslivet. Dessa investeringar visar församlingens engagemang för excellens och inkludering.",
-    image: ["renovation.jpg"],
-    details: ["LED-belysning", "Digital ljud", "Tillgänglighet"]
-  },
-  {
-    id: 12,
-    title: "Nutid och Framtid",
-    date: "2024",
-    content: "Idag fortsätter Pingstkyrkan Elim att utvecklas som en levande, mångkulturell församling som balanserar tradition med innovation. Livestreaming av gudstjänster når medlemmar och vänner över hela världen.\n\nEn egen mobilapp utvecklas för att underlätta kommunikation och deltagande. Sociala medier används aktivt för att dela uppmuntran, evenemang och byggsa community. Trots alla teknologiska framsteg förblir kärnan densamma: att vara en andlig oas där människor kan möta Gud och varandra i äkta gemenskap och kärlek.",
-    image: ["today.jpg"],
-    details: ["Global räckvidd", "Digital gemenskap", "Framtidsfokus"]
-  }
 ];

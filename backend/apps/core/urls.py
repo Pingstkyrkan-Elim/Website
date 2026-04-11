@@ -23,4 +23,8 @@ urlpatterns = [
     path("donations/", views.DonationCreateView.as_view(), name="donation-create"),
     # Team
     path("team/", views.TeamMemberListView.as_view(), name="team-list"),
+    # History
+    path("history/", views.HistoryEntryListView.as_view(), name="history-list"),
+    # Mission
+    path("mission/", views.MissionCountryListView.as_view(), name="mission-list"),
 ]

@@ -37,7 +37,7 @@ export const Logo = styled(Link)`
   display: flex;
   align-items: center;
   color: white;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
@@ -202,7 +202,7 @@ export const MobileNavTitle = styled.h3`
   font-size: 1.2rem;
   font-weight: 600;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 `;
 
 export const CloseButton = styled.button`
@@ -245,7 +245,7 @@ export const MobileNavLink = styled(Link)<{ $isActive?: boolean }>`
   border-left: 2px solid transparent;
   transition: all 0.3s ease;
   font-size: 1.1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 
   ${({ $isActive }) =>
     $isActive &&

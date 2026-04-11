@@ -785,7 +785,7 @@ export const EventCTA = styled.button`
   margin-top: 1rem;
   align-self: flex-start;
   font-family:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    'Inter', sans-serif;
   position: relative;
   overflow: hidden;
 
@@ -876,7 +876,7 @@ export const RegistrationButton = styled.button`
   transition: all 0.3s ease;
   align-self: flex-start;
   font-family:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    'Inter', sans-serif;
   letter-spacing: 0.02em;
 
   &:hover {
@@ -958,7 +958,7 @@ export const ModalTitle = styled.h2`
   color: #1a1a1a;
   margin: 0 2.5rem 0 0;
   line-height: 1.3;
-  font-family: 'Georgia', serif;
+  font-family: 'Playfair Display', Georgia, serif;
 `;
 
 export const ModalBadgeRow = styled.div`
@@ -1141,7 +1141,7 @@ export const PrintStyles = createGlobalStyle`
       right: 0 !important;
       bottom: 0 !important;
       overflow: hidden !important;
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: 'Playfair Display', Georgia, serif;
       color: #1a1008;
       display: flex !important;
       flex-direction: column !important;
@@ -1181,7 +1181,7 @@ export const PrintChurchName = styled.h1`
     margin: 0 0 1.5mm 0;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    font-family: Georgia, serif;
+    font-family: 'Playfair Display', Georgia, serif;
   }
 `;
 
@@ -1292,7 +1292,7 @@ export const PrintEventTime = styled.span`
     color: #6a4808;
     min-width: 11mm;
     flex-shrink: 0;
-    font-family: 'Courier New', monospace;
+    font-family: 'Inter', sans-serif;
   }
 `;
 

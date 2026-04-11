@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Contact, Donation, Event, NewsPost, Program, Service, TeamMember
+from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, Service, TeamMember
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -85,6 +85,18 @@ class DonationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Donation.objects.create(**validated_data)
+
+
+class MissionCountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MissionCountry
+        fields = ["id", "name", "continent", "description", "images", "coordinates_x", "coordinates_y", "order"]
+
+
+class HistoryEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoryEntry
+        fields = ["id", "period", "year_start", "title", "content", "images", "leaders", "order"]
 
 
 class TeamMemberSerializer(serializers.ModelSerializer):

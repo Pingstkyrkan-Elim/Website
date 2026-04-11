@@ -257,7 +257,7 @@ export const SectionTitle = styled.h2`
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 4rem;
-  font-family: 'Georgia', 'Playfair Display', serif;
+  font-family: 'Playfair Display', Georgia, serif;
   letter-spacing: 0.01em;
   line-height: 1.2;
   position: relative;
@@ -537,7 +537,7 @@ export const CardTitle = styled.h3`
   margin-bottom: 0.7rem;
   line-height: 1.3;
   letter-spacing: 0.01em;
-  font-family: 'Georgia', 'Playfair Display', serif;
+  font-family: 'Playfair Display', Georgia, serif;
   text-align: center;
   position: relative;
   z-index: 2;
@@ -551,7 +551,7 @@ export const CardContent = styled.p`
   line-height: 1.55;
   font-size: 0.88rem;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   text-align: center;
   position: relative;
@@ -599,7 +599,7 @@ export const DateTime = styled.div`
   color: #c8922a;
   font-size: 1.1rem;
   margin-bottom: 0.8rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: -0.01em;
 `;
 
@@ -608,7 +608,7 @@ export const ServiceTitle = styled.div`
   color: #1d1d1f;
   font-size: 1.2rem;
   margin-bottom: 0.6rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: -0.01em;
 `;
 
@@ -616,7 +616,7 @@ export const ServiceDescription = styled.div`
   font-size: 1rem;
   color: #515154;
   line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
 `;
 
@@ -879,7 +879,7 @@ export const ActivityCardDate = styled.div`
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.8rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
 
   .ContentSection:nth-child(even) &,
   .ActivitiesSection & {
@@ -894,7 +894,7 @@ export const ActivityCardTitle = styled.h3`
   margin-bottom: 0.8rem;
   line-height: 1.3;
   letter-spacing: -0.015em;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
 
   .ContentSection:nth-child(even) &,
   .ActivitiesSection & {
@@ -907,7 +907,7 @@ export const ActivityCardDescription = styled.p`
   line-height: 1.5;
   color: #6e6e73;
   margin-bottom: 1.2rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
 
   .ContentSection:nth-child(even) &,
@@ -922,7 +922,7 @@ export const ActivityCardMeta = styled.div`
   gap: 1.5rem;
   font-size: 0.9rem;
   color: #86868b;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   margin-bottom: auto;
 
   .ContentSection:nth-child(even) &,
@@ -955,7 +955,7 @@ export const CardCTA = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   position: relative;
   overflow: hidden;
 

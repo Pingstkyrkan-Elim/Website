@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {
   ChurchInfo,
+  HistoryEntry,
+  MissionCountry,
   Service,
   Program,
   NewsPost,
@@ -111,6 +113,22 @@ export const submitDonation = async (
   donationData: DonationForm
 ): Promise<void> => {
   await api.post('/donations/', donationData);
+};
+
+// Mission
+export const getMissionCountries = async (): Promise<MissionCountry[]> => {
+  const response = await api.get<PaginatedResponse<MissionCountry> | MissionCountry[]>('/mission/');
+  const data = response.data;
+  if (Array.isArray(data)) return data;
+  return (data as PaginatedResponse<MissionCountry>).results ?? [];
+};
+
+// History
+export const getHistoryEntries = async (): Promise<HistoryEntry[]> => {
+  const response = await api.get<PaginatedResponse<HistoryEntry> | HistoryEntry[]>('/history/');
+  const data = response.data;
+  if (Array.isArray(data)) return data;
+  return (data as PaginatedResponse<HistoryEntry>).results ?? [];
 };
 
 export default api;

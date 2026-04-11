@@ -69,7 +69,7 @@ export const FooterSection = styled.div`
 `;
 
 export const SectionTitle = styled.h3`
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;

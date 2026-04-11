@@ -1,248 +1,178 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
+import { getHistoryEntries } from '../../services/api';
+import { HistoryEntry } from '../../types';
 import {
-  HistoriaContainer,
-  HeroSection,
+  PageWrapper,
+  Hero,
+  HeroBackground,
+  HeroDecorYear,
+  HeroContent,
+  HeroEyebrow,
   HeroTitle,
   HeroSubtitle,
-  BookContainer,
-  IPadWrapper,
-  IPadFrame,
-  IPadScreen,
-  BookPages,
-  LeftPage,
-  RightPage,
-  PageContent,
-  PageNumber,
-  NavigationControls,
-  NavButton,
-  CloseBookButton,
-  SwipeArea,
-  AppleCover,
-  AppleTitle,
-  AppleSubtitle,
-  AppleButton,
-  AppleOrbs,
+  HeroScroll,
+  HeroScrollLine,
+  HeroScrollLabel,
+  TimelineSection,
+  TimelineInner,
+  Entry,
+  EntryDot,
+  EntryPeriod,
+  EntryTitle,
+  EntryDivider,
+  EntryContent,
+  ImageGrid,
+  ImageItem,
+  LeadersSection,
+  LeadersLabel,
+  LeadersList,
+  LeaderPill,
+  AttributionSection,
+  AttributionText,
+  LoadingWrapper,
 } from './HistoriaPage.styles';
-import { historyStories } from './HistoriaUtils';
+import { staticHistoryData } from './HistoriaUtils';
 
-const HistoriaPage: React.FC = () => {
-  const [currentStory, setCurrentStory] = useState(0);
-  const [isActive, setIsActive] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-  const swipeAreaRef = useRef<HTMLDivElement>(null);
+// ── Scroll-reveal hook ────────────────────────────────────────────────────────
 
-  const nextStory = () => {
-    if (currentStory < historyStories.length - 1) {
-      setCurrentStory(currentStory + 1);
-    }
-  };
+const useInView = (threshold = 0.12): [React.RefObject<HTMLElement>, boolean] => {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
 
-  const prevStory = () => {
-    if (currentStory > 0) {
-      setCurrentStory(currentStory - 1);
-    }
-  };
-
-  const activateScreen = () => {
-    setIsActive(true);
-  };
-
-  const deactivateScreen = () => {
-    setIsActive(false);
-    setCurrentStory(0);
-  };
-
-  // Swipe gesture handlers
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      nextStory();
-    }
-    if (isRightSwipe) {
-      prevStory();
-    }
-  };
-
-  // Keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isActive) return;
-      
-      if (e.key === 'ArrowLeft') {
-        prevStory();
-      } else if (e.key === 'ArrowRight') {
-        nextStory();
-      } else if (e.key === 'Escape') {
-        deactivateScreen();
-      }
-    };
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isActive, currentStory]);
+  return [ref, visible];
+};
 
-  const currentStoryData = historyStories[currentStory];
+// ── TimelineEntry component ───────────────────────────────────────────────────
+
+const TimelineEntry: React.FC<{ entry: HistoryEntry; delay: number }> = ({ entry, delay }) => {
+  const [ref, visible] = useInView();
 
   return (
-    <HistoriaContainer>
-      <BookContainer>
-        <IPadWrapper $isActive={isActive}>
-          <IPadFrame />
-          <IPadScreen $isActive={isActive} onClick={!isActive ? activateScreen : undefined}>
-            {!isActive && (
-              <AppleCover>
-                <AppleOrbs>
-                  {/* Generate year bubbles from 1920 to 2026 */}
-                  {Array.from({length: 30}, (_, i) => {
-                    const year = 1920 + (i * 3.5); // Spread years across the timeline
-                    const actualYear = Math.round(year);
-                    if (actualYear > 2026) return null;
-                    
-                    return (
-                      <div 
-                        key={actualYear}
-                        className="year-bubble"
-                        style={{
-                          left: `${15 + (i % 6) * 15}%`,
-                          top: `${20 + Math.floor(i / 6) * 20}%`,
-                          animationDelay: `${-i * 0.3}s`
-                        }}
-                      >
-                        {actualYear}
-                      </div>
-                    );
-                  })}
-                </AppleOrbs>
-                <AppleTitle>Historia</AppleTitle>
-                <AppleSubtitle>
-                  Upptäck Pingstkyrkan Elims rika historia genom en interaktiv iPad. 
-                  Swipe eller klicka för att navigera genom vår resa från 1920 till idag.
-                </AppleSubtitle>
-                <AppleButton onClick={activateScreen}>
-                  Tryck för att starta
-                </AppleButton>
-              </AppleCover>
-            )}
+    <Entry
+      ref={ref as React.RefObject<HTMLElement>}
+      $visible={visible}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <EntryDot />
+      <EntryPeriod>{entry.period}</EntryPeriod>
+      <EntryTitle>{entry.title}</EntryTitle>
+      <EntryDivider />
 
-          {isActive && (
-            <BookPages>
-              <SwipeArea
-                ref={swipeAreaRef}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-              >
-                <LeftPage>
-                  <PageContent>
-                    <div className="image-page">
-                      {currentStoryData.image && currentStoryData.image.length > 0 ? (
-                        currentStoryData.image.length === 1 ? (
-                          <img 
-                            src={`/images/${currentStoryData.image[0]}`}
-                            alt={currentStoryData.title}
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="image-gallery">
-                            {currentStoryData.image.map((img, index) => (
-                              <img 
-                                key={index}
-                                src={`/images/${img}`}
-                                alt={`${currentStoryData.title} - Bild ${index + 1}`}
-                                className="gallery-image"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.style.display = 'none';
-                                }}
-                              />
-                            ))}
-                          </div>
-                        )
-                      ) : (
-                        <div className="no-image">
-                          <div className="placeholder-text">Ingen bild tillgänglig</div>
-                        </div>
-                      )}
-                      <div className="image-caption">
-                        <div className="image-title">{currentStoryData.title}</div>
-                      </div>
-                    </div>
-                  </PageContent>
-                </LeftPage>
-                
-                <RightPage>
-                  <PageContent>
-                    <div className="text-page">
-                      <h2 className="story-title">{currentStoryData.title}</h2>
-                      <div className="story-date">{currentStoryData.date}</div>
-                      
-                      <div className="story-content">
-                        {currentStoryData.content.split('\n\n').map((paragraph, index) => (
-                          <p key={index}>{paragraph}</p>
-                        ))}
-                      </div>
-                      
-                      {currentStoryData.details && (
-                        <div className="story-details">
-                          <h4>FÖRESTÅNDARE:</h4>
-                          <ul>
-                            {currentStoryData.details.map((detail, index) => (
-                              <li key={index}>{detail}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                    
-                  </PageContent>
-                </RightPage>
-              </SwipeArea>
+      <EntryContent>
+        {entry.content.split('\n\n').map((para, i) => (
+          <p key={i}>{para}</p>
+        ))}
+      </EntryContent>
 
-              <NavigationControls>
-                <NavButton 
-                  onClick={prevStory} 
-                  disabled={currentStory === 0}
-                  $position="left"
-                >
-                  ←
-                </NavButton>
+      {entry.images.length > 0 && (
+        <ImageGrid $count={Math.min(entry.images.length, 3)}>
+          {entry.images.map((img, i) => (
+            <ImageItem key={i}>
+              <img
+                src={`/images/${img}`}
+                alt={`${entry.title} — bild ${i + 1}`}
+                onLoad={e => (e.currentTarget.className = 'loaded')}
+                onError={e => {
+                  const parent = e.currentTarget.parentElement as HTMLElement;
+                  if (parent) parent.style.display = 'none';
+                }}
+              />
+            </ImageItem>
+          ))}
+        </ImageGrid>
+      )}
 
-                <NavButton 
-                  onClick={nextStory} 
-                  disabled={currentStory === historyStories.length - 1}
-                  $position="right"
-                >
-                  →
-                </NavButton>
-              </NavigationControls>
+      {entry.leaders.length > 0 && (
+        <LeadersSection>
+          <LeadersLabel>Föreståndare</LeadersLabel>
+          <LeadersList>
+            {entry.leaders.map((leader, i) => (
+              <LeaderPill key={i}>{leader}</LeaderPill>
+            ))}
+          </LeadersList>
+        </LeadersSection>
+      )}
+    </Entry>
+  );
+};
 
-              <CloseBookButton onClick={deactivateScreen}>
-                <X size={16} />
-              </CloseBookButton>
-            </BookPages>
+// ── Main page ─────────────────────────────────────────────────────────────────
+
+const HistoriaPage: React.FC = () => {
+  const { data: apiEntries, isLoading } = useQuery({
+    queryKey: ['history'],
+    queryFn: getHistoryEntries,
+    retry: 1,
+  });
+
+  const entries: HistoryEntry[] = Array.isArray(apiEntries) && apiEntries.length > 0
+    ? apiEntries
+    : staticHistoryData;
+
+  return (
+    <PageWrapper>
+      <Hero>
+        <HeroBackground />
+        <HeroDecorYear>1919 – 2025</HeroDecorYear>
+
+        <HeroContent>
+          <HeroEyebrow>Pingstkyrkan Elim · Trelleborg</HeroEyebrow>
+          <HeroTitle>Historia</HeroTitle>
+          <HeroSubtitle>
+            En resa genom mer än hundra år av tro, gemenskap och tillväxt.
+          </HeroSubtitle>
+        </HeroContent>
+
+        <HeroScroll>
+          <HeroScrollLine />
+          <HeroScrollLabel>Scrolla</HeroScrollLabel>
+        </HeroScroll>
+      </Hero>
+
+      <TimelineSection>
+        <TimelineInner>
+          {isLoading && !apiEntries ? (
+            <LoadingWrapper>Laddar historia…</LoadingWrapper>
+          ) : (
+            entries.map((entry, index) => (
+              <TimelineEntry
+                key={entry.id}
+                entry={entry}
+                delay={index === 0 ? 100 : 0}
+              />
+            ))
           )}
-          </IPadScreen>
-        </IPadWrapper>
-      </BookContainer>
-    </HistoriaContainer>
+        </TimelineInner>
+      </TimelineSection>
+
+      <AttributionSection>
+        <AttributionText>
+          Innehållet är hämtat från utställningen som Lilian Thonney gjorde till
+          församlingens 100-års jubileum 2019, samt från boken "Pingströrelsen i
+          Skåne — historia och utveckling" sammanställd av Rune Sahrling.
+          Dokumentationsgrupp: Bo och Christina Ganslardt, Maja Hansson,
+          Birgitta Eborn, Sten Bengtsson, Elsa Hansson, Eva Hansson,
+          Anna-Gretha Svensson, Kenneth och Marianne Olofsson och Hilda Olsson.
+        </AttributionText>
+      </AttributionSection>
+    </PageWrapper>
   );
 };
 

@@ -1,712 +1,510 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
-// Animation keyframes
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+// ── Animations ────────────────────────────────────────────────────────────────
+
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 `;
 
-const pulseAnimation = keyframes`
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+const pulse = keyframes`
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.6); opacity: 0; }
 `;
 
-const floatingOrb = keyframes`
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-20px) rotate(120deg);
-  }
-  66% {
-    transform: translateY(10px) rotate(240deg);
-  }
-  100% {
-    transform: translateY(0px) rotate(360deg);
-  }
+const shimmer = keyframes`
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
 `;
 
-const glowEffect = keyframes`
-  0% {
-    box-shadow: 
-      0 0 20px rgba(200, 146, 42, 0.3),
-      0 0 40px rgba(200, 146, 42, 0.2),
-      0 0 60px rgba(200, 146, 42, 0.1);
-  }
-  50% {
-    box-shadow: 
-      0 0 30px rgba(200, 146, 42, 0.4),
-      0 0 60px rgba(200, 146, 42, 0.3),
-      0 0 90px rgba(200, 146, 42, 0.2);
-  }
-  100% {
-    box-shadow: 
-      0 0 20px rgba(200, 146, 42, 0.3),
-      0 0 40px rgba(200, 146, 42, 0.2),
-      0 0 60px rgba(200, 146, 42, 0.1);
-  }
-`;
+// ── Page ──────────────────────────────────────────────────────────────────────
 
-// Cloud-like animation keyframes
-const cloudDrift = keyframes`
-  0% {
-    transform: translateX(-100px) translateY(0px) scale(1);
-    opacity: 0.1;
-  }
-  25% {
-    transform: translateX(0px) translateY(-20px) scale(1.1);
-    opacity: 0.15;
-  }
-  50% {
-    transform: translateX(50px) translateY(10px) scale(1.05);
-    opacity: 0.2;
-  }
-  75% {
-    transform: translateX(20px) translateY(-10px) scale(1.15);
-    opacity: 0.12;
-  }
-  100% {
-    transform: translateX(-100px) translateY(0px) scale(1);
-    opacity: 0.1;
-  }
-`;
-
-const cloudFloat = keyframes`
-  0% {
-    transform: translateX(100px) translateY(0px) scale(0.8);
-    opacity: 0.08;
-  }
-  33% {
-    transform: translateX(-20px) translateY(15px) scale(1.2);
-    opacity: 0.15;
-  }
-  66% {
-    transform: translateX(-80px) translateY(-25px) scale(1);
-    opacity: 0.12;
-  }
-  100% {
-    transform: translateX(100px) translateY(0px) scale(0.8);
-    opacity: 0.08;
-  }
-`;
-
-const cloudMorph = keyframes`
-  0% {
-    border-radius: 50% 60% 70% 40%;
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    border-radius: 60% 50% 40% 70%;
-    transform: scale(1.1) rotate(90deg);
-  }
-  50% {
-    border-radius: 70% 40% 50% 60%;
-    transform: scale(0.9) rotate(180deg);
-  }
-  75% {
-    border-radius: 40% 70% 60% 50%;
-    transform: scale(1.05) rotate(270deg);
-  }
-  100% {
-    border-radius: 50% 60% 70% 40%;
-    transform: scale(1) rotate(360deg);
-  }
-`;
-
-const backgroundShift = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-`;
-
-export const MissionContainer = styled.div`
+export const PageWrapper = styled.div`
   min-height: 100vh;
-  background: 
-    /* Base gradient matching HomePage */
-    linear-gradient(135deg, 
-      #faf7f4 0%, 
-      #f4ede6 15%,
-      #ede3d8 30%,
-      #e8ddd0 45%,
-      #ede3d8 60%,
-      #f4ede6 75%,
-      #faf7f4 100%
-    );
-  background-size: 100% 100%;
-  position: relative;
+  background:
+    linear-gradient(rgba(10,8,6,0.72), rgba(10,8,6,0.72)),
+    url('/images/gold-world-map.jpg') center 40% / 80% no-repeat fixed,
+    #12100d;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
   overflow-x: hidden;
-  animation: ${backgroundShift} 30s ease-in-out infinite;
-
-  /* Cloud-like floating elements */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 10%;
-    left: -5%;
-    width: 350px;
-    height: 175px;
-    background: radial-gradient(ellipse 350px 175px, rgba(160, 120, 64, 0.12) 0%, rgba(160, 120, 64, 0.06) 40%, transparent 70%);
-    border-radius: 60% 40% 70% 50%;
-    animation: ${cloudDrift} 50s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 30%;
-    right: -8%;
-    width: 280px;
-    height: 140px;
-    background: radial-gradient(ellipse 280px 140px, rgba(122, 88, 40, 0.10) 0%, rgba(122, 88, 40, 0.05) 45%, transparent 75%);
-    border-radius: 70% 50% 60% 40%;
-    animation: ${cloudFloat} 40s ease-in-out infinite reverse, ${cloudMorph} 60s ease-in-out infinite;
-    pointer-events: none;
-  }
 `;
 
-export const FloatingElements = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-`;
+// ── Hero ──────────────────────────────────────────────────────────────────────
 
-export const FloatingOrb = styled.div<{ $delay: number }>`
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(160, 120, 64, 0.15) 0%,
-    rgba(122, 88, 40, 0.08) 50%,
-    transparent 100%
-  );
-  filter: blur(40px);
-  animation: ${floatingOrb} ${props => 15 + props.$delay}s ease-in-out infinite;
-  animation-delay: ${props => props.$delay}s;
-
-  &:nth-child(1) {
-    top: 10%;
-    left: 10%;
-  }
-
-  &:nth-child(2) {
-    top: 60%;
-    right: 15%;
-  }
-
-  &:nth-child(3) {
-    bottom: 20%;
-    left: 20%;
-  }
-`;
-
-export const HeroSection = styled.section`
+export const Hero = styled.section`
+  position: relative;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  padding: 2rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 50% 30%, rgba(200, 146, 42, 0.1) 0%, transparent 60%),
-      radial-gradient(circle at 30% 70%, rgba(88, 86, 214, 0.08) 0%, transparent 60%);
-    z-index: -1;
-  }
-`;
-
-export const HeroContent = styled.div<{ $isVisible: boolean }>`
-  max-width: 1000px;
-  opacity: ${props => props.$isVisible ? 1 : 0};
-  transform: translateY(${props => props.$isVisible ? '0' : '60px'});
-  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-`;
-
-export const HeroTitle = styled.h1`
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 700;
-  margin: 0 0 2rem 0;
-  background: linear-gradient(
-    135deg,
-    #FFFFFF 0%,
-    #E0E0E0 20%,
-    #c8922a 40%,
-    #a07840 60%,
-    #FFFFFF 80%,
-    #c8922a 100%
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: ${backgroundShift} 8s ease-in-out infinite;
-  font-family: 'Georgia', 'Playfair Display', serif;
-  letter-spacing: -0.02em;
-  text-shadow: 0 0 40px rgba(200, 146, 42, 0.3);
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, #c8922a, transparent);
-    border-radius: 2px;
-    animation: ${glowEffect} 3s ease-in-out infinite;
-  }
-`;
-
-export const HeroSubtitle = styled.p`
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0 0 4rem 0;
-  line-height: 1.6;
-  font-weight: 300;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-export const MissionStats = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-  flex-wrap: wrap;
-  margin-top: 3rem;
-
-  @media (max-width: 768px) {
-    gap: 2rem;
-  }
-`;
-
-export const StatItem = styled.div`
-  text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 2rem 1.5rem;
-  min-width: 120px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-5px);
-    border-color: rgba(200, 146, 42, 0.3);
-    box-shadow: 0 10px 30px rgba(200, 146, 42, 0.2);
-  }
-`;
-
-export const StatNumber = styled.div`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #c8922a;
-  margin-bottom: 0.5rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-`;
-
-export const StatLabel = styled.div`
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
-`;
-
-export const WorldSection = styled.section`
-  padding: 4rem 0;
-  position: relative;
-  z-index: 2;
-`;
-
-export const SectionTitle = styled.h2`
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 500;
-  text-align: center;
-  margin: 0;
-  padding: 3rem 0rem 0rem 0rem ;
-  background: linear-gradient(
-    135deg,
-    #2a1e12 0%,
-    #a07840 30%,
-    #7a5828 70%,
-    #2a1e12 100%
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: ${backgroundShift} 10s ease-in-out infinite;
-  font-family: 'Georgia', 'Playfair Display', serif;
-  letter-spacing: 0.01em;
-  line-height: 1.2;
-  position: relative;
-  z-index: 10;
-  transition: all 0.8s ease;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1.5rem;
-    left: 50%;
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #a07840, transparent);
-    transform: translateX(-50%);
-    border-radius: 1px;
-    opacity: 0.5;
-    animation: ${pulseAnimation} 4s ease-in-out infinite;
-  }
-
-  &:hover {
-    transform: scale(1.03);
-    animation-duration: 3s;
-  }
-`;
-
-export const MapContainer = styled.div`
-  width: 100%;
-  height: 90vh;
-  margin: 0;
-  position: relative;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-`;
-
-export const WorldMapImage = styled.img`
-  width: 100%;
-  height: auto;
-  max-height: 80vh;
-  object-fit: contain;
-  display: block;
-`;
-
-export const InteractiveMap = styled.div`
-  position: relative;
-  display: inline-block;
-  z-index: 5;
-`;
-
-export const CountryMarker = styled.div<{ $x: number; $y: number; $isActive: boolean }>`
-  position: absolute;
-  left: ${props => props.$x}%;
-  top: ${props => props.$y}%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  z-index: 10;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  pointer-events: all;
-
-  .pulse {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(58, 106, 122, 0.35);
-    animation: ${pulseAnimation} 2s ease-in-out infinite;
-    transform: translate(-50%, -50%);
-    top: 0;
-    left: 50%;
-  }
-
-  .marker {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: ${props => props.$isActive ? '#224858' : '#3a6a7a'};
-    border: 3px solid rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(58, 106, 122, 0.65);
-    position: relative;
-  }
-
-  .country-label {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #3a6a7a;
-    text-align: center;
-    white-space: nowrap;
-    border: 1px solid rgba(160, 120, 64, 0.2);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-  }
-
-  &:hover .marker {
-    background: #7a5828;
-    transform: scale(1.3);
-    box-shadow: 0 0 30px rgba(122, 88, 40, 0.8);
-  }
-
-  &:hover .country-label {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  &:hover .country-label {
-    opacity: 1;
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 1);
-    border-color: rgba(160, 120, 64, 0.4);
-  }
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
+  overflow: hidden;
 `;
 
-export const MissionGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
+export const HeroMapBg = styled.div`
+  display: none;
+`;
+
+export const HeroGlow = styled.div`
+  display: none;
+`;
+
+export const HeroContent = styled.div`
   position: relative;
-  z-index: 5;
-  background: rgba(248, 249, 250, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  text-align: center;
+  animation: ${fadeUp} 0.9s ease both;
+`;
 
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+export const HeroEyebrow = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #b8860b;
+  margin-bottom: 1.5rem;
+
+  &::before, &::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: #b8860b;
+    opacity: 0.6;
   }
 `;
 
-export const MissionCard = styled.div<{ $isSelected: boolean }>`
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+export const HeroTitle = styled.h1`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(60px, 10vw, 130px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.5rem;
+`;
+
+export const HeroSubtitle = styled.p`
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: rgba(255,255,255,0.4);
+  max-width: 500px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+  font-weight: 300;
+`;
+
+export const HeroStats = styled.div`
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+export const HeroStat = styled.div`
+  text-align: center;
+`;
+
+export const HeroStatNumber = styled.div`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f0c040, #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+`;
+
+export const HeroStatLabel = styled.div`
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-top: 0.4rem;
+`;
+
+export const HeroScrollHint = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.3;
+`;
+
+export const HeroScrollDot = styled.div`
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #b8860b;
+  animation: ${pulse} 1.8s ease-in-out infinite;
+
+  &:nth-child(2) { animation-delay: 0.3s; }
+  &:nth-child(3) { animation-delay: 0.6s; }
+`;
+
+// ── Map section ───────────────────────────────────────────────────────────────
+
+export const MapSection = styled.section`
+  position: relative;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+`;
+
+export const MapWrapper = styled.div`
+  position: relative;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid ${props => props.$isSelected ? 'rgba(160, 120, 64, 0.4)' : 'rgba(160, 120, 64, 0.1)'};
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  cursor: pointer;
-  position: relative;
-  z-index: 6;
-  transform: ${props => props.$isSelected ? 'scale(1.02)' : 'scale(1)'};
-
-  &:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: rgba(160, 120, 64, 0.4);
-    box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.1),
-      0 0 30px rgba(160, 120, 64, 0.2);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(160, 120, 64, 0.1) 0%,
-      transparent 50%,
-      rgba(122, 88, 40, 0.1) 100%
-    );
-    opacity: ${props => props.$isSelected ? 1 : 0};
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
+  background: #ffffff;
+  padding: 2rem 2.5rem;
+  box-shadow:
+    0 0 0 1px rgba(184,134,11,0.2),
+    0 24px 60px rgba(0,0,0,0.5),
+    0 0 80px rgba(184,134,11,0.06);
 `;
 
-export const MissionImage = styled.div<{ $backgroundImage: string }>`
-  height: 250px;
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
-    url('/images/${props => props.$backgroundImage}'),
-    linear-gradient(135deg, #a07840 0%, #7a5828 100%);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: flex;
-  align-items: flex-end;
+export const MapImage = styled.img`
+  width: 100%;
+  display: block;
+  opacity: 0.95;
+`;
 
-  .image-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+interface MarkerProps {
+  $x: number;
+  $y: number;
+}
+
+export const Marker = styled.button<MarkerProps>`
+  position: absolute;
+  left: ${({ $x }) => $x}%;
+  top:  ${({ $y }) => $y}%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2;
+
+  .dot {
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 10;
-    opacity: 0;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background: rgba(160, 120, 64, 0.8);
-      border-color: rgba(160, 120, 64, 0.5);
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    &.prev {
-      left: 15px;
-    }
-
-    &.next {
-      right: 15px;
-    }
+    background: #7a4f00;
+    box-shadow: 0 0 6px rgba(122,79,0,0.6), 0 1px 3px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1;
   }
 
-  .image-indicators {
+  .ring {
     position: absolute;
-    bottom: 80px;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(122,79,0,0.45);
+    animation: ${pulse} 2s ease-in-out infinite;
+  }
+
+  .label {
+    position: absolute;
+    top: 16px;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 10;
+    white-space: nowrap;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #3a2000;
+    background: rgba(255,255,255,0.85);
+    padding: 2px 6px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     opacity: 0;
-    transition: opacity 0.3s ease;
-
-    .indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      &.active {
-        background: #a07840;
-        box-shadow: 0 0 10px rgba(160, 120, 64, 0.5);
-      }
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.8);
-        transform: scale(1.2);
-      }
-    }
+    transition: opacity 0.2s ease;
+    pointer-events: none;
   }
+
+  &:hover .label { opacity: 1; }
+`;
+
+// ── Countries grid ────────────────────────────────────────────────────────────
+
+export const GridSection = styled.section`
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  padding: 5rem 2rem;
+
+  @media (max-width: 640px) {
+    padding: 3rem 1.25rem;
+  }
+`;
+
+export const GridTitle = styled.h2`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+
+  @media (max-width: 640px) { padding: 0; }
+`;
+
+export const GridSubtitle = styled.p`
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.35);
+  margin: 0 0 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+
+  @media (max-width: 640px) { padding: 0; }
+`;
+
+export const CardsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+`;
+
+interface CardProps {
+  $visible: boolean;
+}
+
+export const Card = styled.article<CardProps>`
+  background: rgba(18,14,10,0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184,134,11,0.18);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(24px);
+
+  ${({ $visible }) => $visible && css`
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  `}
 
   &:hover {
-    .image-nav,
-    .image-indicators {
-      opacity: 1;
-    }
+    border-color: rgba(184,134,11,0.35);
+    box-shadow: 0 8px 40px rgba(184,134,11,0.1), 0 0 0 1px rgba(184,134,11,0.1);
+    transform: translateY(-4px);
   }
 `;
 
-export const MissionOverlay = styled.div`
-  padding: 1.5rem;
-  background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-  width: 100%;
+export const CardImageWrapper = styled.div`
   position: relative;
-
-  .continent {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
+  height: 220px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
 `;
 
-export const MissionCountry = styled.h3`
+export const CardImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  opacity: 0;
+
+  &.loaded { opacity: 1; }
+  ${Card}:hover & { transform: scale(1.05); }
+`;
+
+export const CardImageNav = styled.button<{ $dir: 'prev' | 'next' }>`
+  position: absolute;
+  top: 50%;
+  ${({ $dir }) => $dir === 'prev' ? 'left: 0.6rem' : 'right: 0.6rem'};
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
   color: white;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 0;
-  font-family: 'Georgia', 'Playfair Display', serif;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+
+  ${CardImageWrapper}:hover & { opacity: 1; }
 `;
 
-export const MissionDescription = styled.div`
-  padding: 2rem;
+export const CardImageDots = styled.div`
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 2;
+`;
 
-  p {
-    color: #4a5568;
-    line-height: 1.6;
-    margin: 0 0 1.5rem 0;
-    font-size: 1rem;
-  }
+export const CardImageDot = styled.div<{ $active: boolean }>`
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: ${({ $active }) => $active ? '#f0c040' : 'rgba(255,255,255,0.4)'};
+  transition: background 0.2s ease;
+`;
 
-  .mission-stats {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: 1rem;
+export const CardBody = styled.div`
+  padding: 1.25rem 1.4rem 1.5rem;
+`;
 
-    .stat {
-      text-align: center;
-      flex: 1;
+export const CardMeta = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+`;
 
-      .number {
-        display: block;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #a07840;
-        margin-bottom: 0.25rem;
-      }
+export const CardCountry = styled.h3`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+`;
 
-      .label {
-        font-size: 0.8rem;
-        color: #6c757d;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
+export const CardContinent = styled.span<{ $continent: string }>`
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  ${({ $continent }) => {
+    switch ($continent) {
+      case 'Afrika':  return 'background: rgba(234,179,8,0.12); color: #fbbf24; border: 1px solid rgba(234,179,8,0.2);';
+      case 'Asien':   return 'background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2);';
+      default:        return 'background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.2);';
     }
+  }}
+`;
+
+export const CardDescription = styled.p`
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+`;
+
+// ── History section ───────────────────────────────────────────────────────────
+
+export const HistorySection = styled.section`
+  background: transparent;
+  border-top: 1px solid rgba(184,134,11,0.1);
+  padding: 5rem 2rem;
+`;
+
+export const HistoryInner = styled.div`
+  max-width: 900px;
+  margin: 0 auto;
+`;
+
+export const HistoryTitle = styled.h2`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+`;
+
+export const HistorySubtitle = styled.p`
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.3);
+  margin: 0 0 3rem;
+`;
+
+export const HistoryGrid = styled.div`
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+`;
+
+export const HistoryCard = styled.div`
+  background: rgba(18,14,10,0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184,134,11,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: rgba(184,134,11,0.3);
   }
+`;
+
+export const HistoryCardImage = styled.img`
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  &.loaded { opacity: 1; }
+`;
+
+export const HistoryCardBody = styled.div`
+  padding: 1rem 1.1rem 1.2rem;
+`;
+
+export const HistoryCardTitle = styled.h4`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+`;
+
+export const HistoryCardText = styled.p`
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.4);
+  margin: 0;
+`;
+
+// ── Loading ───────────────────────────────────────────────────────────────────
+
+export const LoadingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(184,134,11,0.4);
 `;

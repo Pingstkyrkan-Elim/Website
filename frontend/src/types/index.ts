@@ -128,6 +128,28 @@ export interface DonationForm {
   is_anonymous: boolean;
 }
 
+export interface MissionCountry {
+  id: number;
+  name: string;
+  continent: string;
+  description: string;
+  images: string[];
+  coordinates_x: number;
+  coordinates_y: number;
+  order: number;
+}
+
+export interface HistoryEntry {
+  id: number;
+  period: string;
+  year_start: number;
+  title: string;
+  content: string;
+  images: string[];
+  leaders: string[];
+  order: number;
+}
+
 export interface ApiResponse<T> {
   data: T;
   message?: string;
