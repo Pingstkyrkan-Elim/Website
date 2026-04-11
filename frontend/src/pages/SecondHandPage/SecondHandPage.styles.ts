@@ -224,7 +224,6 @@ export const ContactItem = styled.a`
   gap: 1rem;
   text-decoration: none;
   color: inherit;
-  group: true;
 
   &:hover span { color: #b8860b; }
 `;

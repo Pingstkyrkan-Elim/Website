@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getMissionCountries } from '../../services/api';
 import { MissionCountry } from '../../types';
+import { IconChevronLeft, IconChevronRight } from '../../components/Icons';
 import {
   PageWrapper,
   Hero,
@@ -95,8 +96,8 @@ const MissionCard: React.FC<{ country: MissionCountry; delay: number }> = ({ cou
         />
         {country.images.length > 1 && (
           <>
-            <CardImageNav $dir="prev" onClick={prev}>‹</CardImageNav>
-            <CardImageNav $dir="next" onClick={next}>›</CardImageNav>
+            <CardImageNav $dir="prev" onClick={prev}><IconChevronLeft size={16} /></CardImageNav>
+            <CardImageNav $dir="next" onClick={next}><IconChevronRight size={16} /></CardImageNav>
             <CardImageDots>
               {country.images.map((_, i) => <CardImageDot key={i} $active={i === imgIndex} />)}
             </CardImageDots>

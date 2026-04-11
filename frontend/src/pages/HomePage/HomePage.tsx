@@ -63,7 +63,6 @@ const HomePage: React.FC = () => {
           <HeroSubtitle>
             Vi vill som Guds församling vara en andlig oas och verka för att göra Jesus känd, trodd och efterföljd i Trelleborg med omnejd.
           </HeroSubtitle>
-          <CTAButton>Besök oss på söndag</CTAButton>
         </HeroContent>
       </HeroSection>
 

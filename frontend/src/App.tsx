@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './components/GlobalStyles/GlobalStyles';
@@ -18,6 +18,12 @@ import ContactPage from './pages/ContactPage/ContactPage';
 import TeamPage from './pages/TeamPage/TeamPage';
 import CountryDetailPage from './pages/CountryDetailPage/CountryDetailPage';
 import SecondHandPage from './pages/SecondHandPage/SecondHandPage';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 
 // Modern church theme with styled-components
 const theme = {
@@ -101,6 +107,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Router>
+          <ScrollToTop />
           <Layout>
             <Routes>
               <Route path='/' element={<HomePage />} />

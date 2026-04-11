@@ -3,6 +3,16 @@ import { useQuery } from 'react-query';
 import { getSecondHandStore } from '../../services/api';
 import { SecondHandStore } from '../../types';
 import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconImage,
+  IconMail,
+  IconMapPin,
+  IconPhone,
+  IconX,
+  IconZoomIn,
+} from '../../components/Icons';
+import {
   AboutCard,
   AboutCardStat,
   AboutCardStatLabel,
@@ -291,7 +301,7 @@ const SecondHandPage: React.FC = () => {
                     }}
                   />
                   <GalleryCardOverlay>
-                    <GalleryCardZoomIcon>⤢</GalleryCardZoomIcon>
+                    <GalleryCardZoomIcon><IconZoomIn size={20} /></GalleryCardZoomIcon>
                   </GalleryCardOverlay>
                 </GalleryCard>
               ))}
@@ -313,7 +323,7 @@ const SecondHandPage: React.FC = () => {
           </>
         ) : (
           <GalleryPlaceholder>
-            <GalleryPlaceholderIcon>🖼</GalleryPlaceholderIcon>
+            <GalleryPlaceholderIcon><IconImage size={32} /></GalleryPlaceholderIcon>
             <GalleryPlaceholderText>Bilder kommer snart</GalleryPlaceholderText>
           </GalleryPlaceholder>
         )}
@@ -322,7 +332,7 @@ const SecondHandPage: React.FC = () => {
       {/* ── Lightbox ── */}
       {lightboxIndex !== null && (
         <Lightbox onClick={closeLightbox}>
-          <LightboxClose onClick={closeLightbox}>✕</LightboxClose>
+          <LightboxClose onClick={closeLightbox}><IconX size={20} /></LightboxClose>
           <LightboxNav
             $dir='prev'
             onClick={e => {
@@ -330,7 +340,7 @@ const SecondHandPage: React.FC = () => {
               prevLight();
             }}
           >
-            ‹
+            <IconChevronLeft size={24} />
           </LightboxNav>
           <LightboxImg
             src={`/images/secondhand/${store.images[lightboxIndex]}`}
@@ -344,7 +354,7 @@ const SecondHandPage: React.FC = () => {
               nextLight();
             }}
           >
-            ›
+            <IconChevronRight size={24} />
           </LightboxNav>
           <LightboxCounter>
             {lightboxIndex + 1} / {store.images.length}
@@ -388,7 +398,7 @@ const SecondHandPage: React.FC = () => {
             <InfoLabel>Kontakt & Hitta hit</InfoLabel>
             <ContactList>
               <ContactItem as='div'>
-                <ContactIcon>📍</ContactIcon>
+                <ContactIcon><IconMapPin size={16} /></ContactIcon>
                 <ContactText>
                   <ContactTextLabel>Adress</ContactTextLabel>
                   <ContactTextValue>{store.address}</ContactTextValue>
@@ -396,7 +406,7 @@ const SecondHandPage: React.FC = () => {
               </ContactItem>
               {store.phone && (
                 <ContactItem href={`tel:${store.phone.replace(/\s/g, '')}`}>
-                  <ContactIcon>📞</ContactIcon>
+                  <ContactIcon><IconPhone size={16} /></ContactIcon>
                   <ContactText>
                     <ContactTextLabel>Telefon</ContactTextLabel>
                     <ContactTextValue>{store.phone}</ContactTextValue>
@@ -405,7 +415,7 @@ const SecondHandPage: React.FC = () => {
               )}
               {store.email && (
                 <ContactItem href={`mailto:${store.email}`}>
-                  <ContactIcon>✉️</ContactIcon>
+                  <ContactIcon><IconMail size={16} /></ContactIcon>
                   <ContactText>
                     <ContactTextLabel>E-post</ContactTextLabel>
                     <ContactTextValue>{store.email}</ContactTextValue>

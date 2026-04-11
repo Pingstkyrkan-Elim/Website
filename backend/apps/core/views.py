@@ -142,7 +142,7 @@ def church_info(request):
             "city": "Trelleborg",
             "country": "Sweden",
         },
-        "contact": {"phone": "0761-68 64 34", "email": "info@pingstkyrkan-elim.com"},
+        "contact": {"phone": "0761-68 64 34", "email": "pingstkyrkan.trelleborg@gmail.com"},
         "donation_info": {
             "swish": "123 494 42 11",
             "bankgiro": "591-7703",

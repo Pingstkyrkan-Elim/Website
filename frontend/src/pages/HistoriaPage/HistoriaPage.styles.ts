@@ -342,6 +342,166 @@ export const LeaderPill = styled.span`
   }
 `;
 
+// ── Gallery (4+ images — horizontal scroll) ───────────────────────────────────
+
+export const HistGalleryWrapper = styled.div`
+  margin-top: 2rem;
+  max-width: 680px;
+`;
+
+export const HistGalleryTrack = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-bottom: 0.25rem;
+
+  &::-webkit-scrollbar { display: none; }
+`;
+
+export const HistGalleryCard = styled.div`
+  flex: 0 0 calc(50% - 0.375rem);
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.25s ease;
+
+  &:hover {
+    border-color: rgba(184,134,11,0.3);
+    box-shadow: 0 6px 24px rgba(184,134,11,0.1);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 520px) { flex: 0 0 78%; }
+`;
+
+export const HistGalleryCardImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  display: block;
+
+  &.loaded { opacity: 1; }
+  ${HistGalleryCard}:hover & { transform: scale(1.04); }
+`;
+
+export const HistGalleryCardOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  color: #fff;
+  opacity: 0;
+  transition: background 0.2s ease, opacity 0.2s ease;
+
+  ${HistGalleryCard}:hover & {
+    background: rgba(0,0,0,0.22);
+    opacity: 1;
+  }
+`;
+
+export const HistGalleryDots = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-top: 0.85rem;
+`;
+
+export const HistGalleryDot = styled.button<{ $active: boolean }>`
+  height: 4px;
+  width: ${({ $active }) => $active ? '20px' : '6px'};
+  border-radius: 100px;
+  background: ${({ $active }) => $active ? '#b8860b' : 'rgba(184,134,11,0.22)'};
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.2s ease;
+`;
+
+export const HistLightbox = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10,8,6,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  animation: ${fadeIn} 0.2s ease both;
+`;
+
+export const HistLightboxImg = styled.img`
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: default;
+  animation: ${fadeUp} 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+`;
+
+export const HistLightboxClose = styled.button`
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover { background: rgba(255,255,255,0.16); }
+`;
+
+export const HistLightboxNav = styled.button<{ $dir: 'prev' | 'next' }>`
+  position: fixed;
+  ${({ $dir }) => $dir === 'prev' ? 'left: 1.5rem' : 'right: 1.5rem'};
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover { background: rgba(255,255,255,0.15); }
+`;
+
+export const HistLightboxCounter = styled.div`
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.35);
+`;
+
 // ── Attribution ───────────────────────────────────────────────────────────────
 
 export const AttributionSection = styled.footer`

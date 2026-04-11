@@ -1,34 +1,13 @@
 import styled from 'styled-components';
 
 export const FooterWrapper = styled.footer`
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.8), 
-    rgba(0, 0, 0, 0.9)
-  ), url('/images/HomePage.png'), 
-  linear-gradient(135deg, #4a3418 0%, #2a1e12 100%);
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background:
+    linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)),
+    url('/images/HomePage.png') center center / cover no-repeat fixed;
   color: white;
-  padding: 5rem 0 3rem;
+  padding: 4.5rem 0 0;
   margin-top: auto;
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(2px);
-  }
-
-  > * {
-    position: relative;
-    z-index: 2;
-  }
 
   @media (max-width: 768px) {
     background-attachment: scroll;
@@ -38,153 +17,207 @@ export const FooterWrapper = styled.footer`
 export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 ${({ theme }) => theme.spacing.sm};
+  padding: 0 2rem;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: 0 ${({ theme }) => theme.spacing.md};
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    padding: 0 ${({ theme }) => theme.spacing.lg};
+  @media (min-width: 768px) {
+    padding: 0 3rem;
   }
 `;
 
-export const FooterContent = styled.div`
+export const FooterGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 3rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+`;
+
+export const FooterBrand = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xl};
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+  gap: 1rem;
 `;
 
-export const FooterSection = styled.div`
-  flex: 1;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex: 0 1 350px;
-  }
+export const BrandName = styled.div`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 `;
 
-export const SectionTitle = styled.h3`
-  font-family: 'Inter', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-`;
-
-export const Description = styled.p`
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1rem;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-`;
-
-export const ContactInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xs};
-`;
-
-export const ContactItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs};
-  opacity: 0.9;
-
-  .icon {
-    width: 16px;
-    height: 16px;
-    fill: ${({ theme }) => theme.colors.secondary.main};
-    flex-shrink: 0;
-  }
-`;
-
-export const ServiceTimes = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  padding: ${({ theme }) => theme.spacing.md};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-export const ServiceTime = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${({ theme }) => theme.spacing.xs} 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .day {
-    font-weight: 500;
-  }
-
-  .time {
-    color: ${({ theme }) => theme.colors.secondary.main};
-    font-weight: 600;
-  }
+export const BrandTagline = styled.div`
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+  max-width: 220px;
 `;
 
 export const SocialLinks = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.sm};
-  margin-top: ${({ theme }) => theme.spacing.md};
+  gap: 0.6rem;
+  margin-top: 0.5rem;
 `;
 
 export const SocialLink = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  color: ${({ theme }) => theme.colors.neutral.white};
-  transition: all 0.3s ease;
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: rgba(255,255,255,0.6);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.secondary.main};
-    color: ${({ theme }) => theme.colors.neutral.dark};
+    background: rgba(184,134,11,0.15);
+    border-color: rgba(184,134,11,0.3);
+    color: #f0c040;
     transform: translateY(-2px);
   }
 
   .icon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     fill: currentColor;
   }
 `;
 
+export const FooterSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const SectionLabel = styled.div`
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(184,134,11,0.7);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+`;
+
+export const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+`;
+
+export const ContactItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: rgba(184,134,11,0.6);
+  }
+`;
+
+export const ServiceRows = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+`;
+
+export const ServiceRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+
+  &:last-child { border-bottom: none; }
+`;
+
+export const ServiceDay = styled.span`
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.5);
+`;
+
+export const ServiceTime = styled.span`
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: rgba(184,134,11,0.85);
+`;
+
+export const DonationRows = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+`;
+
+export const DonationRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+`;
+
+export const DonationLabel = styled.div`
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(184,134,11,0.6);
+`;
+
+export const DonationValue = styled.div`
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.02em;
+`;
+
+export const DonationNote = styled.div`
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+  font-style: italic;
+  margin-top: 0.2rem;
+`;
+
 export const BottomBar = styled.div`
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  margin-top: ${({ theme }) => theme.spacing.xl};
-  padding-top: ${({ theme }) => theme.spacing.lg};
-  text-align: center;
-  opacity: 0.8;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin-top: 3.5rem;
+  padding: 1.4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 `;
 
 export const Copyright = styled.p`
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-  font-size: 0.9rem;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  margin: 0;
 
   a {
-    color: ${({ theme }) => theme.colors.secondary.main};
-
-    &:hover {
-      color: ${({ theme }) => theme.colors.secondary.light};
-    }
+    color: rgba(184,134,11,0.6);
+    text-decoration: none;
+    &:hover { color: #f0c040; }
   }
 `;
 
 export const LocationNote = styled.p`
-  font-size: 0.9rem;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.25);
   margin: 0;
-  color: ${({ theme }) => theme.colors.secondary.light};
 `;
+
