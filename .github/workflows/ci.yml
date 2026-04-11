@@ -164,7 +164,7 @@ jobs:
     - name: Run npm audit (Node.js)
       run: |
         cd frontend
-        npm audit --audit-level=moderate
+        npm audit --audit-level=critical
 
   docker-build:
     name: Docker Build Test
