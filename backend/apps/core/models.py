@@ -196,6 +196,7 @@ class Event(BaseModel):
     def get_next_occurrence(self):
         """Returns the next datetime this recurring event will happen."""
         import datetime
+
         from django.utils import timezone as tz
 
         if (
