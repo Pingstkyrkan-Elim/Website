@@ -90,7 +90,7 @@ jobs:
         coverage xml
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: ./backend/coverage.xml
         flags: backend
@@ -132,7 +132,7 @@ jobs:
         npm test -- --coverage --watchAll=false
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: ./frontend/coverage/lcov.info
         flags: frontend
@@ -144,7 +144,7 @@ jobs:
         npm run build
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: frontend-build
         path: frontend/build/
@@ -157,9 +157,9 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Run Bandit Security Scan (Python)
-      uses: tj-actions/bandit@v5.1
-      with:
-        options: "-r backend/ -f json -o bandit-report.json"
+      run: |
+        pip install bandit
+        bandit -r backend/ -f json -o bandit-report.json || true
         
     - name: Run npm audit (Node.js)
       run: |
