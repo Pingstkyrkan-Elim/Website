@@ -317,6 +317,44 @@ class HistoryEntry(BaseModel):
         return f"{self.period} — {self.title}"
 
 
+class SecondHandStore(BaseModel):
+    """PMU Second Hand store information — single-instance model"""
+
+    name = models.CharField(max_length=200, default="PMU Second Hand")
+    tagline = models.CharField(max_length=300, blank=True)
+    description = models.TextField()
+    address = models.CharField(max_length=200)
+    phone = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(blank=True)
+    opening_hours = models.JSONField(
+        default=list,
+        blank=True,
+        help_text='List of {day, hours} objects, e.g. [{"day": "Måndag", "hours": "10:00–16:00"}]',
+    )
+    donation_hours = models.JSONField(
+        default=list,
+        blank=True,
+        help_text='Opening hours for Gåvomottagning (donation drop-off), same format as opening_hours',
+    )
+    images = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="List of image filenames served from /images/secondhand/ folder",
+    )
+    pmu_url = models.URLField(blank=True, default="https://pmu.se")
+    donation_info = models.TextField(
+        blank=True,
+        help_text="Instructions for donating items to the store",
+    )
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "secondhand_store"
+
+    def __str__(self):
+        return self.name
+
+
 class TeamMember(BaseModel):
     """Church team members and leadership"""
 

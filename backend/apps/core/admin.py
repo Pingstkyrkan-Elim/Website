@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, Service, TeamMember
+from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, SecondHandStore, Service, TeamMember
 
 
 @admin.register(Service)
@@ -177,3 +177,17 @@ class TeamMemberAdmin(admin.ModelAdmin):
     search_fields = ("name", "bio", "email")
     list_editable = ("is_active", "display_order")
     ordering = ("display_order", "name")
+
+
+@admin.register(SecondHandStore)
+class SecondHandStoreAdmin(admin.ModelAdmin):
+    list_display = ("name", "address", "phone", "is_active")
+    list_editable = ("is_active",)
+    search_fields = ("name", "description", "address")
+    fieldsets = (
+        ("General", {"fields": ("name", "tagline", "description", "is_active")}),
+        ("Kontakt & Plats", {"fields": ("address", "phone", "email")}),
+        ("Öppettider", {"fields": ("opening_hours",)}),
+        ("Media", {"fields": ("images",)}),
+        ("PMU", {"fields": ("pmu_url", "donation_info")}),
+    )

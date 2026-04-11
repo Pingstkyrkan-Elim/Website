@@ -12,11 +12,6 @@ const pulse = keyframes`
   50%       { transform: scale(1.6); opacity: 0; }
 `;
 
-const shimmer = keyframes`
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-`;
-
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export const PageWrapper = styled.div`

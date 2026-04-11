@@ -3,6 +3,7 @@ import {
   ChurchInfo,
   HistoryEntry,
   MissionCountry,
+  SecondHandStore,
   Service,
   Program,
   NewsPost,
@@ -121,6 +122,12 @@ export const getMissionCountries = async (): Promise<MissionCountry[]> => {
   const data = response.data;
   if (Array.isArray(data)) return data;
   return (data as PaginatedResponse<MissionCountry>).results ?? [];
+};
+
+// Second Hand
+export const getSecondHandStore = async (): Promise<SecondHandStore | null> => {
+  const response = await api.get<SecondHandStore | null>('/second-hand/');
+  return response.data;
 };
 
 // History

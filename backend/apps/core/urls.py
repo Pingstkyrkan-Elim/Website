@@ -27,4 +27,6 @@ urlpatterns = [
     path("history/", views.HistoryEntryListView.as_view(), name="history-list"),
     # Mission
     path("mission/", views.MissionCountryListView.as_view(), name="mission-list"),
+    # Second Hand
+    path("second-hand/", views.secondhand_store, name="secondhand-store"),
 ]

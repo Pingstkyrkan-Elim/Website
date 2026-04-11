@@ -17,6 +17,7 @@ import EventDetailPage from './pages/EventDetailPage/EventDetailPage';
 import ContactPage from './pages/ContactPage/ContactPage';
 import TeamPage from './pages/TeamPage/TeamPage';
 import CountryDetailPage from './pages/CountryDetailPage/CountryDetailPage';
+import SecondHandPage from './pages/SecondHandPage/SecondHandPage';
 
 // Modern church theme with styled-components
 const theme = {
@@ -114,6 +115,7 @@ function App() {
               <Route path='/events/:id' element={<EventDetailPage />} />
               <Route path='/team' element={<TeamPage />} />
               <Route path='/contact' element={<ContactPage />} />
+              <Route path='/pmu-second-hand' element={<SecondHandPage />} />
             </Routes>
           </Layout>
         </Router>

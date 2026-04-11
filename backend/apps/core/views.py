@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 
-from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, Service, TeamMember
+from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, SecondHandStore, Service, TeamMember
 from .serializers import (
     ContactSerializer,
     DonationSerializer,
@@ -15,6 +15,7 @@ from .serializers import (
     MissionCountrySerializer,
     NewsPostSerializer,
     ProgramSerializer,
+    SecondHandStoreSerializer,
     ServiceSerializer,
     TeamMemberSerializer,
 )
@@ -176,4 +177,15 @@ def latest_news(request):
     news = NewsPost.objects.filter(is_published=True)[:limit]
 
     serializer = NewsPostSerializer(news, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def secondhand_store(request):
+    """Get the single SecondHand store instance"""
+    store = SecondHandStore.objects.filter(is_active=True).first()
+    if not store:
+        return Response(None)
+    serializer = SecondHandStoreSerializer(store)
     return Response(serializer.data)

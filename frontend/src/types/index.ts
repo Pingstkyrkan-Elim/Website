@@ -139,6 +139,21 @@ export interface MissionCountry {
   order: number;
 }
 
+export interface SecondHandStore {
+  id: number;
+  name: string;
+  tagline: string;
+  description: string;
+  address: string;
+  phone: string;
+  email: string;
+  opening_hours: { day: string; hours: string }[];
+  donation_hours: { day: string; hours: string }[];
+  images: string[];
+  pmu_url: string;
+  donation_info: string;
+}
+
 export interface HistoryEntry {
   id: number;
   period: string;
