@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
@@ -81,7 +81,7 @@ class ContactCreateView(generics.CreateAPIView):
 
 
 class EventListView(generics.ListAPIView):
-    """List active events. Recurring events are always included regardless of start_date."""
+    """List active events. Recurring events always included regardless of start_date."""
 
     queryset = Event.objects.filter(is_active=True)
     serializer_class = EventSerializer

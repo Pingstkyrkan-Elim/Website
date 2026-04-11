@@ -139,7 +139,7 @@ class Event(BaseModel):
     is_active = models.BooleanField(default=True)
     registration_info = models.TextField(
         blank=True,
-        help_text="Instructions for registration: contact person, phone, link, deadline, etc.",
+        help_text="Instructions for registration: contact person, phone, link, deadline, etc.",  # noqa: E501
     )
 
     # Recurrence fields
@@ -170,13 +170,13 @@ class Event(BaseModel):
     suspended_until = models.DateField(
         blank=True,
         null=True,
-        help_text="Automatically resume from this date. Leave blank to suspend indefinitely.",
+        help_text="Automatically resume from this date. Leave blank to suspend indefinitely.",  # noqa: E501
     )
 
     # Extra features
     has_sunday_school = models.BooleanField(
         default=False,
-        help_text="Check if Söndagsskolan (Sunday school) takes place during this event.",
+        help_text="Check if Söndagsskolan (Sunday school) takes place during this event.",  # noqa: E501
     )
     has_communion = models.BooleanField(
         default=False,
@@ -336,12 +336,12 @@ class SecondHandStore(BaseModel):
     opening_hours = models.JSONField(
         default=list,
         blank=True,
-        help_text='List of {day, hours} objects, e.g. [{"day": "Måndag", "hours": "10:00–16:00"}]',
+        help_text='List of {day, hours} objects, e.g. [{"day": "Måndag", "hours": "10:00–16:00"}]',  # noqa: E501
     )
     donation_hours = models.JSONField(
         default=list,
         blank=True,
-        help_text="Opening hours for Gåvomottagning (donation drop-off), same format as opening_hours",
+        help_text="Opening hours for Gåvomottagning (donation drop-off), same format as opening_hours",  # noqa: E501
     )
     images = models.JSONField(
         default=list,

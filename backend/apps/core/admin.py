@@ -132,8 +132,8 @@ class EventAdmin(admin.ModelAdmin):
                     "recurrence_duration_minutes",
                 ),
                 "description": (
-                    "Enable 'Recurring' and select the day of the week to have this event "
-                    "appear automatically every week."
+                    "Enable 'Recurring' and select the day of the week "  # noqa: E501
+                    "to have this event appear automatically every week."
                 ),
             },
         ),
@@ -163,7 +163,11 @@ class EventAdmin(admin.ModelAdmin):
                     "max_participants",
                     "registration_info",
                 ),
-                "description": "If registration is required, fill in the registration_info field with instructions (contact, phone, link, deadline, etc.).",
+                "description": (  # noqa: E501
+                    "If registration is required, fill in the "
+                    "registration_info field with instructions "
+                    "(contact, phone, link, deadline, etc.)."
+                ),
                 "classes": ("collapse",),
             },
         ),
