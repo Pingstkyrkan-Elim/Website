@@ -1,2 +1,4 @@
-// AboutPage component tests will be added here
-export {};
+test("AboutPage module loads", () => {
+  const mod = require("./AboutPage");
+  expect(mod).toBeDefined();
+});

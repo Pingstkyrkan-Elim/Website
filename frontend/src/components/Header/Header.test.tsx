@@ -1,2 +1,4 @@
-// Header component tests will be added here
-export {};
+test("Header module loads", () => {
+  const mod = require("./Header");
+  expect(mod).toBeDefined();
+});

@@ -1,2 +1,4 @@
-// Footer component tests will be added here
-export {};
+test("Footer module loads", () => {
+  const mod = require("./Footer");
+  expect(mod).toBeDefined();
+});

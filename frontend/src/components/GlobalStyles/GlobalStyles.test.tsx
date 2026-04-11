@@ -1,2 +1,4 @@
-// GlobalStyles component tests will be added here
-export {};
+test("GlobalStyles module loads", () => {
+  const mod = require("./GlobalStyles");
+  expect(mod).toBeDefined();
+});

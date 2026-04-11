@@ -1,2 +1,4 @@
-// HomePage component tests will be added here
-export {};
+test("HomePage module loads", () => {
+  const mod = require("./HomePage");
+  expect(mod).toBeDefined();
+});
