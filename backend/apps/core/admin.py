@@ -1,6 +1,17 @@
 from django.contrib import admin
 
-from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, SecondHandStore, Service, TeamMember
+from .models import (
+    Contact,
+    Donation,
+    Event,
+    HistoryEntry,
+    MissionCountry,
+    NewsPost,
+    Program,
+    SecondHandStore,
+    Service,
+    TeamMember,
+)
 
 
 @admin.register(Service)
@@ -78,51 +89,90 @@ class EventAdmin(admin.ModelAdmin):
         "registration_required",
         "is_active",
     )
-    list_filter = ("is_recurring", "is_suspended", "has_sunday_school", "has_communion", "registration_required", "is_active", "recurrence_day")
+    list_filter = (
+        "is_recurring",
+        "is_suspended",
+        "has_sunday_school",
+        "has_communion",
+        "registration_required",
+        "is_active",
+        "recurrence_day",
+    )
     search_fields = ("title", "description", "location")
     list_editable = ("is_active", "is_suspended", "has_sunday_school", "has_communion")
     date_hierarchy = "start_date"
     ordering = ("-start_date",)
 
     fieldsets = (
-        ("Event information", {
-            "fields": ("title", "description", "location", "image", "contact_person"),
-        }),
-        ("Date & time", {
-            "fields": ("start_date", "end_date"),
-        }),
-        ("Weekly recurrence", {
-            "fields": (
-                "is_recurring",
-                "recurrence_day",
-                "recurrence_time",
-                "recurrence_duration_minutes",
-            ),
-            "description": (
-                "Enable 'Recurring' and select the day of the week to have this event "
-                "appear automatically every week."
-            ),
-        }),
-        ("Suspension", {
-            "fields": ("is_suspended", "suspended_until"),
-            "description": (
-                "Enable 'Suspended' to pause the recurring event (e.g. holidays). "
-                "Optionally set a resume date for automatic reactivation."
-            ),
-            "classes": ("collapse",),
-        }),
-        ("Söndagsskolan & Nattvard", {
-            "fields": ("has_sunday_school", "has_communion"),
-            "description": "Mark which special elements are part of this event.",
-        }),
-        ("Registration", {
-            "fields": ("registration_required", "max_participants", "registration_info"),
-            "description": "If registration is required, fill in the registration_info field with instructions (contact, phone, link, deadline, etc.).",
-            "classes": ("collapse",),
-        }),
-        ("Status", {
-            "fields": ("is_active",),
-        }),
+        (
+            "Event information",
+            {
+                "fields": (
+                    "title",
+                    "description",
+                    "location",
+                    "image",
+                    "contact_person",
+                ),
+            },
+        ),
+        (
+            "Date & time",
+            {
+                "fields": ("start_date", "end_date"),
+            },
+        ),
+        (
+            "Weekly recurrence",
+            {
+                "fields": (
+                    "is_recurring",
+                    "recurrence_day",
+                    "recurrence_time",
+                    "recurrence_duration_minutes",
+                ),
+                "description": (
+                    "Enable 'Recurring' and select the day of the week to have this event "
+                    "appear automatically every week."
+                ),
+            },
+        ),
+        (
+            "Suspension",
+            {
+                "fields": ("is_suspended", "suspended_until"),
+                "description": (
+                    "Enable 'Suspended' to pause the recurring event (e.g. holidays). "
+                    "Optionally set a resume date for automatic reactivation."
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Söndagsskolan & Nattvard",
+            {
+                "fields": ("has_sunday_school", "has_communion"),
+                "description": "Mark which special elements are part of this event.",
+            },
+        ),
+        (
+            "Registration",
+            {
+                "fields": (
+                    "registration_required",
+                    "max_participants",
+                    "registration_info",
+                ),
+                "description": "If registration is required, fill in the registration_info field with instructions (contact, phone, link, deadline, etc.).",
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Status",
+            {
+                "fields": ("is_active",),
+            },
+        ),
     )
 
 

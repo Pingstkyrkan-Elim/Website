@@ -198,13 +198,18 @@ class Event(BaseModel):
         import datetime
         from django.utils import timezone as tz
 
-        if not self.is_recurring or self.recurrence_day is None or self.recurrence_time is None:
+        if (
+            not self.is_recurring
+            or self.recurrence_day is None
+            or self.recurrence_time is None
+        ):
             return None
         if self.is_suspended:
             if self.suspended_until is None:
                 return None
             resume = datetime.datetime.combine(
-                self.suspended_until, self.recurrence_time,
+                self.suspended_until,
+                self.recurrence_time,
                 tzinfo=tz.get_current_timezone(),
             )
             if resume > tz.now():
@@ -257,17 +262,18 @@ class MissionCountry(BaseModel):
     """Active mission fields supported by Pingstkyrkan Elim"""
 
     CONTINENTS = [
-        ('Afrika', 'Afrika'),
-        ('Asien', 'Asien'),
-        ('Europa', 'Europa'),
-        ('Amerika', 'Amerika'),
+        ("Afrika", "Afrika"),
+        ("Asien", "Asien"),
+        ("Europa", "Europa"),
+        ("Amerika", "Amerika"),
     ]
 
     name = models.CharField(max_length=100)
     continent = models.CharField(max_length=20, choices=CONTINENTS)
     description = models.TextField()
     images = models.JSONField(
-        default=list, blank=True,
+        default=list,
+        blank=True,
         help_text="List of image filenames served from /images/mission/ folder",
     )
     coordinates_x = models.FloatField(
@@ -334,7 +340,7 @@ class SecondHandStore(BaseModel):
     donation_hours = models.JSONField(
         default=list,
         blank=True,
-        help_text='Opening hours for Gåvomottagning (donation drop-off), same format as opening_hours',
+        help_text="Opening hours for Gåvomottagning (donation drop-off), same format as opening_hours",
     )
     images = models.JSONField(
         default=list,

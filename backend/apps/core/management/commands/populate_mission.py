@@ -24,7 +24,12 @@ MISSION_DATA = [
         "name": "Kongo (DRC)",
         "continent": "Afrika",
         "description": "Via Barnsamariten som samarbetar med organisationen Let Africa Live stöder vi en sånads- och entreprenörsutbildning för utsatta kvinnor i Kongo. Projektet ger kvinnor verktyg för ekonomiskt oberoende.",
-        "images": ["mission/Barnsamariten2.webp", "mission/Barnsamariten3.webp", "mission/Barnsamariten4.webp", "mission/Kongo_2024-04.webp"],
+        "images": [
+            "mission/Barnsamariten2.webp",
+            "mission/Barnsamariten3.webp",
+            "mission/Barnsamariten4.webp",
+            "mission/Kongo_2024-04.webp",
+        ],
         "coordinates_x": 53.0,
         "coordinates_y": 60.0,
         "order": 3,
@@ -33,7 +38,11 @@ MISSION_DATA = [
         "name": "Rwanda",
         "continent": "Afrika",
         "description": "I Rwanda stöder vi ett projekt för ungdomar i Gilgal. Projektet fokuserar på att ge unga människor hopp, utbildning och andlig vägledning.",
-        "images": ["mission/Rwanda.webp", "mission/Rwanda1.webp", "mission/Rwanda2.webp"],
+        "images": [
+            "mission/Rwanda.webp",
+            "mission/Rwanda1.webp",
+            "mission/Rwanda2.webp",
+        ],
         "coordinates_x": 58.5,
         "coordinates_y": 59.0,
         "order": 4,
@@ -42,7 +51,12 @@ MISSION_DATA = [
         "name": "Sri Lanka",
         "continent": "Asien",
         "description": "Vi samlar in pengar till fadderbarn som används till bland annat en förskola och en yrkesskola i Hirusara. Vi stöder också Smyrna Church i Galle. Det senaste bidraget användes till ett stort ungdomsläger, Build 2023 Youth Camp.",
-        "images": ["mission/SriLanka1.webp", "mission/Hirusara-2023-1.webp", "mission/Hirusara-2023-4.webp", "mission/SriLanka-2023-09.webp"],
+        "images": [
+            "mission/SriLanka1.webp",
+            "mission/Hirusara-2023-1.webp",
+            "mission/Hirusara-2023-4.webp",
+            "mission/SriLanka-2023-09.webp",
+        ],
         "coordinates_x": 72.5,
         "coordinates_y": 52.0,
         "order": 5,
@@ -73,11 +87,19 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if MissionCountry.objects.exists():
-            self.stdout.write(self.style.WARNING("Mission countries already exist. Skipping."))
+            self.stdout.write(
+                self.style.WARNING("Mission countries already exist. Skipping.")
+            )
             return
 
         for data in MISSION_DATA:
             MissionCountry.objects.create(**data)
-            self.stdout.write(self.style.SUCCESS(f"Created: {data['name']} ({data['continent']})"))
+            self.stdout.write(
+                self.style.SUCCESS(f"Created: {data['name']} ({data['continent']})")
+            )
 
-        self.stdout.write(self.style.SUCCESS(f"\nDone! Created {len(MISSION_DATA)} mission countries."))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"\nDone! Created {len(MISSION_DATA)} mission countries."
+            )
+        )

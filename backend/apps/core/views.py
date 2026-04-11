@@ -6,7 +6,18 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 
-from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, SecondHandStore, Service, TeamMember
+from .models import (
+    Contact,
+    Donation,
+    Event,
+    HistoryEntry,
+    MissionCountry,
+    NewsPost,
+    Program,
+    SecondHandStore,
+    Service,
+    TeamMember,
+)
 from .serializers import (
     ContactSerializer,
     DonationSerializer,
@@ -80,6 +91,7 @@ class EventListView(generics.ListAPIView):
 
     def get_queryset(self):
         from django.db.models import Q
+
         queryset = super().get_queryset()
         show_past = self.request.query_params.get("show_past", False)
         if not show_past:
@@ -108,6 +120,7 @@ class DonationCreateView(generics.CreateAPIView):
 
 class MissionCountryListView(generics.ListAPIView):
     """List all active mission countries"""
+
     queryset = MissionCountry.objects.filter(is_active=True)
     serializer_class = MissionCountrySerializer
     permission_classes = [permissions.AllowAny]
@@ -142,7 +155,10 @@ def church_info(request):
             "city": "Trelleborg",
             "country": "Sweden",
         },
-        "contact": {"phone": "0761-68 64 34", "email": "pingstkyrkan.trelleborg@gmail.com"},
+        "contact": {
+            "phone": "0761-68 64 34",
+            "email": "pingstkyrkan.trelleborg@gmail.com",
+        },
         "donation_info": {
             "swish": "123 494 42 11",
             "bankgiro": "591-7703",

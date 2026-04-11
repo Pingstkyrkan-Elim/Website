@@ -33,7 +33,13 @@ HISTORY_DATA = [
             "I fondväggen bakom estraden fanns ett runt fönster som lyste som solen.\n\n"
             "Församlingen hade tidigt ett rikt sång- och musikliv."
         ),
-        "images": ["historia/Valldammsgatan.webp", "historia/Screenshot_18.webp", "historia/image007.webp", "historia/Music_groups.webp", "historia/Song_groups.webp"],
+        "images": [
+            "historia/Valldammsgatan.webp",
+            "historia/Screenshot_18.webp",
+            "historia/image007.webp",
+            "historia/Music_groups.webp",
+            "historia/Song_groups.webp",
+        ],
         "leaders": [
             "Georg Steen 1919–1921",
             "Algot Vikström 1921–1922",
@@ -57,7 +63,13 @@ HISTORY_DATA = [
             "Skegrie och Kurland. I Smygehamn hölls varje år den välkända Smygehamnskonferensen. "
             "Söndagsskola och barnverksamhet samlade många barn och ledare under slutet av 1940-talet och framåt."
         ),
-        "images": ["historia/Screenshot_1.webp", "historia/Screenshot_3.webp", "historia/Styrelsen_1950.webp", "historia/Kurland.webp", "historia/Söndagsskola.webp"],
+        "images": [
+            "historia/Screenshot_1.webp",
+            "historia/Screenshot_3.webp",
+            "historia/Styrelsen_1950.webp",
+            "historia/Kurland.webp",
+            "historia/Söndagsskola.webp",
+        ],
         "leaders": [
             "Gunnar Pettersson 1931–1944",
             "Harald Strömstedt 1944–1950",
@@ -80,7 +92,11 @@ HISTORY_DATA = [
             "Denna var ett verktyg att samla människor utomhus och dela evangelium. Den blev samtidigt "
             "en samlingspunkt för ungdomarna."
         ),
-        "images": ["historia/image009.webp", "historia/image029.webp", "historia/Wiborn.webp"],
+        "images": [
+            "historia/image009.webp",
+            "historia/image029.webp",
+            "historia/Wiborn.webp",
+        ],
         "leaders": [
             "Ernst Almqvist 1957–1965",
             "Karl Eriksson 1965–1968",
@@ -109,7 +125,19 @@ HISTORY_DATA = [
             "Under 1990-talet ledde Torbjörn Söder (1994–2001) församlingen mot en folkligare inriktning "
             "med aktiviteter för äldre och samarbete med Trelleborgs Kommun."
         ),
-        "images": ["historia/Screenshot_4.webp", "historia/image011.webp", "historia/image019.webp", "historia/Fire1.webp", "historia/Fire2.webp", "historia/Fire3.webp", "historia/Fire4.webp", "historia/Screenshot_10.webp", "historia/Screenshot_16.webp", "historia/Tunhav.webp", "historia/Söder.webp"],
+        "images": [
+            "historia/Screenshot_4.webp",
+            "historia/image011.webp",
+            "historia/image019.webp",
+            "historia/Fire1.webp",
+            "historia/Fire2.webp",
+            "historia/Fire3.webp",
+            "historia/Fire4.webp",
+            "historia/Screenshot_10.webp",
+            "historia/Screenshot_16.webp",
+            "historia/Tunhav.webp",
+            "historia/Söder.webp",
+        ],
         "leaders": [
             "Nils Sjöström 1977–1990",
             "Bosse Tunhav 1991–1993",
@@ -148,11 +176,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if HistoryEntry.objects.exists():
-            self.stdout.write(self.style.WARNING("History entries already exist. Skipping."))
+            self.stdout.write(
+                self.style.WARNING("History entries already exist. Skipping.")
+            )
             return
 
         for data in HISTORY_DATA:
             HistoryEntry.objects.create(**data)
-            self.stdout.write(self.style.SUCCESS(f"Created: {data['period']} — {data['title']}"))
+            self.stdout.write(
+                self.style.SUCCESS(f"Created: {data['period']} — {data['title']}")
+            )
 
-        self.stdout.write(self.style.SUCCESS(f"\nDone! Created {len(HISTORY_DATA)} history entries."))
+        self.stdout.write(
+            self.style.SUCCESS(f"\nDone! Created {len(HISTORY_DATA)} history entries.")
+        )

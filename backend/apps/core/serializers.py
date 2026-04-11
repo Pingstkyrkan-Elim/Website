@@ -1,6 +1,17 @@
 from rest_framework import serializers
 
-from .models import Contact, Donation, Event, HistoryEntry, MissionCountry, NewsPost, Program, SecondHandStore, Service, TeamMember
+from .models import (
+    Contact,
+    Donation,
+    Event,
+    HistoryEntry,
+    MissionCountry,
+    NewsPost,
+    Program,
+    SecondHandStore,
+    Service,
+    TeamMember,
+)
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -90,20 +101,50 @@ class DonationSerializer(serializers.ModelSerializer):
 class MissionCountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = MissionCountry
-        fields = ["id", "name", "continent", "description", "images", "coordinates_x", "coordinates_y", "order"]
+        fields = [
+            "id",
+            "name",
+            "continent",
+            "description",
+            "images",
+            "coordinates_x",
+            "coordinates_y",
+            "order",
+        ]
 
 
 class HistoryEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = HistoryEntry
-        fields = ["id", "period", "year_start", "title", "content", "images", "leaders", "order"]
+        fields = [
+            "id",
+            "period",
+            "year_start",
+            "title",
+            "content",
+            "images",
+            "leaders",
+            "order",
+        ]
 
 
 class SecondHandStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = SecondHandStore
-        fields = ["id", "name", "tagline", "description", "address", "phone", "email",
-                  "opening_hours", "donation_hours", "images", "pmu_url", "donation_info"]
+        fields = [
+            "id",
+            "name",
+            "tagline",
+            "description",
+            "address",
+            "phone",
+            "email",
+            "opening_hours",
+            "donation_hours",
+            "images",
+            "pmu_url",
+            "donation_info",
+        ]
 
 
 class TeamMemberSerializer(serializers.ModelSerializer):
