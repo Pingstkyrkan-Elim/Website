@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getSecondHandStore } from '../../services/api';
 import { SecondHandStore } from '../../types';
@@ -135,7 +135,7 @@ function useInView(threshold = 0.15) {
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 const SecondHandPage: React.FC = () => {
-  const { data: apiStore, isLoading } = useQuery({
+  const { data: apiStore } = useQuery({
     queryKey: ['second-hand'],
     queryFn: getSecondHandStore,
     retry: 1,
@@ -163,13 +163,21 @@ const SecondHandPage: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);
 
   const openLightbox = (i: number) => setLightboxIndex(i);
-  const closeLightbox = () => setLightboxIndex(null);
-  const prevLight = () =>
-    setLightboxIndex(i =>
-      i !== null ? (i - 1 + store.images.length) % store.images.length : null
-    );
-  const nextLight = () =>
-    setLightboxIndex(i => (i !== null ? (i + 1) % store.images.length : null));
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const prevLight = useCallback(
+    () =>
+      setLightboxIndex(i =>
+        i !== null ? (i - 1 + store.images.length) % store.images.length : null
+      ),
+    [store.images.length]
+  );
+  const nextLight = useCallback(
+    () =>
+      setLightboxIndex(i =>
+        i !== null ? (i + 1) % store.images.length : null
+      ),
+    [store.images.length]
+  );
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -180,7 +188,7 @@ const SecondHandPage: React.FC = () => {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [lightboxIndex]);
+  }, [lightboxIndex, closeLightbox, prevLight, nextLight]);
 
   useEffect(() => {
     const track = trackRef.current;

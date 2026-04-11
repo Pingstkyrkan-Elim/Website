@@ -264,9 +264,6 @@ const EventsPage: React.FC = () => {
 
   // ── Formatting ──────────────────────────────────────────────────────────
 
-  const formatDateShort = (date: Date) =>
-    date.toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
-
   const getEventDisplayTime = (event: Event): string => {
     if (event.is_recurring && event.recurrence_time)
       return event.recurrence_time.slice(0, 5);

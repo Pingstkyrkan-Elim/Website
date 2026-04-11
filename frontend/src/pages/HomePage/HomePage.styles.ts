@@ -140,41 +140,6 @@ const cloudFloat = keyframes`
   }
 `;
 
-const cloudMorph = keyframes`
-  0% {
-    border-radius: 50% 60% 70% 40%;
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    border-radius: 60% 50% 40% 70%;
-    transform: scale(1.1) rotate(90deg);
-  }
-  50% {
-    border-radius: 70% 40% 50% 60%;
-    transform: scale(0.9) rotate(180deg);
-  }
-  75% {
-    border-radius: 40% 70% 60% 50%;
-    transform: scale(1.05) rotate(270deg);
-  }
-  100% {
-    border-radius: 50% 60% 70% 40%;
-    transform: scale(1) rotate(360deg);
-  }
-`;
-
-const backgroundShift = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-`;
-
 export const ContentSection = styled.section`
   padding: 6rem 0;
   background: rgba(12, 8, 3, 0.5);

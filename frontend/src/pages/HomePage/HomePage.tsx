@@ -2,14 +2,13 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { IconMapPin, IconClock } from '../../components/Icons';
-import { getUpcomingServices, getLatestNews } from '../../services/api';
+import { getLatestNews } from '../../services/api';
 import {
   HomePageWrapper,
   HeroSection,
   HeroContent,
   HeroTitle,
   HeroSubtitle,
-  CTAButton,
   ContentSection,
   FirstContentSection,
   Container,
@@ -21,9 +20,6 @@ import {
   HomeWelcomeCard,
   HomeWelcomeCardTitle,
   HomeWelcomeCardContent,
-  ServiceTime,
-  DateTime,
-  ServiceTitle,
   ServiceDescription,
   ActivitiesSection,
   ActivityCardsGrid,
@@ -43,10 +39,6 @@ import {
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const { data: upcomingServices } = useQuery({
-    queryKey: ['upcomingServices'],
-    queryFn: getUpcomingServices,
-  });
   const { data: latestNews } = useQuery({
     queryKey: ['latestNews'],
     queryFn: () => getLatestNews(3),

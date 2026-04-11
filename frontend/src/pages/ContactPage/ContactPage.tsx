@@ -3,7 +3,6 @@ import { submitContactForm } from '../../services/api';
 import {
   IconBankgiro,
   IconCheck,
-  IconCreditCard,
   IconHeart,
   IconMail,
   IconMapPin,

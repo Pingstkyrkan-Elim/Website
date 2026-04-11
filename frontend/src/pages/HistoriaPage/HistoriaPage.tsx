@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useQuery } from 'react-query';
 import { getHistoryEntries } from '../../services/api';
@@ -90,13 +90,18 @@ const EntryGallery: React.FC<{ images: string[]; title: string }> = ({
   const [activeSlide, setActiveSlide] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const closeLightbox = () => setLightboxIndex(null);
-  const prevLight = () =>
-    setLightboxIndex(i =>
-      i !== null ? (i - 1 + images.length) % images.length : null
-    );
-  const nextLight = () =>
-    setLightboxIndex(i => (i !== null ? (i + 1) % images.length : null));
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const prevLight = useCallback(
+    () =>
+      setLightboxIndex(i =>
+        i !== null ? (i - 1 + images.length) % images.length : null
+      ),
+    [images.length]
+  );
+  const nextLight = useCallback(
+    () => setLightboxIndex(i => (i !== null ? (i + 1) % images.length : null)),
+    [images.length]
+  );
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -107,7 +112,7 @@ const EntryGallery: React.FC<{ images: string[]; title: string }> = ({
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [lightboxIndex]);
+  }, [lightboxIndex, closeLightbox, prevLight, nextLight]);
 
   useEffect(() => {
     const track = trackRef.current;
