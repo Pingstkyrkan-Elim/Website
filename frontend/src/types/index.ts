@@ -80,13 +80,13 @@ export interface Event {
   is_active: boolean;
   // Recurrence
   is_recurring: boolean;
-  recurrence_day: number | null;       // 0=Monday … 6=Sunday
+  recurrence_day: number | null; // 0=Monday … 6=Sunday
   recurrence_day_display: string | null;
-  recurrence_time: string | null;      // "HH:MM:SS"
+  recurrence_time: string | null; // "HH:MM:SS"
   recurrence_duration_minutes: number | null;
   is_suspended: boolean;
-  suspended_until: string | null;      // "YYYY-MM-DD"
-  next_occurrence: string | null;      // ISO datetime
+  suspended_until: string | null; // "YYYY-MM-DD"
+  next_occurrence: string | null; // ISO datetime
   has_sunday_school: boolean;
   has_communion: boolean;
   created_at: string;

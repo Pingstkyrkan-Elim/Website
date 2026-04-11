@@ -31,7 +31,7 @@ export const PageWrapper = styled.div`
 export const Hero = styled.section`
   min-height: 100vh;
   background:
-    linear-gradient(rgba(8,6,4,0.72), rgba(8,6,4,0.72)),
+    linear-gradient(rgba(8, 6, 4, 0.72), rgba(8, 6, 4, 0.72)),
     url('/images/elim-church.png') center center / cover no-repeat fixed;
   display: flex;
   flex-direction: column;
@@ -54,14 +54,14 @@ export const HeroDecorYear = styled.div`
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(120px, 20vw, 280px);
   font-weight: 700;
-  color: rgba(184,134,11,0.12);
-  -webkit-text-stroke: 1px rgba(184,134,11,0.4);
+  color: rgba(184, 134, 11, 0.12);
+  -webkit-text-stroke: 1px rgba(184, 134, 11, 0.4);
   letter-spacing: -0.05em;
   line-height: 1;
   user-select: none;
   white-space: nowrap;
   pointer-events: none;
-  text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.6);
 `;
 
 export const HeroContent = styled.div`
@@ -81,7 +81,9 @@ export const HeroEyebrow = styled.span`
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba(184, 134, 11, 0.8);
-  text-shadow: 0 1px 12px rgba(0,0,0,0.8), 0 2px 24px rgba(0,0,0,0.6);
+  text-shadow:
+    0 1px 12px rgba(0, 0, 0, 0.8),
+    0 2px 24px rgba(0, 0, 0, 0.6);
 `;
 
 export const HeroTitle = styled.h1`
@@ -92,7 +94,9 @@ export const HeroTitle = styled.h1`
   margin: 0;
   letter-spacing: -0.04em;
   line-height: 0.88;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.9), 0 4px 40px rgba(0,0,0,0.7);
+  text-shadow:
+    0 2px 20px rgba(0, 0, 0, 0.9),
+    0 4px 40px rgba(0, 0, 0, 0.7);
 `;
 
 export const HeroSubtitle = styled.p`
@@ -102,7 +106,9 @@ export const HeroSubtitle = styled.p`
   max-width: 480px;
   line-height: 1.6;
   font-weight: 300;
-  text-shadow: 0 1px 12px rgba(0,0,0,0.9), 0 2px 24px rgba(0,0,0,0.7);
+  text-shadow:
+    0 1px 12px rgba(0, 0, 0, 0.9),
+    0 2px 24px rgba(0, 0, 0, 0.7);
 `;
 
 export const HeroScroll = styled.div`
@@ -120,14 +126,14 @@ export const HeroScroll = styled.div`
 export const HeroScrollLine = styled.div`
   width: 1px;
   height: 48px;
-  background: linear-gradient(to bottom, rgba(184,134,11,0.6), transparent);
+  background: linear-gradient(to bottom, rgba(184, 134, 11, 0.6), transparent);
 `;
 
 export const HeroScrollLabel = styled.span`
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.3);
 `;
 
 // ── Timeline section ──────────────────────────────────────────────────────────
@@ -177,7 +183,9 @@ export const Entry = styled.article<EntryProps>`
   padding: 0 0 5rem 3.5rem;
   opacity: 0;
   transform: translateY(32px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 
   ${({ $visible }) =>
     $visible &&
@@ -252,7 +260,9 @@ export const EntryContent = styled.div`
 
   p {
     margin: 0 0 1.1em;
-    &:last-child { margin-bottom: 0; }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `;
 
@@ -263,9 +273,7 @@ export const ImageGrid = styled.div<{ $count: number }>`
   gap: 0.75rem;
   margin-top: 2rem;
   grid-template-columns: ${({ $count }) =>
-    $count === 1 ? '1fr' :
-    $count === 2 ? 'repeat(2, 1fr)' :
-    'repeat(3, 1fr)'};
+    $count === 1 ? '1fr' : $count === 2 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)'};
 
   @media (max-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
@@ -277,13 +285,15 @@ export const ImageItem = styled.div`
   border-radius: 10px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  background: rgba(0,0,0,0.04);
+  background: rgba(0, 0, 0, 0.04);
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease, opacity 0.3s ease;
+    transition:
+      transform 0.5s ease,
+      opacity 0.3s ease;
     opacity: 0;
 
     &.loaded {
@@ -306,7 +316,7 @@ export const ImageItem = styled.div`
 export const LeadersSection = styled.div`
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(0,0,0,0.07);
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
   max-width: 680px;
 `;
 
@@ -334,7 +344,9 @@ export const LeaderPill = styled.span`
   padding: 0.28rem 0.75rem;
   border-radius: 100px;
   font-weight: 500;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 
   &:hover {
     background: rgba(184, 134, 11, 0.13);
@@ -359,7 +371,9 @@ export const HistGalleryTrack = styled.div`
   scrollbar-width: none;
   padding-bottom: 0.25rem;
 
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const HistGalleryCard = styled.div`
@@ -370,17 +384,22 @@ export const HistGalleryCard = styled.div`
   cursor: pointer;
   position: relative;
   aspect-ratio: 4 / 3;
-  background: rgba(0,0,0,0.04);
-  border: 1px solid rgba(0,0,0,0.07);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.25s ease;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.25s ease;
 
   &:hover {
-    border-color: rgba(184,134,11,0.3);
-    box-shadow: 0 6px 24px rgba(184,134,11,0.1);
+    border-color: rgba(184, 134, 11, 0.3);
+    box-shadow: 0 6px 24px rgba(184, 134, 11, 0.1);
     transform: translateY(-2px);
   }
 
-  @media (max-width: 520px) { flex: 0 0 78%; }
+  @media (max-width: 520px) {
+    flex: 0 0 78%;
+  }
 `;
 
 export const HistGalleryCardImg = styled.img`
@@ -388,11 +407,17 @@ export const HistGalleryCardImg = styled.img`
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.5s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.5s ease;
   display: block;
 
-  &.loaded { opacity: 1; }
-  ${HistGalleryCard}:hover & { transform: scale(1.04); }
+  &.loaded {
+    opacity: 1;
+  }
+  ${HistGalleryCard}:hover & {
+    transform: scale(1.04);
+  }
 `;
 
 export const HistGalleryCardOverlay = styled.div`
@@ -401,13 +426,15 @@ export const HistGalleryCardOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   color: #fff;
   opacity: 0;
-  transition: background 0.2s ease, opacity 0.2s ease;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
 
   ${HistGalleryCard}:hover & {
-    background: rgba(0,0,0,0.22);
+    background: rgba(0, 0, 0, 0.22);
     opacity: 1;
   }
 `;
@@ -421,20 +448,23 @@ export const HistGalleryDots = styled.div`
 
 export const HistGalleryDot = styled.button<{ $active: boolean }>`
   height: 4px;
-  width: ${({ $active }) => $active ? '20px' : '6px'};
+  width: ${({ $active }) => ($active ? '20px' : '6px')};
   border-radius: 100px;
-  background: ${({ $active }) => $active ? '#b8860b' : 'rgba(184,134,11,0.22)'};
+  background: ${({ $active }) =>
+    $active ? '#b8860b' : 'rgba(184,134,11,0.22)'};
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: width 0.3s ease, background 0.2s ease;
+  transition:
+    width 0.3s ease,
+    background 0.2s ease;
 `;
 
 export const HistLightbox = styled.div`
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(10,8,6,0.95);
+  background: rgba(10, 8, 6, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -460,36 +490,40 @@ export const HistLightboxClose = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.2s ease;
 
-  &:hover { background: rgba(255,255,255,0.16); }
+  &:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
 `;
 
 export const HistLightboxNav = styled.button<{ $dir: 'prev' | 'next' }>`
   position: fixed;
-  ${({ $dir }) => $dir === 'prev' ? 'left: 1.5rem' : 'right: 1.5rem'};
+  ${({ $dir }) => ($dir === 'prev' ? 'left: 1.5rem' : 'right: 1.5rem')};
   top: 50%;
   transform: translateY(-50%);
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.2s ease;
 
-  &:hover { background: rgba(255,255,255,0.15); }
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
 `;
 
 export const HistLightboxCounter = styled.div`
@@ -499,7 +533,7 @@ export const HistLightboxCounter = styled.div`
   transform: translateX(-50%);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255, 255, 255, 0.35);
 `;
 
 // ── Attribution ───────────────────────────────────────────────────────────────
@@ -525,7 +559,7 @@ export const LoadingWrapper = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 40vh;
-  color: rgba(184,134,11,0.5);
+  color: rgba(184, 134, 11, 0.5);
   font-size: 0.82rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;

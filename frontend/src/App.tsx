@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './components/GlobalStyles/GlobalStyles';
@@ -21,7 +26,9 @@ import SecondHandPage from './pages/SecondHandPage/SecondHandPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return null;
 }
 
@@ -114,7 +121,10 @@ function App() {
               <Route path='/about' element={<AboutPage />} />
               <Route path='/historia' element={<HistoriaPage />} />
               <Route path='/mission' element={<MissionPage />} />
-              <Route path='/mission/country/:id' element={<CountryDetailPage />} />
+              <Route
+                path='/mission/country/:id'
+                element={<CountryDetailPage />}
+              />
               <Route path='/programs' element={<ProgramsPage />} />
               <Route path='/news' element={<NewsPage />} />
               <Route path='/news/:id' element={<NewsDetailPage />} />

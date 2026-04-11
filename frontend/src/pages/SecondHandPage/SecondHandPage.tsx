@@ -301,7 +301,9 @@ const SecondHandPage: React.FC = () => {
                     }}
                   />
                   <GalleryCardOverlay>
-                    <GalleryCardZoomIcon><IconZoomIn size={20} /></GalleryCardZoomIcon>
+                    <GalleryCardZoomIcon>
+                      <IconZoomIn size={20} />
+                    </GalleryCardZoomIcon>
                   </GalleryCardOverlay>
                 </GalleryCard>
               ))}
@@ -323,7 +325,9 @@ const SecondHandPage: React.FC = () => {
           </>
         ) : (
           <GalleryPlaceholder>
-            <GalleryPlaceholderIcon><IconImage size={32} /></GalleryPlaceholderIcon>
+            <GalleryPlaceholderIcon>
+              <IconImage size={32} />
+            </GalleryPlaceholderIcon>
             <GalleryPlaceholderText>Bilder kommer snart</GalleryPlaceholderText>
           </GalleryPlaceholder>
         )}
@@ -332,7 +336,9 @@ const SecondHandPage: React.FC = () => {
       {/* ── Lightbox ── */}
       {lightboxIndex !== null && (
         <Lightbox onClick={closeLightbox}>
-          <LightboxClose onClick={closeLightbox}><IconX size={20} /></LightboxClose>
+          <LightboxClose onClick={closeLightbox}>
+            <IconX size={20} />
+          </LightboxClose>
           <LightboxNav
             $dir='prev'
             onClick={e => {
@@ -398,7 +404,9 @@ const SecondHandPage: React.FC = () => {
             <InfoLabel>Kontakt & Hitta hit</InfoLabel>
             <ContactList>
               <ContactItem as='div'>
-                <ContactIcon><IconMapPin size={16} /></ContactIcon>
+                <ContactIcon>
+                  <IconMapPin size={16} />
+                </ContactIcon>
                 <ContactText>
                   <ContactTextLabel>Adress</ContactTextLabel>
                   <ContactTextValue>{store.address}</ContactTextValue>
@@ -406,7 +414,9 @@ const SecondHandPage: React.FC = () => {
               </ContactItem>
               {store.phone && (
                 <ContactItem href={`tel:${store.phone.replace(/\s/g, '')}`}>
-                  <ContactIcon><IconPhone size={16} /></ContactIcon>
+                  <ContactIcon>
+                    <IconPhone size={16} />
+                  </ContactIcon>
                   <ContactText>
                     <ContactTextLabel>Telefon</ContactTextLabel>
                     <ContactTextValue>{store.phone}</ContactTextValue>
@@ -415,7 +425,9 @@ const SecondHandPage: React.FC = () => {
               )}
               {store.email && (
                 <ContactItem href={`mailto:${store.email}`}>
-                  <ContactIcon><IconMail size={16} /></ContactIcon>
+                  <ContactIcon>
+                    <IconMail size={16} />
+                  </ContactIcon>
                   <ContactText>
                     <ContactTextLabel>E-post</ContactTextLabel>
                     <ContactTextValue>{store.email}</ContactTextValue>

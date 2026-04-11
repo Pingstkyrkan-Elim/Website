@@ -13,13 +13,13 @@ export const HomePageWrapper = styled.div`
 
 // Full-screen hero section with background image extending to top
 export const HeroSection = styled.section`
-  min-height: calc(100vh + 70px);  /* Extra height to cover navbar */
-  margin-top: -70px;               /* Pull up to cover navbar area */
-  padding-top: 70px;               /* Add padding to account for navbar */
+  min-height: calc(100vh + 70px); /* Extra height to cover navbar */
+  margin-top: -70px; /* Pull up to cover navbar area */
+  padding-top: 70px; /* Add padding to account for navbar */
   background: linear-gradient(
     rgba(0, 0, 0, 0.15) 0%,
     rgba(0, 0, 0, 0.45) 60%,
-    rgba(0, 0, 0, 0.60) 100%
+    rgba(0, 0, 0, 0.6) 100%
   );
   display: flex;
   align-items: center;
@@ -49,15 +49,14 @@ export const HeroTitle = styled.h1`
     135deg,
     #ffffff 0%,
     rgba(255, 235, 175, 0.95) 50%,
-    rgba(220, 175, 100, 0.90) 100%
+    rgba(220, 175, 100, 0.9) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter:
-    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95))
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95))
     drop-shadow(0 4px 18px rgba(0, 0, 0, 0.75))
-    drop-shadow(0 8px 40px rgba(0, 0, 0, 0.50));
+    drop-shadow(0 8px 40px rgba(0, 0, 0, 0.5));
 `;
 
 export const HeroSubtitle = styled.p`
@@ -72,7 +71,7 @@ export const HeroSubtitle = styled.p`
   letter-spacing: 0.01em;
   text-shadow:
     0 1px 4px rgba(0, 0, 0, 0.95),
-    0 2px 14px rgba(0, 0, 0, 0.80),
+    0 2px 14px rgba(0, 0, 0, 0.8),
     0 5px 30px rgba(0, 0, 0, 0.55);
 `;
 
@@ -178,7 +177,7 @@ const backgroundShift = keyframes`
 
 export const ContentSection = styled.section`
   padding: 6rem 0;
-  background: rgba(12, 8, 3, 0.50);
+  background: rgba(12, 8, 3, 0.5);
   position: relative;
   overflow: hidden;
 
@@ -190,7 +189,12 @@ export const ContentSection = styled.section`
     left: -10%;
     width: 300px;
     height: 150px;
-    background: radial-gradient(ellipse 300px 150px, rgba(160, 120, 64, 0.15) 0%, rgba(160, 120, 64, 0.08) 40%, transparent 70%);
+    background: radial-gradient(
+      ellipse 300px 150px,
+      rgba(160, 120, 64, 0.15) 0%,
+      rgba(160, 120, 64, 0.08) 40%,
+      transparent 70%
+    );
     border-radius: 50% 60% 70% 40%;
     animation: ${cloudDrift} 45s ease-in-out infinite;
     pointer-events: none;
@@ -203,7 +207,12 @@ export const ContentSection = styled.section`
     right: -5%;
     width: 250px;
     height: 120px;
-    background: radial-gradient(ellipse 250px 120px, rgba(122, 88, 40, 0.12) 0%, rgba(122, 88, 40, 0.06) 45%, transparent 75%);
+    background: radial-gradient(
+      ellipse 250px 120px,
+      rgba(122, 88, 40, 0.12) 0%,
+      rgba(122, 88, 40, 0.06) 45%,
+      transparent 75%
+    );
     border-radius: 60% 50% 40% 70%;
     animation: ${cloudFloat} 35s ease-in-out infinite reverse;
     pointer-events: none;
@@ -211,7 +220,7 @@ export const ContentSection = styled.section`
 
   /* Additional cloud layers */
   &:before {
-    box-shadow: 
+    box-shadow:
       400px 100px 0 -50px rgba(255, 255, 255, 0.1),
       200px 200px 0 -30px rgba(160, 120, 64, 0.08),
       600px 50px 0 -40px rgba(122, 88, 40, 0.06),
@@ -220,8 +229,9 @@ export const ContentSection = styled.section`
 
   @media (max-width: 768px) {
     padding: 4rem 0;
-    
-    &::before, &::after {
+
+    &::before,
+    &::after {
       width: 200px;
       height: 100px;
       animation-duration: 25s, 30s;
@@ -250,7 +260,7 @@ export const SectionTitle = styled.h2`
     135deg,
     #ffffff 0%,
     rgba(255, 235, 175, 0.95) 50%,
-    rgba(220, 175, 100, 0.90) 100%
+    rgba(220, 175, 100, 0.9) 100%
   );
   background-size: 300% 300%;
   -webkit-background-clip: text;
@@ -264,10 +274,9 @@ export const SectionTitle = styled.h2`
   z-index: 2;
   animation: gradientMove 10s ease-in-out infinite;
   transition: all 0.8s ease;
-  filter:
-    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95))
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95))
     drop-shadow(0 4px 18px rgba(0, 0, 0, 0.75))
-    drop-shadow(0 8px 40px rgba(0, 0, 0, 0.50));
+    drop-shadow(0 8px 40px rgba(0, 0, 0, 0.5));
 
   &::before {
     content: '';
@@ -287,7 +296,7 @@ export const SectionTitle = styled.h2`
     transform: scale(1.03);
     animation-duration: 3s;
   }
-  
+
   /* Dynamic styles for even sections (dark backgrounds) */
   .ContentSection:nth-child(even) & {
     background: linear-gradient(
@@ -301,14 +310,20 @@ export const SectionTitle = styled.h2`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: none;
-    
+
     &::before {
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.7),
+        transparent
+      );
     }
   }
 
   @keyframes gradientMove {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     25% {
@@ -323,7 +338,8 @@ export const SectionTitle = styled.h2`
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.4;
       transform: translateX(-50%) translateY(3rem) scaleX(1);
     }
@@ -337,9 +353,10 @@ export const SectionTitle = styled.h2`
     &::before {
       transform: translateX(-50%) translateY(2rem);
     }
-    
+
     @keyframes pulse {
-      0%, 100% {
+      0%,
+      100% {
         opacity: 0.4;
         transform: translateX(-50%) translateY(2rem) scaleX(1);
       }
@@ -373,8 +390,18 @@ export const CardsGrid = styled.div`
 export const Card = styled.div`
   /* Warm golden glass sphere — default: amber */
   background:
-    radial-gradient(circle at 38% 32%, rgba(255, 220, 130, 0.26) 0%, rgba(210, 155, 55, 0.13) 40%, rgba(140, 90, 20, 0.04) 75%, transparent 100%),
-    linear-gradient(145deg, rgba(255, 240, 180, 0.10) 0%, rgba(180, 120, 30, 0.08) 100%);
+    radial-gradient(
+      circle at 38% 32%,
+      rgba(255, 220, 130, 0.26) 0%,
+      rgba(210, 155, 55, 0.13) 40%,
+      rgba(140, 90, 20, 0.04) 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 240, 180, 0.1) 0%,
+      rgba(180, 120, 30, 0.08) 100%
+    );
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border-radius: 50%;
@@ -395,9 +422,10 @@ export const Card = styled.div`
   overflow: hidden;
   text-align: center;
   animation: breathe 9s ease-in-out infinite;
-  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-              box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-              border-color 0.3s ease;
+  transition:
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    border-color 0.3s ease;
 
   /* Warm inner ambient glow */
   &::before {
@@ -406,8 +434,16 @@ export const Card = styled.div`
     inset: 0;
     border-radius: 50%;
     background:
-      radial-gradient(circle at 65% 68%, rgba(200, 140, 30, 0.10) 0%, transparent 55%),
-      radial-gradient(circle at 30% 20%, rgba(255, 240, 190, 0.09) 0%, transparent 40%);
+      radial-gradient(
+        circle at 65% 68%,
+        rgba(200, 140, 30, 0.1) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 30% 20%,
+        rgba(255, 240, 190, 0.09) 0%,
+        transparent 40%
+      );
     pointer-events: none;
     z-index: 0;
   }
@@ -435,8 +471,18 @@ export const Card = styled.div`
   /* Rose-gold variant */
   &:nth-child(2n) {
     background:
-      radial-gradient(circle at 38% 32%, rgba(245, 195, 130, 0.26) 0%, rgba(200, 135, 70, 0.13) 40%, rgba(140, 80, 30, 0.04) 75%, transparent 100%),
-      linear-gradient(145deg, rgba(250, 220, 170, 0.10) 0%, rgba(175, 110, 45, 0.08) 100%);
+      radial-gradient(
+        circle at 38% 32%,
+        rgba(245, 195, 130, 0.26) 0%,
+        rgba(200, 135, 70, 0.13) 40%,
+        rgba(140, 80, 30, 0.04) 75%,
+        transparent 100%
+      ),
+      linear-gradient(
+        145deg,
+        rgba(250, 220, 170, 0.1) 0%,
+        rgba(175, 110, 45, 0.08) 100%
+      );
     border-color: rgba(220, 160, 80, 0.38);
     box-shadow:
       0 24px 60px rgba(160, 100, 20, 0.32),
@@ -448,12 +494,22 @@ export const Card = styled.div`
   /* Deep ochre variant */
   &:nth-child(3n) {
     background:
-      radial-gradient(circle at 38% 32%, rgba(230, 185, 80, 0.28) 0%, rgba(185, 130, 35, 0.14) 40%, rgba(120, 80, 15, 0.05) 75%, transparent 100%),
-      linear-gradient(145deg, rgba(240, 210, 140, 0.11) 0%, rgba(165, 110, 25, 0.09) 100%);
-    border-color: rgba(210, 160, 55, 0.40);
+      radial-gradient(
+        circle at 38% 32%,
+        rgba(230, 185, 80, 0.28) 0%,
+        rgba(185, 130, 35, 0.14) 40%,
+        rgba(120, 80, 15, 0.05) 75%,
+        transparent 100%
+      ),
+      linear-gradient(
+        145deg,
+        rgba(240, 210, 140, 0.11) 0%,
+        rgba(165, 110, 25, 0.09) 100%
+      );
+    border-color: rgba(210, 160, 55, 0.4);
     box-shadow:
       0 24px 60px rgba(130, 85, 8, 0.35),
-      0 8px 20px rgba(0, 0, 0, 0.20),
+      0 8px 20px rgba(0, 0, 0, 0.2),
       inset 0 1.5px 0 rgba(250, 230, 160, 0.55),
       inset 0 -1px 0 rgba(130, 85, 10, 0.18);
   }
@@ -461,8 +517,18 @@ export const Card = styled.div`
   /* Warm copper variant */
   &:nth-child(4n) {
     background:
-      radial-gradient(circle at 38% 32%, rgba(220, 170, 90, 0.26) 0%, rgba(175, 120, 55, 0.13) 40%, rgba(125, 78, 28, 0.04) 75%, transparent 100%),
-      linear-gradient(145deg, rgba(235, 200, 150, 0.10) 0%, rgba(160, 108, 42, 0.08) 100%);
+      radial-gradient(
+        circle at 38% 32%,
+        rgba(220, 170, 90, 0.26) 0%,
+        rgba(175, 120, 55, 0.13) 40%,
+        rgba(125, 78, 28, 0.04) 75%,
+        transparent 100%
+      ),
+      linear-gradient(
+        145deg,
+        rgba(235, 200, 150, 0.1) 0%,
+        rgba(160, 108, 42, 0.08) 100%
+      );
     border-color: rgba(200, 150, 70, 0.38);
     box-shadow:
       0 24px 60px rgba(140, 88, 15, 0.33),
@@ -474,8 +540,18 @@ export const Card = styled.div`
   /* Sand gold variant */
   &:nth-child(5n) {
     background:
-      radial-gradient(circle at 38% 32%, rgba(250, 215, 115, 0.26) 0%, rgba(205, 160, 50, 0.13) 40%, rgba(145, 100, 20, 0.04) 75%, transparent 100%),
-      linear-gradient(145deg, rgba(255, 240, 175, 0.10) 0%, rgba(182, 132, 32, 0.08) 100%);
+      radial-gradient(
+        circle at 38% 32%,
+        rgba(250, 215, 115, 0.26) 0%,
+        rgba(205, 160, 50, 0.13) 40%,
+        rgba(145, 100, 20, 0.04) 75%,
+        transparent 100%
+      ),
+      linear-gradient(
+        145deg,
+        rgba(255, 240, 175, 0.1) 0%,
+        rgba(182, 132, 32, 0.08) 100%
+      );
     border-color: rgba(230, 180, 70, 0.38);
     box-shadow:
       0 24px 60px rgba(150, 100, 12, 0.32),
@@ -487,9 +563,19 @@ export const Card = styled.div`
   /* Warm honey variant */
   &:nth-child(6n) {
     background:
-      radial-gradient(circle at 38% 32%, rgba(240, 200, 100, 0.28) 0%, rgba(195, 145, 45, 0.14) 40%, rgba(135, 88, 18, 0.05) 75%, transparent 100%),
-      linear-gradient(145deg, rgba(248, 225, 155, 0.11) 0%, rgba(172, 122, 30, 0.09) 100%);
-    border-color: rgba(218, 168, 62, 0.40);
+      radial-gradient(
+        circle at 38% 32%,
+        rgba(240, 200, 100, 0.28) 0%,
+        rgba(195, 145, 45, 0.14) 40%,
+        rgba(135, 88, 18, 0.05) 75%,
+        transparent 100%
+      ),
+      linear-gradient(
+        145deg,
+        rgba(248, 225, 155, 0.11) 0%,
+        rgba(172, 122, 30, 0.09) 100%
+      );
+    border-color: rgba(218, 168, 62, 0.4);
     box-shadow:
       0 24px 60px rgba(138, 90, 10, 0.34),
       0 8px 20px rgba(0, 0, 0, 0.19),
@@ -497,9 +583,15 @@ export const Card = styled.div`
       inset 0 -1px 0 rgba(138, 90, 12, 0.18);
   }
 
-  &:nth-child(odd) { animation-delay: -1.5s; }
-  &:nth-child(even) { animation-delay: -4.5s; }
-  &:nth-child(3n) { animation-delay: -7s; }
+  &:nth-child(odd) {
+    animation-delay: -1.5s;
+  }
+  &:nth-child(even) {
+    animation-delay: -4.5s;
+  }
+  &:nth-child(3n) {
+    animation-delay: -7s;
+  }
 
   &:hover {
     transform: translateY(-10px) scale(1.04);
@@ -508,13 +600,20 @@ export const Card = styled.div`
       0 36px 80px rgba(140, 90, 10, 0.42),
       0 12px 28px rgba(0, 0, 0, 0.22),
       inset 0 1.5px 0 rgba(255, 250, 210, 0.65),
-      inset 0 -1px 0 rgba(140, 90, 10, 0.20);
+      inset 0 -1px 0 rgba(140, 90, 10, 0.2);
   }
 
   @keyframes breathe {
-    0%, 100% { transform: translateY(0px) scale(1); }
-    30%       { transform: translateY(-5px) scale(1.008); }
-    60%       { transform: translateY(-3px) scale(1.004); }
+    0%,
+    100% {
+      transform: translateY(0px) scale(1);
+    }
+    30% {
+      transform: translateY(-5px) scale(1.008);
+    }
+    60% {
+      transform: translateY(-3px) scale(1.004);
+    }
   }
 
   @media (max-width: 768px) {
@@ -579,7 +678,7 @@ export const ServiceTime = styled.div`
   margin: 1.5rem 0;
   border-radius: 16px;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: 
+  box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
   position: relative;
@@ -587,10 +686,10 @@ export const ServiceTime = styled.div`
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 
+    box-shadow:
       0 12px 40px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    border-left-color: #0051D5;
+    border-left-color: #0051d5;
   }
 `;
 
@@ -663,13 +762,13 @@ export const HomeWelcomeCard = styled.div.attrs({
     textDecoration: 'none',
     position: 'relative',
     overflow: 'visible',
-  }
+  },
 })`
   /* Fallback styles with highest specificity */
   &&&&& {
     ${glassMorphismStyles}
   }
-  
+
   /* Inline styles should override everything */
 `;
 
@@ -681,7 +780,7 @@ export const HomeWelcomeCardTitle = styled.h3.attrs({
     marginBottom: '1rem',
     lineHeight: '1.3',
     textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-  }
+  },
 })`
   /* Ensure white text with inline styles */
   &&&&& {
@@ -701,7 +800,7 @@ export const HomeWelcomeCardContent = styled.p.attrs({
     fontSize: '1rem',
     margin: '0',
     textShadow: '0 1px 3px rgba(0, 0, 0, 0.3)',
-  }
+  },
 })`
   /* Ensure proper text styling with inline styles */
   &&&&& {
@@ -727,10 +826,22 @@ export const ActivitiesSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 118, 117, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, rgba(255, 204, 112, 0.1) 0%, transparent 50%);
+    background:
+      radial-gradient(
+        circle at 20% 50%,
+        rgba(120, 119, 198, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 118, 117, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 40% 80%,
+        rgba(255, 204, 112, 0.1) 0%,
+        transparent 50%
+      );
     pointer-events: none;
   }
 
@@ -744,19 +855,23 @@ export const ActivitiesSection = styled.section`
       135deg,
       #ffffff 0%,
       rgba(255, 235, 175, 0.95) 50%,
-      rgba(220, 175, 100, 0.90) 100%
+      rgba(220, 175, 100, 0.9) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: none;
-    filter:
-      drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95))
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95))
       drop-shadow(0 4px 18px rgba(0, 0, 0, 0.75))
-      drop-shadow(0 8px 40px rgba(0, 0, 0, 0.50));
+      drop-shadow(0 8px 40px rgba(0, 0, 0, 0.5));
 
     &::before {
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.7),
+        transparent
+      );
     }
   }
 `;
@@ -768,12 +883,12 @@ export const ActivityCardsGrid = styled.div`
   grid-template-columns: 1fr;
   position: relative;
   z-index: 2;
-  
+
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
   }
-  
+
   @media (min-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.2rem;
@@ -786,7 +901,7 @@ export const ActivityCard = styled.div`
   padding: 0;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: 
+  box-shadow:
     0 4px 25px rgba(0, 0, 0, 0.04),
     0 0 1px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.04);
@@ -798,7 +913,7 @@ export const ActivityCard = styled.div`
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 
+    box-shadow:
       0 25px 50px rgba(0, 0, 0, 0.08),
       0 0 1px rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.06);
@@ -809,13 +924,13 @@ export const ActivityCard = styled.div`
   .ActivitiesSection & {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 
+    box-shadow:
       0 4px 25px rgba(0, 0, 0, 0.15),
       0 0 1px rgba(255, 255, 255, 0.1);
-    
+
     &:hover {
       background: rgba(255, 255, 255, 0.15);
-      box-shadow: 
+      box-shadow:
         0 25px 50px rgba(0, 0, 0, 0.25),
         0 0 1px rgba(255, 255, 255, 0.15);
       border-color: rgba(255, 255, 255, 0.2);
@@ -825,11 +940,10 @@ export const ActivityCard = styled.div`
 
 export const ActivityCardImage = styled.div<{ $backgroundImage?: string }>`
   height: 225px;
-  background: ${({ $backgroundImage }) => 
-    $backgroundImage 
+  background: ${({ $backgroundImage }) =>
+    $backgroundImage
       ? `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('/images/${$backgroundImage}'), linear-gradient(135deg, #a07840 0%, #7a5828 100%)`
-      : `linear-gradient(135deg, #a07840 0%, #7a5828 100%)`
-  };
+      : `linear-gradient(135deg, #a07840 0%, #7a5828 100%)`};
   background-size: cover;
   background-position: center;
   position: relative;
@@ -847,11 +961,10 @@ export const ActivityCardImage = styled.div<{ $backgroundImage?: string }>`
 
   .ContentSection:nth-child(even) &,
   .ActivitiesSection & {
-    background: ${({ $backgroundImage }) => 
-      $backgroundImage 
+    background: ${({ $backgroundImage }) =>
+      $backgroundImage
         ? `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('/images/${$backgroundImage}'), linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)`
-        : `linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)`
-    };
+        : `linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)`};
     background-size: cover;
     background-position: center;
   }
@@ -966,7 +1079,12 @@ export const CardCTA = styled.button`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
     transition: left 0.5s ease;
   }
 
@@ -986,7 +1104,7 @@ export const CardCTA = styled.button`
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.9);
-    
+
     &:hover {
       background: rgba(255, 255, 255, 0.2);
       border-color: rgba(255, 255, 255, 0.3);

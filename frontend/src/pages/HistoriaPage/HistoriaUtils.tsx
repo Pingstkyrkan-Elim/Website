@@ -22,7 +22,13 @@ export const staticHistoryData: HistoryEntry[] = [
     title: 'Expansion och Missionstid',
     content:
       'Pastor Steen åkte 1921 till Wien, där han blev förste pingst-missionären i Österrike. Följande år bildades församlingar i Rumänien, Jugoslavien och Ungern. I Berlin bildades en fri församling som växte till den största i Tyskland. På grund av nazisterna fick Steen tillsammans med hustru Frida lämna landet 1937. Efter kriget ledde de pingströrelsens hjälparbete i Hamburg och Ungern.\n\nSå småningom fick församlingen möjlighet att bygga en mera funktionell kyrka. Den kände arkitekten Ragnar Näsman anlitades och han ritade en kubisk funkisbyggnad. Den blev mycket uppmärksammad och stod färdig 1936 — församlingens huvudkvarter fram till 1981. I fondväggen bakom estraden fanns ett runt fönster som lyste som solen.\n\nFörsamlingen hade tidigt ett rikt sång- och musikliv.',
-    images: ['historia/Valldammsgatan.webp', 'historia/Screenshot_18.webp', 'historia/image007.webp', 'historia/Music_groups.webp', 'historia/Song_groups.webp'],
+    images: [
+      'historia/Valldammsgatan.webp',
+      'historia/Screenshot_18.webp',
+      'historia/image007.webp',
+      'historia/Music_groups.webp',
+      'historia/Song_groups.webp',
+    ],
     leaders: [
       'Georg Steen 1919–1921',
       'Algot Vikström 1921–1922',
@@ -40,7 +46,13 @@ export const staticHistoryData: HistoryEntry[] = [
     title: 'Pastorer, Utposter och Barnverksamhet',
     content:
       'Harald Strömstedt var en mycket varm och nitisk människa med stort hjärta för de nyfrälsta och ungdomarna. Han var en andlig fader för alla i församlingen och en god förkunnare.\n\nKarl Wärn tillbringade fyra år i församlingen från 1950. Han hade talets gåva — hans levande och intressanta förkunnelse berörde alla som lyssnade. Han hade också en gåva att be för sjuka.\n\nFörsamlingen bedrev möten och söndagsskola på många platser runt om Trelleborg: Smygehamn, Skegrie och Kurland. I Smygehamn hölls varje år den välkända Smygehamnskonferensen. Söndagsskola och barnverksamhet samlade många barn och ledare under slutet av 1940-talet och framåt.',
-    images: ['historia/Screenshot_1.webp', 'historia/Screenshot_3.webp', 'historia/Styrelsen_1950.webp', 'historia/Kurland.webp', 'historia/Söndagsskola.webp'],
+    images: [
+      'historia/Screenshot_1.webp',
+      'historia/Screenshot_3.webp',
+      'historia/Styrelsen_1950.webp',
+      'historia/Kurland.webp',
+      'historia/Söndagsskola.webp',
+    ],
     leaders: [
       'Gunnar Pettersson 1931–1944',
       'Harald Strömstedt 1944–1950',
@@ -58,7 +70,11 @@ export const staticHistoryData: HistoryEntry[] = [
     title: 'Blåsorkester och Ungdomstid',
     content:
       'Efter tiden med Ernst Almqvist hade församlingen flera vakanspredikanter tills Philip Nilsson accepterade kallelsen som föreståndare. Philip var en god predikant som predikade med stor inlevelse och stort personligt engagemang.\n\nFörsamlingen hade en blåsorkester som verkade under många år under ledning av Åke Svensson. Denna var ett verktyg att samla människor utomhus och dela evangelium. Den blev samtidigt en samlingspunkt för ungdomarna.',
-    images: ['historia/image009.webp', 'historia/image029.webp', 'historia/Wiborn.webp'],
+    images: [
+      'historia/image009.webp',
+      'historia/image029.webp',
+      'historia/Wiborn.webp',
+    ],
     leaders: [
       'Ernst Almqvist 1957–1965',
       'Karl Eriksson 1965–1968',
@@ -76,7 +92,19 @@ export const staticHistoryData: HistoryEntry[] = [
     title: 'Kyrkobranden och Återuppbyggnad',
     content:
       'Nils Sjöström satte sin prägel på församlingen som ingen annan pastor på senare tid. Han var föreståndare 1977–1990 och full av idéer och visioner. Han engagerade sig starkt för flyktingar och utsågs av Sveriges Radio till "Sveriges modigaste man".\n\nBeslut fattades att bygga en ny kyrka, finansierad av ett testamente från Victor Palson. Men den 24 april 1982 — tre veckor före invigningen — sattes kyrkan i brand av några ungdomar och hela byggnaden fick rivas. Efter en nattlig samling med bön och samtal beslutades att gå vidare.\n\nKyrkan byggdes upp igen och invigdes till Advent samma år, 1982. Den är en luftig byggnad med synliga limträbalkar och furupanel i taket. I sidobyggnaden startades Sveriges första kristna fritidshem.\n\nUnder 1990-talet ledde Torbjörn Söder (1994–2001) församlingen mot en folkligare inriktning med aktiviteter för äldre och samarbete med Trelleborgs Kommun.',
-    images: ['historia/Screenshot_4.webp', 'historia/image011.webp', 'historia/image019.webp', 'historia/Fire1.webp', 'historia/Fire2.webp', 'historia/Fire3.webp', 'historia/Fire4.webp', 'historia/Screenshot_10.webp', 'historia/Screenshot_16.webp', 'historia/Tunhav.webp', 'historia/Söder.webp'],
+    images: [
+      'historia/Screenshot_4.webp',
+      'historia/image011.webp',
+      'historia/image019.webp',
+      'historia/Fire1.webp',
+      'historia/Fire2.webp',
+      'historia/Fire3.webp',
+      'historia/Fire4.webp',
+      'historia/Screenshot_10.webp',
+      'historia/Screenshot_16.webp',
+      'historia/Tunhav.webp',
+      'historia/Söder.webp',
+    ],
     leaders: [
       'Nils Sjöström 1977–1990',
       'Bosse Tunhav 1991–1993',

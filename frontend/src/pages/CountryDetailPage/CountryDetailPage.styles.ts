@@ -123,7 +123,7 @@ export const DescriptionSection = styled.section`
 
   @media (max-width: 768px) {
     padding: 2rem;
-    
+
     h2 {
       font-size: 2rem;
     }

@@ -784,8 +784,7 @@ export const EventCTA = styled.button`
   transition: all 0.3s ease;
   margin-top: 1rem;
   align-self: flex-start;
-  font-family:
-    'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
   position: relative;
   overflow: hidden;
 
@@ -875,8 +874,7 @@ export const RegistrationButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   align-self: flex-start;
-  font-family:
-    'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: 0.02em;
 
   &:hover {
@@ -1167,7 +1165,13 @@ export const PrintHeader = styled.div`
       content: '';
       display: block;
       height: 0.5pt;
-      background: linear-gradient(to right, transparent, #b88a18 20%, #b88a18 80%, transparent);
+      background: linear-gradient(
+        to right,
+        transparent,
+        #b88a18 20%,
+        #b88a18 80%,
+        transparent
+      );
       margin-top: 2.5mm;
     }
   }
@@ -1228,7 +1232,14 @@ export const PrintWeekHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(to right, #7a5810, #b88a18, #c8a028, #b88a18, #7a5810);
+    background: linear-gradient(
+      to right,
+      #7a5810,
+      #b88a18,
+      #c8a028,
+      #b88a18,
+      #7a5810
+    );
     padding: 1mm 2.5mm;
   }
 `;
@@ -1352,7 +1363,13 @@ export const PrintFooter = styled.div`
       content: '';
       display: block;
       height: 0.5pt;
-      background: linear-gradient(to right, transparent, #b88a18 20%, #b88a18 80%, transparent);
+      background: linear-gradient(
+        to right,
+        transparent,
+        #b88a18 20%,
+        #b88a18 80%,
+        transparent
+      );
       margin-bottom: 1.5mm;
     }
   }

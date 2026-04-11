@@ -27,7 +27,7 @@ export const PageWrapper = styled.div`
 export const Hero = styled.section`
   min-height: 60vh;
   background:
-    linear-gradient(rgba(10,8,6,0.70), rgba(10,8,6,0.70)),
+    linear-gradient(rgba(10, 8, 6, 0.7), rgba(10, 8, 6, 0.7)),
     url('/images/elim-church.png') center 40% / cover no-repeat fixed;
   display: flex;
   flex-direction: column;
@@ -46,16 +46,17 @@ export const HeroEyebrow = styled.div`
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.9);
+  color: rgba(184, 134, 11, 0.9);
   margin-bottom: 1.2rem;
   animation: ${fadeUp} 0.8s ease both;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '';
     display: block;
     width: 24px;
     height: 1px;
-    background: rgba(184,134,11,0.5);
+    background: rgba(184, 134, 11, 0.5);
   }
 `;
 
@@ -68,35 +69,41 @@ export const HeroTitle = styled.h1`
   letter-spacing: -0.03em;
   line-height: 0.92;
   animation: ${fadeUp} 0.9s ease 0.1s both;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.7);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
 `;
 
 export const HeroSubtitle = styled.p`
   font-size: clamp(15px, 1.6vw, 18px);
-  color: rgba(255,255,255,0.55);
+  color: rgba(255, 255, 255, 0.55);
   max-width: 460px;
   margin: 0;
   line-height: 1.7;
   font-weight: 300;
   animation: ${fadeUp} 0.9s ease 0.2s both;
-  text-shadow: 0 1px 10px rgba(0,0,0,0.6);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 `;
 
 // ── Info section ──────────────────────────────────────────────────────────────
 
-interface RevealProps { $visible: boolean; }
+interface RevealProps {
+  $visible: boolean;
+}
 
 export const InfoSection = styled.section<RevealProps>`
   background: #ffffff;
   padding: 5rem 2rem;
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0);
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+    `}
 `;
 
 export const InfoInner = styled.div`
@@ -106,23 +113,29 @@ export const InfoInner = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 
-  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 520px) { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const InfoCard = styled.div`
   background: #f7f6f4;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 18px;
   padding: 1.8rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
-    border-color: rgba(184,134,11,0.2);
-    box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+    border-color: rgba(184, 134, 11, 0.2);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.06);
   }
 `;
 
@@ -130,8 +143,8 @@ export const InfoCardIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: rgba(184,134,11,0.08);
-  border: 1px solid rgba(184,134,11,0.12);
+  background: rgba(184, 134, 11, 0.08);
+  border: 1px solid rgba(184, 134, 11, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,7 +157,7 @@ export const InfoCardLabel = styled.div`
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.7);
+  color: rgba(184, 134, 11, 0.7);
 `;
 
 export const InfoCardValue = styled.div`
@@ -168,7 +181,9 @@ export const InfoCardLink = styled.a`
   transition: color 0.2s ease;
   line-height: 1.5;
 
-  &:hover { color: #b8860b; }
+  &:hover {
+    color: #b8860b;
+  }
 `;
 
 // ── Main content (form + map) ─────────────────────────────────────────────────
@@ -178,12 +193,16 @@ export const MainSection = styled.section<RevealProps>`
   background: #f7f6f4;
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0);
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+    `}
 `;
 
 export const MainInner = styled.div`
@@ -212,7 +231,7 @@ export const SectionEyebrow = styled.div`
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.7);
+  color: rgba(184, 134, 11, 0.7);
   margin-bottom: 0.8rem;
 `;
 
@@ -238,7 +257,9 @@ export const FormRow = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 
-  @media (max-width: 520px) { grid-template-columns: 1fr; }
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -258,25 +279,31 @@ export const FormLabel = styled.label`
 const inputBase = css`
   width: 100%;
   padding: 0.85rem 1rem;
-  border: 1.5px solid rgba(0,0,0,0.1);
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
   color: #1a1a1a;
   background: #ffffff;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   box-sizing: border-box;
 
-  &::placeholder { color: #bbb; }
+  &::placeholder {
+    color: #bbb;
+  }
 
   &:focus {
-    border-color: rgba(184,134,11,0.5);
-    box-shadow: 0 0 0 3px rgba(184,134,11,0.08);
+    border-color: rgba(184, 134, 11, 0.5);
+    box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.08);
   }
 `;
 
-export const FormInput = styled.input`${inputBase}`;
+export const FormInput = styled.input`
+  ${inputBase}
+`;
 
 export const FormTextarea = styled.textarea`
   ${inputBase}
@@ -300,13 +327,15 @@ export const FormSubmit = styled.button<{ $loading?: boolean }>`
   padding: 0.9rem 2.2rem;
   border: none;
   border-radius: 100px;
-  cursor: ${({ $loading }) => $loading ? 'not-allowed' : 'pointer'};
-  opacity: ${({ $loading }) => $loading ? 0.7 : 1};
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: ${({ $loading }) => ($loading ? 'not-allowed' : 'pointer')};
+  opacity: ${({ $loading }) => ($loading ? 0.7 : 1)};
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(184,134,11,0.3);
+    box-shadow: 0 8px 28px rgba(184, 134, 11, 0.3);
   }
 `;
 
@@ -314,8 +343,8 @@ export const FormSuccess = styled.div`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(74,124,63,0.08);
-  border: 1px solid rgba(74,124,63,0.2);
+  background: rgba(74, 124, 63, 0.08);
+  border: 1px solid rgba(74, 124, 63, 0.2);
   border-radius: 10px;
   padding: 1rem 1.2rem;
   font-size: 0.9rem;
@@ -327,8 +356,8 @@ export const FormError = styled.div`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(192,64,48,0.07);
-  border: 1px solid rgba(192,64,48,0.2);
+  background: rgba(192, 64, 48, 0.07);
+  border: 1px solid rgba(192, 64, 48, 0.2);
   border-radius: 10px;
   padding: 1rem 1.2rem;
   font-size: 0.9rem;
@@ -348,8 +377,8 @@ export const MapEmbed = styled.div`
   overflow: hidden;
   background: #e8e4de;
   aspect-ratio: 4/3;
-  border: 1px solid rgba(0,0,0,0.07);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
   margin-bottom: 1.2rem;
 
   iframe {
@@ -367,12 +396,16 @@ export const DonationSection = styled.section<RevealProps>`
   padding: 5rem 2rem;
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0);
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+    `}
 `;
 
 export const DonationInner = styled.div`
@@ -383,8 +416,12 @@ export const DonationInner = styled.div`
   gap: 1.5rem;
   align-items: start;
 
-  @media (max-width: 768px) { grid-template-columns: 1fr 1fr; }
-  @media (max-width: 480px) { grid-template-columns: 1fr; }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const DonationHeader = styled.div`
@@ -393,8 +430,8 @@ export const DonationHeader = styled.div`
 `;
 
 export const DonationCard = styled.div`
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 1.6rem;
   display: flex;
@@ -402,19 +439,21 @@ export const DonationCard = styled.div`
   gap: 0.5rem;
   transition: border-color 0.2s ease;
 
-  &:hover { border-color: rgba(184,134,11,0.3); }
+  &:hover {
+    border-color: rgba(184, 134, 11, 0.3);
+  }
 `;
 
 export const DonationCardIcon = styled.div`
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: rgba(184,134,11,0.1);
-  border: 1px solid rgba(184,134,11,0.15);
+  background: rgba(184, 134, 11, 0.1);
+  border: 1px solid rgba(184, 134, 11, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(184,134,11,0.8);
+  color: rgba(184, 134, 11, 0.8);
   margin-bottom: 0.3rem;
 `;
 
@@ -423,7 +462,7 @@ export const DonationCardLabel = styled.div`
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.6);
+  color: rgba(184, 134, 11, 0.6);
 `;
 
 export const DonationCardValue = styled.div`
@@ -436,7 +475,7 @@ export const DonationCardValue = styled.div`
 
 export const DonationCardNote = styled.div`
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255, 255, 255, 0.35);
   margin-top: 0.2rem;
 `;
 
@@ -445,7 +484,7 @@ export const DonationEyebrow = styled.div`
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.7);
+  color: rgba(184, 134, 11, 0.7);
   margin-bottom: 0.6rem;
 `;
 
@@ -463,14 +502,16 @@ export const MapCTA = styled.a`
   align-items: center;
   gap: 0.5rem;
   background: #111;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   padding: 0.85rem 1.8rem;
   border-radius: 100px;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
   align-self: flex-start;
 
   &:hover {

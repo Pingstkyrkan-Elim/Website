@@ -118,7 +118,9 @@ export const submitDonation = async (
 
 // Mission
 export const getMissionCountries = async (): Promise<MissionCountry[]> => {
-  const response = await api.get<PaginatedResponse<MissionCountry> | MissionCountry[]>('/mission/');
+  const response = await api.get<
+    PaginatedResponse<MissionCountry> | MissionCountry[]
+  >('/mission/');
   const data = response.data;
   if (Array.isArray(data)) return data;
   return (data as PaginatedResponse<MissionCountry>).results ?? [];
@@ -132,7 +134,9 @@ export const getSecondHandStore = async (): Promise<SecondHandStore | null> => {
 
 // History
 export const getHistoryEntries = async (): Promise<HistoryEntry[]> => {
-  const response = await api.get<PaginatedResponse<HistoryEntry> | HistoryEntry[]>('/history/');
+  const response = await api.get<
+    PaginatedResponse<HistoryEntry> | HistoryEntry[]
+  >('/history/');
   const data = response.data;
   if (Array.isArray(data)) return data;
   return (data as PaginatedResponse<HistoryEntry>).results ?? [];

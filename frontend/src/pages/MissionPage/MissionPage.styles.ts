@@ -17,7 +17,7 @@ const pulse = keyframes`
 export const PageWrapper = styled.div`
   min-height: 100vh;
   background:
-    linear-gradient(rgba(10,8,6,0.72), rgba(10,8,6,0.72)),
+    linear-gradient(rgba(10, 8, 6, 0.72), rgba(10, 8, 6, 0.72)),
     url('/images/gold-world-map.jpg') center 40% / 80% no-repeat fixed,
     #12100d;
   font-family: 'Inter', sans-serif;
@@ -65,7 +65,8 @@ export const HeroEyebrow = styled.div`
   color: #b8860b;
   margin-bottom: 1.5rem;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '';
     display: block;
     width: 24px;
@@ -87,7 +88,7 @@ export const HeroTitle = styled.h1`
 
 export const HeroSubtitle = styled.p`
   font-size: clamp(15px, 1.6vw, 18px);
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.4);
   max-width: 500px;
   margin: 0 auto 3rem;
   line-height: 1.7;
@@ -120,7 +121,7 @@ export const HeroStatLabel = styled.div`
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.3);
   margin-top: 0.4rem;
 `;
 
@@ -143,8 +144,12 @@ export const HeroScrollDot = styled.div`
   background: #b8860b;
   animation: ${pulse} 1.8s ease-in-out infinite;
 
-  &:nth-child(2) { animation-delay: 0.3s; }
-  &:nth-child(3) { animation-delay: 0.6s; }
+  &:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.6s;
+  }
 `;
 
 // ── Map section ───────────────────────────────────────────────────────────────
@@ -163,9 +168,9 @@ export const MapWrapper = styled.div`
   background: #ffffff;
   padding: 2rem 2.5rem;
   box-shadow:
-    0 0 0 1px rgba(184,134,11,0.2),
-    0 24px 60px rgba(0,0,0,0.5),
-    0 0 80px rgba(184,134,11,0.06);
+    0 0 0 1px rgba(184, 134, 11, 0.2),
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(184, 134, 11, 0.06);
 `;
 
 export const MapImage = styled.img`
@@ -182,7 +187,7 @@ interface MarkerProps {
 export const Marker = styled.button<MarkerProps>`
   position: absolute;
   left: ${({ $x }) => $x}%;
-  top:  ${({ $y }) => $y}%;
+  top: ${({ $y }) => $y}%;
   transform: translate(-50%, -50%);
   background: none;
   border: none;
@@ -195,7 +200,9 @@ export const Marker = styled.button<MarkerProps>`
     height: 12px;
     border-radius: 50%;
     background: #7a4f00;
-    box-shadow: 0 0 6px rgba(122,79,0,0.6), 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow:
+      0 0 6px rgba(122, 79, 0, 0.6),
+      0 1px 3px rgba(0, 0, 0, 0.3);
     position: relative;
     z-index: 1;
   }
@@ -204,7 +211,7 @@ export const Marker = styled.button<MarkerProps>`
     position: absolute;
     inset: -5px;
     border-radius: 50%;
-    border: 1.5px solid rgba(122,79,0,0.45);
+    border: 1.5px solid rgba(122, 79, 0, 0.45);
     animation: ${pulse} 2s ease-in-out infinite;
   }
 
@@ -218,16 +225,18 @@ export const Marker = styled.button<MarkerProps>`
     font-weight: 700;
     letter-spacing: 0.06em;
     color: #3a2000;
-    background: rgba(255,255,255,0.85);
+    background: rgba(255, 255, 255, 0.85);
     padding: 2px 6px;
     border-radius: 4px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
     opacity: 0;
     transition: opacity 0.2s ease;
     pointer-events: none;
   }
 
-  &:hover .label { opacity: 1; }
+  &:hover .label {
+    opacity: 1;
+  }
 `;
 
 // ── Countries grid ────────────────────────────────────────────────────────────
@@ -255,19 +264,23 @@ export const GridTitle = styled.h2`
   margin-right: auto;
   padding: 0 2rem;
 
-  @media (max-width: 640px) { padding: 0; }
+  @media (max-width: 640px) {
+    padding: 0;
+  }
 `;
 
 export const GridSubtitle = styled.p`
   font-size: 0.95rem;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255, 255, 255, 0.35);
   margin: 0 0 3rem;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 0 2rem;
 
-  @media (max-width: 640px) { padding: 0; }
+  @media (max-width: 640px) {
+    padding: 0;
+  }
 `;
 
 export const CardsGrid = styled.div`
@@ -289,26 +302,37 @@ interface CardProps {
 }
 
 export const Card = styled.article<CardProps>`
-  background: rgba(18,14,10,0.72);
+  background: rgba(18, 14, 10, 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(184,134,11,0.18);
+  border: 1px solid rgba(184, 134, 11, 0.18);
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   opacity: 0;
   transform: translateY(24px);
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    `}
 
   &:hover {
-    border-color: rgba(184,134,11,0.35);
-    box-shadow: 0 8px 40px rgba(184,134,11,0.1), 0 0 0 1px rgba(184,134,11,0.1);
+    border-color: rgba(184, 134, 11, 0.35);
+    box-shadow:
+      0 8px 40px rgba(184, 134, 11, 0.1),
+      0 0 0 1px rgba(184, 134, 11, 0.1);
     transform: translateY(-4px);
   }
 `;
@@ -317,27 +341,33 @@ export const CardImageWrapper = styled.div`
   position: relative;
   height: 220px;
   overflow: hidden;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
 `;
 
 export const CardImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, opacity 0.3s ease;
+  transition:
+    transform 0.5s ease,
+    opacity 0.3s ease;
   opacity: 0;
 
-  &.loaded { opacity: 1; }
-  ${Card}:hover & { transform: scale(1.05); }
+  &.loaded {
+    opacity: 1;
+  }
+  ${Card}:hover & {
+    transform: scale(1.05);
+  }
 `;
 
 export const CardImageNav = styled.button<{ $dir: 'prev' | 'next' }>`
   position: absolute;
   top: 50%;
-  ${({ $dir }) => $dir === 'prev' ? 'left: 0.6rem' : 'right: 0.6rem'};
+  ${({ $dir }) => ($dir === 'prev' ? 'left: 0.6rem' : 'right: 0.6rem')};
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   width: 28px;
   height: 28px;
@@ -351,7 +381,9 @@ export const CardImageNav = styled.button<{ $dir: 'prev' | 'next' }>`
   transition: opacity 0.2s ease;
   z-index: 2;
 
-  ${CardImageWrapper}:hover & { opacity: 1; }
+  ${CardImageWrapper}:hover & {
+    opacity: 1;
+  }
 `;
 
 export const CardImageDots = styled.div`
@@ -368,7 +400,8 @@ export const CardImageDot = styled.div<{ $active: boolean }>`
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: ${({ $active }) => $active ? '#f0c040' : 'rgba(255,255,255,0.4)'};
+  background: ${({ $active }) =>
+    $active ? '#f0c040' : 'rgba(255,255,255,0.4)'};
   transition: background 0.2s ease;
 `;
 
@@ -401,9 +434,12 @@ export const CardContinent = styled.span<{ $continent: string }>`
   border-radius: 100px;
   ${({ $continent }) => {
     switch ($continent) {
-      case 'Afrika':  return 'background: rgba(234,179,8,0.12); color: #fbbf24; border: 1px solid rgba(234,179,8,0.2);';
-      case 'Asien':   return 'background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2);';
-      default:        return 'background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.2);';
+      case 'Afrika':
+        return 'background: rgba(234,179,8,0.12); color: #fbbf24; border: 1px solid rgba(234,179,8,0.2);';
+      case 'Asien':
+        return 'background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2);';
+      default:
+        return 'background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.2);';
     }
   }}
 `;
@@ -411,7 +447,7 @@ export const CardContinent = styled.span<{ $continent: string }>`
 export const CardDescription = styled.p`
   font-size: 0.88rem;
   line-height: 1.7;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   margin: 0;
 `;
 
@@ -419,7 +455,7 @@ export const CardDescription = styled.p`
 
 export const HistorySection = styled.section`
   background: transparent;
-  border-top: 1px solid rgba(184,134,11,0.1);
+  border-top: 1px solid rgba(184, 134, 11, 0.1);
   padding: 5rem 2rem;
 `;
 
@@ -438,7 +474,7 @@ export const HistoryTitle = styled.h2`
 
 export const HistorySubtitle = styled.p`
   font-size: 0.9rem;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.3);
   margin: 0 0 3rem;
 `;
 
@@ -449,16 +485,16 @@ export const HistoryGrid = styled.div`
 `;
 
 export const HistoryCard = styled.div`
-  background: rgba(18,14,10,0.72);
+  background: rgba(18, 14, 10, 0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(184,134,11,0.15);
+  border: 1px solid rgba(184, 134, 11, 0.15);
   border-radius: 12px;
   overflow: hidden;
   transition: border-color 0.2s ease;
 
   &:hover {
-    border-color: rgba(184,134,11,0.3);
+    border-color: rgba(184, 134, 11, 0.3);
   }
 `;
 
@@ -469,7 +505,9 @@ export const HistoryCardImage = styled.img`
   display: block;
   opacity: 0;
   transition: opacity 0.3s ease;
-  &.loaded { opacity: 1; }
+  &.loaded {
+    opacity: 1;
+  }
 `;
 
 export const HistoryCardBody = styled.div`
@@ -487,7 +525,7 @@ export const HistoryCardTitle = styled.h4`
 export const HistoryCardText = styled.p`
   font-size: 0.82rem;
   line-height: 1.65;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.4);
   margin: 0;
 `;
 
@@ -501,5 +539,5 @@ export const LoadingWrapper = styled.div`
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.4);
+  color: rgba(184, 134, 11, 0.4);
 `;

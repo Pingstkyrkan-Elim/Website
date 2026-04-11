@@ -10,8 +10,10 @@ export const HeaderWrapper = styled.header<{ $isOverHero?: boolean }>`
   background: transparent;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.00);
-  transition: background 0.4s ease, border-color 0.4s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease;
 
   &:hover {
     background: rgba(8, 5, 2, 0.08);
@@ -42,7 +44,10 @@ export const Logo = styled(Link)`
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.90), 0 2px 14px rgba(0, 0, 0, 0.70), 0 4px 28px rgba(0, 0, 0, 0.45);
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.9),
+    0 2px 14px rgba(0, 0, 0, 0.7),
+    0 4px 28px rgba(0, 0, 0, 0.45);
 
   &:hover {
     color: white;
@@ -79,7 +84,10 @@ export const NavLink = styled(Link)<{ $isActive?: boolean }>`
   padding: 0.5rem 0;
   transition: all 0.3s ease;
   position: relative;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.90), 0 2px 14px rgba(0, 0, 0, 0.70), 0 4px 28px rgba(0, 0, 0, 0.45);
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.9),
+    0 2px 14px rgba(0, 0, 0, 0.7),
+    0 4px 28px rgba(0, 0, 0, 0.45);
   letter-spacing: 0.02em;
 
   ${({ $isActive }) =>
@@ -279,7 +287,10 @@ export const DropdownButton = styled.button<{ $isActive?: boolean }>`
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.90), 0 2px 14px rgba(0, 0, 0, 0.70), 0 4px 28px rgba(0, 0, 0, 0.45);
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.9),
+    0 2px 14px rgba(0, 0, 0, 0.7),
+    0 4px 28px rgba(0, 0, 0, 0.45);
   letter-spacing: 0.02em;
   display: flex;
   align-items: center;
@@ -343,7 +354,7 @@ export const DropdownMenu = styled.div<{ $isOpen: boolean }>`
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 12px;
-  border: 1px solid rgba(200, 160, 80, 0.20);
+  border: 1px solid rgba(200, 160, 80, 0.2);
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.35),
     0 0 1px rgba(200, 160, 80, 0.15);
@@ -352,7 +363,8 @@ export const DropdownMenu = styled.div<{ $isOpen: boolean }>`
   margin-top: 0.5rem;
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
-  transform: ${({ $isOpen }) => ($isOpen ? 'translateY(0)' : 'translateY(-10px)')};
+  transform: ${({ $isOpen }) =>
+    $isOpen ? 'translateY(0)' : 'translateY(-10px)'};
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 1000;
 `;
@@ -370,6 +382,6 @@ export const DropdownItem = styled(Link)`
   &:hover {
     background: rgba(200, 160, 80, 0.12);
     color: white;
-    border-left-color: rgba(200, 160, 80, 0.50);
+    border-left-color: rgba(200, 160, 80, 0.5);
   }
 `;

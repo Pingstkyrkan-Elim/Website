@@ -46,11 +46,18 @@ import {
   HistLightboxCounter,
 } from './HistoriaPage.styles';
 import { staticHistoryData } from './HistoriaUtils';
-import { IconChevronLeft, IconChevronRight, IconX, IconZoomIn } from '../../components/Icons';
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconX,
+  IconZoomIn,
+} from '../../components/Icons';
 
 // ── Scroll-reveal hook ────────────────────────────────────────────────────────
 
-const useInView = (threshold = 0.12): [React.RefObject<HTMLElement>, boolean] => {
+const useInView = (
+  threshold = 0.12
+): [React.RefObject<HTMLElement>, boolean] => {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -75,14 +82,21 @@ const useInView = (threshold = 0.12): [React.RefObject<HTMLElement>, boolean] =>
 
 // ── EntryGallery (horizontal scroll + lightbox for 4+ images) ────────────────
 
-const EntryGallery: React.FC<{ images: string[]; title: string }> = ({ images, title }) => {
+const EntryGallery: React.FC<{ images: string[]; title: string }> = ({
+  images,
+  title,
+}) => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const closeLightbox = () => setLightboxIndex(null);
-  const prevLight = () => setLightboxIndex(i => i !== null ? (i - 1 + images.length) % images.length : null);
-  const nextLight = () => setLightboxIndex(i => i !== null ? (i + 1) % images.length : null);
+  const prevLight = () =>
+    setLightboxIndex(i =>
+      i !== null ? (i - 1 + images.length) % images.length : null
+    );
+  const nextLight = () =>
+    setLightboxIndex(i => (i !== null ? (i + 1) % images.length : null));
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -116,7 +130,9 @@ const EntryGallery: React.FC<{ images: string[]; title: string }> = ({ images, t
                 src={`/images/${img}`}
                 alt={`${title} — bild ${i + 1}`}
                 onLoad={e => (e.currentTarget.className = 'loaded')}
-                onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                onError={e => {
+                  (e.currentTarget as HTMLImageElement).style.display = 'none';
+                }}
               />
               <HistGalleryCardOverlay>
                 <IconZoomIn size={18} />
@@ -140,31 +156,51 @@ const EntryGallery: React.FC<{ images: string[]; title: string }> = ({ images, t
         </HistGalleryDots>
       </HistGalleryWrapper>
 
-      {lightboxIndex !== null && ReactDOM.createPortal(
-        <HistLightbox onClick={closeLightbox}>
-          <HistLightboxClose onClick={closeLightbox}><IconX size={18} /></HistLightboxClose>
-          <HistLightboxNav $dir="prev" onClick={e => { e.stopPropagation(); prevLight(); }}>
-            <IconChevronLeft size={22} />
-          </HistLightboxNav>
-          <HistLightboxImg
-            src={`/images/${images[lightboxIndex]}`}
-            alt={`${title} — bild ${lightboxIndex + 1}`}
-            onClick={e => e.stopPropagation()}
-          />
-          <HistLightboxNav $dir="next" onClick={e => { e.stopPropagation(); nextLight(); }}>
-            <IconChevronRight size={22} />
-          </HistLightboxNav>
-          <HistLightboxCounter>{lightboxIndex + 1} / {images.length}</HistLightboxCounter>
-        </HistLightbox>,
-        document.body
-      )}
+      {lightboxIndex !== null &&
+        ReactDOM.createPortal(
+          <HistLightbox onClick={closeLightbox}>
+            <HistLightboxClose onClick={closeLightbox}>
+              <IconX size={18} />
+            </HistLightboxClose>
+            <HistLightboxNav
+              $dir='prev'
+              onClick={e => {
+                e.stopPropagation();
+                prevLight();
+              }}
+            >
+              <IconChevronLeft size={22} />
+            </HistLightboxNav>
+            <HistLightboxImg
+              src={`/images/${images[lightboxIndex]}`}
+              alt={`${title} — bild ${lightboxIndex + 1}`}
+              onClick={e => e.stopPropagation()}
+            />
+            <HistLightboxNav
+              $dir='next'
+              onClick={e => {
+                e.stopPropagation();
+                nextLight();
+              }}
+            >
+              <IconChevronRight size={22} />
+            </HistLightboxNav>
+            <HistLightboxCounter>
+              {lightboxIndex + 1} / {images.length}
+            </HistLightboxCounter>
+          </HistLightbox>,
+          document.body
+        )}
     </>
   );
 };
 
 // ── TimelineEntry component ───────────────────────────────────────────────────
 
-const TimelineEntry: React.FC<{ entry: HistoryEntry; delay: number }> = ({ entry, delay }) => {
+const TimelineEntry: React.FC<{ entry: HistoryEntry; delay: number }> = ({
+  entry,
+  delay,
+}) => {
   const [ref, visible] = useInView();
 
   return (
@@ -184,8 +220,8 @@ const TimelineEntry: React.FC<{ entry: HistoryEntry; delay: number }> = ({ entry
         ))}
       </EntryContent>
 
-      {entry.images.length > 0 && (
-        entry.images.length > 3 ? (
+      {entry.images.length > 0 &&
+        (entry.images.length > 3 ? (
           <EntryGallery images={entry.images} title={entry.title} />
         ) : (
           <ImageGrid $count={entry.images.length}>
@@ -203,8 +239,7 @@ const TimelineEntry: React.FC<{ entry: HistoryEntry; delay: number }> = ({ entry
               </ImageItem>
             ))}
           </ImageGrid>
-        )
-      )}
+        ))}
 
       {entry.leaders.length > 0 && (
         <LeadersSection>
@@ -229,9 +264,10 @@ const HistoriaPage: React.FC = () => {
     retry: 1,
   });
 
-  const entries: HistoryEntry[] = Array.isArray(apiEntries) && apiEntries.length > 0
-    ? apiEntries
-    : staticHistoryData;
+  const entries: HistoryEntry[] =
+    Array.isArray(apiEntries) && apiEntries.length > 0
+      ? apiEntries
+      : staticHistoryData;
 
   return (
     <PageWrapper>
@@ -275,8 +311,8 @@ const HistoriaPage: React.FC = () => {
           församlingens 100-års jubileum 2019, samt från boken "Pingströrelsen i
           Skåne — historia och utveckling" sammanställd av Rune Sahrling.
           Dokumentationsgrupp: Bo och Christina Ganslardt, Maja Hansson,
-          Birgitta Eborn, Sten Bengtsson, Elsa Hansson, Eva Hansson,
-          Anna-Gretha Svensson, Kenneth och Marianne Olofsson och Hilda Olsson.
+          Birgitta Eborn, Sten Bengtsson, Elsa Hansson, Eva Hansson, Anna-Gretha
+          Svensson, Kenneth och Marianne Olofsson och Hilda Olsson.
         </AttributionText>
       </AttributionSection>
     </PageWrapper>

@@ -2,10 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { IconMapPin, IconClock } from '../../components/Icons';
-import {
-  getUpcomingServices,
-  getLatestNews,
-} from '../../services/api';
+import { getUpcomingServices, getLatestNews } from '../../services/api';
 import {
   HomePageWrapper,
   HeroSection,
@@ -61,7 +58,8 @@ const HomePage: React.FC = () => {
         <HeroContent>
           <HeroTitle>Välkommen till Pingstkyrkan Elim</HeroTitle>
           <HeroSubtitle>
-            Vi vill som Guds församling vara en andlig oas och verka för att göra Jesus känd, trodd och efterföljd i Trelleborg med omnejd.
+            Vi vill som Guds församling vara en andlig oas och verka för att
+            göra Jesus känd, trodd och efterföljd i Trelleborg med omnejd.
           </HeroSubtitle>
         </HeroContent>
       </HeroSection>
@@ -69,17 +67,29 @@ const HomePage: React.FC = () => {
       <FirstContentSection>
         <Container>
           <HomeWelcomeCard>
-            <HomeWelcomeCardTitle>Varmt välkommen till vår frikyrka i Trelleborg!</HomeWelcomeCardTitle>
+            <HomeWelcomeCardTitle>
+              Varmt välkommen till vår frikyrka i Trelleborg!
+            </HomeWelcomeCardTitle>
             <HomeWelcomeCardContent>
-              Vi är en åldersblandad och multietnisk pingstkyrka med många barn och ungdomar och flera olika verksamheter för alla åldrar. Vi är en församlingsfamilj med passion för att se Guds rike utbredas och människor berörda av Gud. Vi brinner för att göra Jesus känd, trodd och efterföljd i Trelleborg med omnejd. Vi hoppas att du ska upptäcka livet med Jesus och även känna dig varmt välkommen i vår församlingsgemenskap!
+              Vi är en åldersblandad och multietnisk pingstkyrka med många barn
+              och ungdomar och flera olika verksamheter för alla åldrar. Vi är
+              en församlingsfamilj med passion för att se Guds rike utbredas och
+              människor berörda av Gud. Vi brinner för att göra Jesus känd,
+              trodd och efterföljd i Trelleborg med omnejd. Vi hoppas att du ska
+              upptäcka livet med Jesus och även känna dig varmt välkommen i vår
+              församlingsgemenskap!
             </HomeWelcomeCardContent>
           </HomeWelcomeCard>
-          
+
           <HomeWelcomeCard>
             <HomeWelcomeCardTitle>Varför Elim</HomeWelcomeCardTitle>
             <HomeWelcomeCardContent>
-              Elim nämns i Bibeln som en av lägerplatserna för israeliterna under uttåget från Egypten. Elim är belägen på Sinaihalvöns västra sida, troligen vid Wadi Gharandel, en oas 100 km sydöst om Suez.
-              Enligt 4 Mos 33:9 fanns det vid Elim tolv källor och sjuttio palmer och där slog israeliterna läger efter att ha vandrat från Mara cirka 25 kilometer norr därom.
+              Elim nämns i Bibeln som en av lägerplatserna för israeliterna
+              under uttåget från Egypten. Elim är belägen på Sinaihalvöns västra
+              sida, troligen vid Wadi Gharandel, en oas 100 km sydöst om Suez.
+              Enligt 4 Mos 33:9 fanns det vid Elim tolv källor och sjuttio
+              palmer och där slog israeliterna läger efter att ha vandrat från
+              Mara cirka 25 kilometer norr därom.
             </HomeWelcomeCardContent>
           </HomeWelcomeCard>
         </Container>
@@ -89,14 +99,25 @@ const HomePage: React.FC = () => {
         <Container>
           <SectionTitle>Kommande Gudstjänster</SectionTitle>
 
-            <><HomeWelcomeCard>
-                <HomeWelcomeCardTitle>Gudstjänster varje söndag</HomeWelcomeCardTitle>
-                <HomeWelcomeCardContent>
-                  Söndagar kl. 11:00 - Våra gudstjänster präglas av sång, bön och undervisning från bibeln. Efter gudstjänsten är det gemenskap och mingel med fika. Många människor i alla åldrar söker sig till våra gudstjänster. Predikan tolkas ofta till engelska och predikotexten finns även översatt till flera olika språk. Barnen samlas till söndagskola under tiden gudstjänsten pågår. Efter gudstjänsten är det gemenskap och mingel med fika. Du och din familj är varmt välkommen att besöka oss. Det är fri parkering mellan kyrkan och Coop. Vi hoppas du ska känna dig hemma!
-                </HomeWelcomeCardContent>
-              </HomeWelcomeCard></>
-              
-              
+          <>
+            <HomeWelcomeCard>
+              <HomeWelcomeCardTitle>
+                Gudstjänster varje söndag
+              </HomeWelcomeCardTitle>
+              <HomeWelcomeCardContent>
+                Söndagar kl. 11:00 - Våra gudstjänster präglas av sång, bön och
+                undervisning från bibeln. Efter gudstjänsten är det gemenskap
+                och mingel med fika. Många människor i alla åldrar söker sig
+                till våra gudstjänster. Predikan tolkas ofta till engelska och
+                predikotexten finns även översatt till flera olika språk. Barnen
+                samlas till söndagskola under tiden gudstjänsten pågår. Efter
+                gudstjänsten är det gemenskap och mingel med fika. Du och din
+                familj är varmt välkommen att besöka oss. Det är fri parkering
+                mellan kyrkan och Coop. Vi hoppas du ska känna dig hemma!
+              </HomeWelcomeCardContent>
+            </HomeWelcomeCard>
+          </>
+
           <SectionTitle>Våra Program</SectionTitle>
           <CardsGrid>
             <Card>
@@ -169,16 +190,23 @@ const HomePage: React.FC = () => {
           <SectionTitle>Viktiga Annonser</SectionTitle>
           <ActivityCardsGrid>
             <ActivityCard>
-              <ActivityCardImage $backgroundImage="Pastor.jpg" />
+              <ActivityCardImage $backgroundImage='Pastor.jpg' />
               <ActivityCardContent>
                 <ActivityCardMainContent>
                   <ActivityCardDate>Nutid</ActivityCardDate>
-                  <ActivityCardTitle>Vi söker Pastor / Föreståndare</ActivityCardTitle>
+                  <ActivityCardTitle>
+                    Vi söker Pastor / Föreståndare
+                  </ActivityCardTitle>
                   <ActivityCardDescription>
-                    Har du ett hjärta för att nå unga människor och familjer med evangeliet? Brinner du för att leda en levande och mångkulturell församling i tillväxt? 
+                    Har du ett hjärta för att nå unga människor och familjer med
+                    evangeliet? Brinner du för att leda en levande och
+                    mångkulturell församling i tillväxt?
                   </ActivityCardDescription>
                   <ActivityCardMeta>
-                    <ActivityCardLocation><IconMapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
+                    <ActivityCardLocation>
+                      <IconMapPin size={13} />
+                      Elim Pingstkyrka
+                    </ActivityCardLocation>
                   </ActivityCardMeta>
                 </ActivityCardMainContent>
                 <ActivityCardCTA onClick={() => navigate('/events')}>
@@ -188,20 +216,26 @@ const HomePage: React.FC = () => {
             </ActivityCard>
 
             <ActivityCard>
-              <ActivityCardImage $backgroundImage="HomePage.png" />
+              <ActivityCardImage $backgroundImage='HomePage.png' />
               <ActivityCardContent>
                 <ActivityCardMainContent>
                   <ActivityCardDate>12-14 September 2025</ActivityCardDate>
                   <ActivityCardTitle>Möteshelg</ActivityCardTitle>
                   <ActivityCardDescription>
                     Fredag kl.19.00 kvällsmöte med Morgan Carlsson
-                    </ActivityCardDescription>
-                    <ActivityCardDescription>
+                  </ActivityCardDescription>
+                  <ActivityCardDescription>
                     Lördag kl.14.00 - 16.00 seminarium med Ignmar Aronson
                   </ActivityCardDescription>
                   <ActivityCardMeta>
-                    <ActivityCardLocation><IconMapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
-                    <ActivityCardTime><IconClock size={13} />Lordag: 14:00</ActivityCardTime>
+                    <ActivityCardLocation>
+                      <IconMapPin size={13} />
+                      Elim Pingstkyrka
+                    </ActivityCardLocation>
+                    <ActivityCardTime>
+                      <IconClock size={13} />
+                      Lordag: 14:00
+                    </ActivityCardTime>
                   </ActivityCardMeta>
                 </ActivityCardMainContent>
                 <ActivityCardCTA onClick={() => navigate('/events')}>
@@ -211,18 +245,25 @@ const HomePage: React.FC = () => {
             </ActivityCard>
 
             <ActivityCard>
-              <ActivityCardImage $backgroundImage="Gudtjanst.jpeg" />
+              <ActivityCardImage $backgroundImage='Gudtjanst.jpeg' />
               <ActivityCardContent>
                 <ActivityCardMainContent>
                   <ActivityCardDate>31 December 2025</ActivityCardDate>
                   <ActivityCardTitle>Nyårsbön & Reflektion</ActivityCardTitle>
                   <ActivityCardDescription>
-                    Avsluta året tillsammans i bön och tacksamhet. Vi reflekterar över det gångna året
-                    och ber för det nya som komma skall.
+                    Avsluta året tillsammans i bön och tacksamhet. Vi
+                    reflekterar över det gångna året och ber för det nya som
+                    komma skall.
                   </ActivityCardDescription>
                   <ActivityCardMeta>
-                    <ActivityCardLocation><IconMapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
-                    <ActivityCardTime><IconClock size={13} />22:00</ActivityCardTime>
+                    <ActivityCardLocation>
+                      <IconMapPin size={13} />
+                      Elim Pingstkyrka
+                    </ActivityCardLocation>
+                    <ActivityCardTime>
+                      <IconClock size={13} />
+                      22:00
+                    </ActivityCardTime>
                   </ActivityCardMeta>
                 </ActivityCardMainContent>
                 <ActivityCardCTA onClick={() => navigate('/events')}>

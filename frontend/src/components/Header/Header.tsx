@@ -59,7 +59,7 @@ const Header: React.FC = () => {
 
     // Set initial state
     handleScroll();
-    
+
     // Add scroll listener
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -100,16 +100,16 @@ const Header: React.FC = () => {
     <>
       <HeaderWrapper $isOverHero={isOverHero}>
         <Nav>
-          <Logo to='/'>
-            
-            Pingstkyrkan Elim
-          </Logo>
+          <Logo to='/'>Pingstkyrkan Elim</Logo>
 
           <DesktopNav>
             {/* Hem, Om Oss, Kalender */}
             {navigationItems.slice(0, 3).map(item => (
               <NavItem key={item.name}>
-                <NavLink to={item.path} $isActive={location.pathname === item.path}>
+                <NavLink
+                  to={item.path}
+                  $isActive={location.pathname === item.path}
+                >
                   {item.name}
                 </NavLink>
               </NavItem>
@@ -117,14 +117,14 @@ const Header: React.FC = () => {
 
             {/* Program dropdown */}
             <NavItem>
-              <DropdownContainer onClick={(e) => e.stopPropagation()}>
+              <DropdownContainer onClick={e => e.stopPropagation()}>
                 <DropdownButton
                   onClick={handleDropdownToggle}
                   $isActive={location.pathname.startsWith('/programs')}
                   className={dropdownOpen ? 'open' : ''}
                 >
                   Program
-                  <div className="arrow" />
+                  <div className='arrow' />
                 </DropdownButton>
                 <DropdownMenu $isOpen={dropdownOpen}>
                   {programItems.map(program => (
@@ -143,7 +143,10 @@ const Header: React.FC = () => {
             {/* PMU Second Hand, Mission, Kontakt */}
             {navigationItems.slice(3).map(item => (
               <NavItem key={item.name}>
-                <NavLink to={item.path} $isActive={location.pathname === item.path}>
+                <NavLink
+                  to={item.path}
+                  $isActive={location.pathname === item.path}
+                >
                   {item.name}
                 </NavLink>
               </NavItem>

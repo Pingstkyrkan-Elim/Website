@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { submitContactForm } from '../../services/api';
 import {
-  IconBankgiro, IconCheck, IconCreditCard, IconHeart,
-  IconMail, IconMapPin, IconParking, IconPhone, IconSwish, IconX,
+  IconBankgiro,
+  IconCheck,
+  IconCreditCard,
+  IconHeart,
+  IconMail,
+  IconMapPin,
+  IconParking,
+  IconPhone,
+  IconSwish,
+  IconX,
 } from '../../components/Icons';
 import {
   PageWrapper,
@@ -56,7 +64,12 @@ function useInView(threshold = 0.1) {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      ([e]) => {
+        if (e.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
       { threshold }
     );
     obs.observe(el);
@@ -68,14 +81,23 @@ function useInView(threshold = 0.1) {
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 const ContactPage: React.FC = () => {
-  const info     = useInView();
-  const main     = useInView();
+  const info = useInView();
+  const main = useInView();
   const donation = useInView();
 
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [status, setStatus] = useState<
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
   };
 
@@ -91,8 +113,10 @@ const ContactPage: React.FC = () => {
     }
   };
 
-  const address  = encodeURIComponent('Engelbrektsgatan 68, 231 34 Trelleborg, Sverige');
-  const mapsUrl  = `https://www.google.com/maps/search/?api=1&query=${address}`;
+  const address = encodeURIComponent(
+    'Engelbrektsgatan 68, 231 34 Trelleborg, Sverige'
+  );
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${address}`;
   const embedUrl = `https://maps.google.com/maps?q=${address}&output=embed&z=15`;
 
   return (
@@ -105,34 +129,47 @@ const ContactPage: React.FC = () => {
       </Hero>
 
       {/* ── Info cards ── */}
-      <InfoSection ref={info.ref as React.RefObject<HTMLElement>} $visible={info.visible}>
+      <InfoSection
+        ref={info.ref as React.RefObject<HTMLElement>}
+        $visible={info.visible}
+      >
         <InfoInner>
           <InfoCard>
-            <InfoCardIcon><IconMapPin size={18} /></InfoCardIcon>
+            <InfoCardIcon>
+              <IconMapPin size={18} />
+            </InfoCardIcon>
             <InfoCardLabel>Adress</InfoCardLabel>
             <InfoCardValue>
-              Pingstkyrkan Elim<br />
-              Engelbrektsgatan 68<br />
+              Pingstkyrkan Elim
+              <br />
+              Engelbrektsgatan 68
+              <br />
               231 34 Trelleborg
             </InfoCardValue>
           </InfoCard>
 
           <InfoCard>
-            <InfoCardIcon><IconPhone size={18} /></InfoCardIcon>
+            <InfoCardIcon>
+              <IconPhone size={18} />
+            </InfoCardIcon>
             <InfoCardLabel>Telefon</InfoCardLabel>
-            <InfoCardLink href="tel:+46761686434">0761-68 64 34</InfoCardLink>
+            <InfoCardLink href='tel:+46761686434'>0761-68 64 34</InfoCardLink>
           </InfoCard>
 
           <InfoCard>
-            <InfoCardIcon><IconMail size={18} /></InfoCardIcon>
+            <InfoCardIcon>
+              <IconMail size={18} />
+            </InfoCardIcon>
             <InfoCardLabel>E-post</InfoCardLabel>
-            <InfoCardLink href="mailto:pingstkyrkan.trelleborg@gmail.com">
+            <InfoCardLink href='mailto:pingstkyrkan.trelleborg@gmail.com'>
               pingstkyrkan.trelleborg@gmail.com
             </InfoCardLink>
           </InfoCard>
 
           <InfoCard>
-            <InfoCardIcon><IconParking size={18} /></InfoCardIcon>
+            <InfoCardIcon>
+              <IconParking size={18} />
+            </InfoCardIcon>
             <InfoCardLabel>Parkering</InfoCardLabel>
             <InfoCardValue>Fri parkering</InfoCardValue>
             <InfoCardNote>Mellan kyrkan och Coop</InfoCardNote>
@@ -141,7 +178,10 @@ const ContactPage: React.FC = () => {
       </InfoSection>
 
       {/* ── Form + Map ── */}
-      <MainSection ref={main.ref as React.RefObject<HTMLElement>} $visible={main.visible}>
+      <MainSection
+        ref={main.ref as React.RefObject<HTMLElement>}
+        $visible={main.visible}
+      >
         <MainInner>
           {/* Contact form */}
           <FormBlock>
@@ -150,38 +190,69 @@ const ContactPage: React.FC = () => {
 
             {status === 'success' ? (
               <FormSuccess>
-                <IconCheck size={16} /> Tack! Ditt meddelande har skickats. Vi återkommer så snart vi kan.
+                <IconCheck size={16} /> Tack! Ditt meddelande har skickats. Vi
+                återkommer så snart vi kan.
               </FormSuccess>
             ) : (
               <Form onSubmit={handleSubmit}>
                 <FormRow>
                   <FormGroup>
                     <FormLabel>Namn</FormLabel>
-                    <FormInput name="name" value={form.name} onChange={handleChange} placeholder="Ditt namn" required />
+                    <FormInput
+                      name='name'
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder='Ditt namn'
+                      required
+                    />
                   </FormGroup>
                   <FormGroup>
                     <FormLabel>E-post</FormLabel>
-                    <FormInput name="email" type="email" value={form.email} onChange={handleChange} placeholder="din@email.se" required />
+                    <FormInput
+                      name='email'
+                      type='email'
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder='din@email.se'
+                      required
+                    />
                   </FormGroup>
                 </FormRow>
 
                 <FormGroup>
                   <FormLabel>Ämne</FormLabel>
-                  <FormInput name="subject" value={form.subject} onChange={handleChange} placeholder="Vad handlar ditt meddelande om?" required />
+                  <FormInput
+                    name='subject'
+                    value={form.subject}
+                    onChange={handleChange}
+                    placeholder='Vad handlar ditt meddelande om?'
+                    required
+                  />
                 </FormGroup>
 
                 <FormGroup style={{ flexGrow: 1 }}>
                   <FormLabel>Meddelande</FormLabel>
-                  <FormTextarea name="message" value={form.message} onChange={handleChange} placeholder="Skriv ditt meddelande här..." required />
+                  <FormTextarea
+                    name='message'
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder='Skriv ditt meddelande här...'
+                    required
+                  />
                 </FormGroup>
 
                 {status === 'error' && (
                   <FormError>
-                    <IconX size={16} /> Något gick fel. Försök igen eller kontakta oss via telefon.
+                    <IconX size={16} /> Något gick fel. Försök igen eller
+                    kontakta oss via telefon.
                   </FormError>
                 )}
 
-                <FormSubmit type="submit" $loading={status === 'loading'} disabled={status === 'loading'}>
+                <FormSubmit
+                  type='submit'
+                  $loading={status === 'loading'}
+                  disabled={status === 'loading'}
+                >
                   {status === 'loading' ? 'Skickar…' : 'Skicka meddelande'}
                 </FormSubmit>
               </Form>
@@ -194,14 +265,14 @@ const ContactPage: React.FC = () => {
             <SectionTitle>Engelbrektsgatan 68</SectionTitle>
             <MapEmbed>
               <iframe
-                title="Pingstkyrkan Elim karta"
+                title='Pingstkyrkan Elim karta'
                 src={embedUrl}
                 allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                loading='lazy'
+                referrerPolicy='no-referrer-when-downgrade'
               />
             </MapEmbed>
-            <MapCTA href={mapsUrl} target="_blank" rel="noopener noreferrer">
+            <MapCTA href={mapsUrl} target='_blank' rel='noopener noreferrer'>
               Öppna i Google Maps →
             </MapCTA>
           </MapBlock>
@@ -209,7 +280,10 @@ const ContactPage: React.FC = () => {
       </MainSection>
 
       {/* ── Donation info ── */}
-      <DonationSection ref={donation.ref as React.RefObject<HTMLElement>} $visible={donation.visible}>
+      <DonationSection
+        ref={donation.ref as React.RefObject<HTMLElement>}
+        $visible={donation.visible}
+      >
         <DonationInner>
           <DonationHeader>
             <DonationEyebrow>Stöd vårt arbete</DonationEyebrow>
@@ -217,26 +291,40 @@ const ContactPage: React.FC = () => {
           </DonationHeader>
 
           <DonationCard>
-            <DonationCardIcon><IconSwish size={18} /></DonationCardIcon>
+            <DonationCardIcon>
+              <IconSwish size={18} />
+            </DonationCardIcon>
             <DonationCardLabel>Swish</DonationCardLabel>
             <DonationCardValue>123 494 42 11</DonationCardValue>
             <DonationCardNote>Märk med "gåva"</DonationCardNote>
           </DonationCard>
 
           <DonationCard>
-            <DonationCardIcon><IconBankgiro size={18} /></DonationCardIcon>
+            <DonationCardIcon>
+              <IconBankgiro size={18} />
+            </DonationCardIcon>
             <DonationCardLabel>Bankgiro</DonationCardLabel>
             <DonationCardValue>591-7703</DonationCardValue>
             <DonationCardNote>Märk med "gåva"</DonationCardNote>
           </DonationCard>
 
           <DonationCard>
-            <DonationCardIcon><IconHeart size={18} /></DonationCardIcon>
+            <DonationCardIcon>
+              <IconHeart size={18} />
+            </DonationCardIcon>
             <DonationCardLabel>Din gåva går till</DonationCardLabel>
-            <DonationCardValue style={{ fontSize: '1rem', fontFamily: 'Inter, sans-serif', fontWeight: 500 }}>
+            <DonationCardValue
+              style={{
+                fontSize: '1rem',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: 500,
+              }}
+            >
               Församlingens arbete lokalt och globalt
             </DonationCardValue>
-            <DonationCardNote>Mission, barn &amp; ungdom, socialt arbete</DonationCardNote>
+            <DonationCardNote>
+              Mission, barn &amp; ungdom, socialt arbete
+            </DonationCardNote>
           </DonationCard>
         </DonationInner>
       </DonationSection>

@@ -32,8 +32,9 @@ export const PageWrapper = styled.div`
 export const Hero = styled.section`
   min-height: 100vh;
   background:
-    linear-gradient(rgba(10,8,6,0.68), rgba(10,8,6,0.68)),
-    url('/images/secondhand/store-hero.jpg') center center / cover no-repeat fixed;
+    linear-gradient(rgba(10, 8, 6, 0.68), rgba(10, 8, 6, 0.68)),
+    url('/images/secondhand/store-hero.jpg') center center / cover no-repeat
+      fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,16 +52,17 @@ export const HeroEyebrow = styled.div`
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.9);
+  color: rgba(184, 134, 11, 0.9);
   margin-bottom: 1.5rem;
   animation: ${fadeUp} 0.8s ease both;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '';
     display: block;
     width: 28px;
     height: 1px;
-    background: rgba(184,134,11,0.5);
+    background: rgba(184, 134, 11, 0.5);
   }
 `;
 
@@ -73,18 +75,18 @@ export const HeroTitle = styled.h1`
   letter-spacing: -0.03em;
   line-height: 0.92;
   animation: ${fadeUp} 0.9s ease 0.1s both;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.7);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
 `;
 
 export const HeroTagline = styled.p`
   font-size: clamp(15px, 1.6vw, 19px);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   max-width: 520px;
   margin: 1.2rem auto 3rem;
   line-height: 1.7;
   font-weight: 300;
   animation: ${fadeUp} 0.9s ease 0.2s both;
-  text-shadow: 0 1px 10px rgba(0,0,0,0.7);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
 `;
 
 export const HeroBadges = styled.div`
@@ -99,13 +101,13 @@ export const HeroBadge = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 100px;
   padding: 0.5rem 1.1rem;
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
 `;
 
@@ -125,14 +127,14 @@ export const HeroScroll = styled.div`
 export const HeroScrollLine = styled.div`
   width: 1px;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(184,134,11,0.8), transparent);
+  background: linear-gradient(to bottom, rgba(184, 134, 11, 0.8), transparent);
 `;
 
 export const HeroScrollLabel = styled.span`
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
 `;
 
 // ── Info strip ────────────────────────────────────────────────────────────────
@@ -167,7 +169,7 @@ export const InfoLabel = styled.div`
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.7);
+  color: rgba(184, 134, 11, 0.7);
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -177,7 +179,7 @@ export const InfoLabel = styled.div`
     content: '';
     flex: 1;
     height: 1px;
-    background: rgba(184,134,11,0.15);
+    background: rgba(184, 134, 11, 0.15);
     animation: ${lineGrow} 0.8s ease both;
     transform-origin: left;
   }
@@ -194,10 +196,12 @@ export const HoursRow = styled.div<{ $closed?: boolean }>`
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  opacity: ${({ $closed }) => $closed ? 0.35 : 1};
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  opacity: ${({ $closed }) => ($closed ? 0.35 : 1)};
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 export const HoursDay = styled.span`
@@ -225,25 +229,29 @@ export const ContactItem = styled.a`
   text-decoration: none;
   color: inherit;
 
-  &:hover span { color: #b8860b; }
+  &:hover span {
+    color: #b8860b;
+  }
 `;
 
 export const ContactIcon = styled.div`
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: rgba(184,134,11,0.08);
-  border: 1px solid rgba(184,134,11,0.12);
+  background: rgba(184, 134, 11, 0.08);
+  border: 1px solid rgba(184, 134, 11, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   flex-shrink: 0;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 
   ${ContactItem}:hover & {
-    background: rgba(184,134,11,0.14);
-    border-color: rgba(184,134,11,0.3);
+    background: rgba(184, 134, 11, 0.14);
+    border-color: rgba(184, 134, 11, 0.3);
   }
 `;
 
@@ -254,7 +262,7 @@ export const ContactTextLabel = styled.div`
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(0,0,0,0.35);
+  color: rgba(0, 0, 0, 0.35);
   margin-bottom: 0.15rem;
 `;
 
@@ -267,19 +275,25 @@ export const ContactTextValue = styled.span`
 
 // ── Mission / About ───────────────────────────────────────────────────────────
 
-interface RevealProps { $visible: boolean; }
+interface RevealProps {
+  $visible: boolean;
+}
 
 export const AboutSection = styled.section<RevealProps>`
   background: #f7f6f4;
   padding: 6rem 2rem;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0);
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+    `}
 `;
 
 export const AboutInner = styled.div`
@@ -303,7 +317,7 @@ export const SectionEyebrow = styled.div`
   font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.7);
+  color: rgba(184, 134, 11, 0.7);
   margin-bottom: 1rem;
 `;
 
@@ -323,7 +337,9 @@ export const SectionBody = styled.p`
   color: #555;
   margin: 0 0 1rem;
 
-  &:last-child { margin-bottom: 0; }
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export const PMULink = styled.a`
@@ -336,13 +352,15 @@ export const PMULink = styled.a`
   letter-spacing: 0.05em;
   color: #b8860b;
   text-decoration: none;
-  border-bottom: 1px solid rgba(184,134,11,0.3);
+  border-bottom: 1px solid rgba(184, 134, 11, 0.3);
   padding-bottom: 2px;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
     color: #8a6200;
-    border-color: rgba(184,134,11,0.7);
+    border-color: rgba(184, 134, 11, 0.7);
   }
 `;
 
@@ -352,18 +370,20 @@ export const AboutVisual = styled.div`
 
 export const AboutCard = styled.div`
   background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.07);
+  border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 20px;
   padding: 2.5rem;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
 `;
 
 export const AboutCardStat = styled.div`
   text-align: center;
   padding: 1.5rem 1rem;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 export const AboutCardStatNumber = styled.div`
@@ -392,12 +412,16 @@ export const DonateSection = styled.section<RevealProps>`
   padding: 6rem 2rem;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0);
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+    `}
 `;
 
 export const DonateInner = styled.div`
@@ -418,7 +442,7 @@ export const DonateTitle = styled.h2`
 export const DonateBody = styled.p`
   font-size: 1rem;
   line-height: 1.8;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255, 255, 255, 0.45);
   margin: 0 0 2.5rem;
 `;
 
@@ -441,11 +465,13 @@ export const ButtonPrimary = styled.a`
   padding: 0.85rem 2rem;
   border-radius: 100px;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(184,134,11,0.35);
+    box-shadow: 0 8px 30px rgba(184, 134, 11, 0.35);
   }
 `;
 
@@ -454,18 +480,20 @@ export const ButtonOutline = styled.a`
   align-items: center;
   gap: 0.5rem;
   background: transparent;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   padding: 0.85rem 2rem;
   border-radius: 100px;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   text-decoration: none;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
-    border-color: rgba(255,255,255,0.4);
+    border-color: rgba(255, 255, 255, 0.4);
     color: #fff;
   }
 `;
@@ -478,12 +506,16 @@ export const GallerySection = styled.section<RevealProps>`
   overflow: hidden;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0);
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0);
+    `}
 `;
 
 export const GalleryHeader = styled.div`
@@ -501,10 +533,15 @@ export const GalleryTrack = styled.div`
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-interface GalleryCardProps { $index: number; $visible: boolean; }
+interface GalleryCardProps {
+  $index: number;
+  $visible: boolean;
+}
 
 export const GalleryCard = styled.div<GalleryCardProps>`
   flex: 0 0 auto;
@@ -524,13 +561,15 @@ export const GalleryCard = styled.div<GalleryCardProps>`
     box-shadow 0.3s ease;
   transition-delay: ${({ $index }) => $index * 60}ms;
 
-  ${({ $visible }) => $visible && css`
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  `}
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    `}
 
   &:hover {
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
     transform: translateY(-6px) scale(1.01);
   }
 `;
@@ -540,31 +579,39 @@ export const GalleryCardImg = styled.img`
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.6s ease;
-  &.loaded { opacity: 1; }
-  ${GalleryCard}:hover & { transform: scale(1.06); }
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s ease;
+  &.loaded {
+    opacity: 1;
+  }
+  ${GalleryCard}:hover & {
+    transform: scale(1.06);
+  }
 `;
 
 export const GalleryCardOverlay = styled.div`
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 50%);
   opacity: 0;
   transition: opacity 0.3s ease;
   display: flex;
   align-items: flex-end;
   padding: 1.2rem;
 
-  ${GalleryCard}:hover & { opacity: 1; }
+  ${GalleryCard}:hover & {
+    opacity: 1;
+  }
 `;
 
 export const GalleryCardZoomIcon = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -581,14 +628,17 @@ export const GalleryDots = styled.div`
 `;
 
 export const GalleryDot = styled.button<{ $active: boolean }>`
-  width: ${({ $active }) => $active ? '20px' : '6px'};
+  width: ${({ $active }) => ($active ? '20px' : '6px')};
   height: 6px;
   border-radius: 3px;
-  background: ${({ $active }) => $active ? '#f0c040' : 'rgba(255,255,255,0.2)'};
+  background: ${({ $active }) =>
+    $active ? '#f0c040' : 'rgba(255,255,255,0.2)'};
   border: none;
   cursor: pointer;
   padding: 0;
-  transition: width 0.3s ease, background 0.3s ease;
+  transition:
+    width 0.3s ease,
+    background 0.3s ease;
 `;
 
 export const GalleryPlaceholder = styled.div`
@@ -599,7 +649,7 @@ export const GalleryPlaceholder = styled.div`
   justify-content: center;
   gap: 1rem;
   padding: 4rem 2rem;
-  border: 1.5px dashed rgba(255,255,255,0.1);
+  border: 1.5px dashed rgba(255, 255, 255, 0.1);
   border-radius: 16px;
 `;
 
@@ -612,7 +662,7 @@ export const GalleryPlaceholderText = styled.p`
   font-size: 0.85rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255, 255, 255, 0.3);
   margin: 0;
 `;
 
@@ -632,7 +682,7 @@ export const Lightbox = styled.div`
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
@@ -646,7 +696,7 @@ export const LightboxImg = styled.img`
   max-height: 85vh;
   object-fit: contain;
   border-radius: 12px;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
   animation: ${imgIn} 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 `;
 
@@ -657,19 +707,21 @@ export const LightboxClose = styled.button`
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 
   &:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
   }
 `;
@@ -677,28 +729,32 @@ export const LightboxClose = styled.button`
 export const LightboxNav = styled.button<{ $dir: 'prev' | 'next' }>`
   position: fixed;
   top: 50%;
-  ${({ $dir }) => $dir === 'prev' ? 'left: 1.5rem' : 'right: 1.5rem'};
+  ${({ $dir }) => ($dir === 'prev' ? 'left: 1.5rem' : 'right: 1.5rem')};
   transform: translateY(-50%);
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   font-size: 1.3rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 
   &:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-50%) scale(1.1);
   }
 
-  @media (max-width: 640px) { display: none; }
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 
 export const LightboxCounter = styled.div`
@@ -708,7 +764,7 @@ export const LightboxCounter = styled.div`
   transform: translateX(-50%);
   font-size: 0.75rem;
   letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.4);
 `;
 
 // ── Loading ───────────────────────────────────────────────────────────────────
@@ -721,5 +777,5 @@ export const LoadingWrapper = styled.div`
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(184,134,11,0.4);
+  color: rgba(184, 134, 11, 0.4);
 `;
