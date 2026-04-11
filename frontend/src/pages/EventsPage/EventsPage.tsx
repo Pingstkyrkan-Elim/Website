@@ -1,17 +1,17 @@
 import {
-  BookOpen,
-  Calendar,
-  ClipboardList,
-  Clock,
-  Heart,
-  MapPin,
-  PauseCircle,
-  Printer,
-  RefreshCw,
-  Timer,
-  User,
-  X,
-} from 'lucide-react';
+  IconBookOpen as BookOpen,
+  IconCalendar as Calendar,
+  IconClipboardList as ClipboardList,
+  IconClock as Clock,
+  IconHeart as Heart,
+  IconMapPin as MapPin,
+  IconPauseCircle as PauseCircle,
+  IconPrinter as Printer,
+  IconRefreshCw as RefreshCw,
+  IconTimer as Timer,
+  IconUser as User,
+  IconX as X,
+} from '../../components/Icons';
 import React, { useCallback, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getEvents } from '../../services/api';

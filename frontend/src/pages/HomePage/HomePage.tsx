@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock } from 'lucide-react';
+import { IconMapPin, IconClock } from '../../components/Icons';
 import {
   getUpcomingServices,
   getLatestNews,
@@ -178,7 +178,7 @@ const HomePage: React.FC = () => {
                     Har du ett hjärta för att nå unga människor och familjer med evangeliet? Brinner du för att leda en levande och mångkulturell församling i tillväxt? 
                   </ActivityCardDescription>
                   <ActivityCardMeta>
-                    <ActivityCardLocation><MapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
+                    <ActivityCardLocation><IconMapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
                   </ActivityCardMeta>
                 </ActivityCardMainContent>
                 <ActivityCardCTA onClick={() => navigate('/events')}>
@@ -200,8 +200,8 @@ const HomePage: React.FC = () => {
                     Lördag kl.14.00 - 16.00 seminarium med Ignmar Aronson
                   </ActivityCardDescription>
                   <ActivityCardMeta>
-                    <ActivityCardLocation><MapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
-                    <ActivityCardTime><Clock size={13} />Lordag: 14:00</ActivityCardTime>
+                    <ActivityCardLocation><IconMapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
+                    <ActivityCardTime><IconClock size={13} />Lordag: 14:00</ActivityCardTime>
                   </ActivityCardMeta>
                 </ActivityCardMainContent>
                 <ActivityCardCTA onClick={() => navigate('/events')}>
@@ -221,8 +221,8 @@ const HomePage: React.FC = () => {
                     och ber för det nya som komma skall.
                   </ActivityCardDescription>
                   <ActivityCardMeta>
-                    <ActivityCardLocation><MapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
-                    <ActivityCardTime><Clock size={13} />22:00</ActivityCardTime>
+                    <ActivityCardLocation><IconMapPin size={13} />Elim Pingstkyrka</ActivityCardLocation>
+                    <ActivityCardTime><IconClock size={13} />22:00</ActivityCardTime>
                   </ActivityCardMeta>
                 </ActivityCardMainContent>
                 <ActivityCardCTA onClick={() => navigate('/events')}>
