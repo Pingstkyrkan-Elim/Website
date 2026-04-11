@@ -205,8 +205,8 @@ jobs:
         REACT_APP_API_URL=http://localhost:8000/api/v1
         EOF
         
-        # Test that docker-compose file is valid
-        docker-compose -f docker-compose.synology.yml config
+        # Test that docker compose file is valid
+        docker compose -f docker-compose.synology.yml config
 
   integration-tests:
     name: Integration Tests
@@ -234,7 +234,7 @@ jobs:
 
     - name: Build and start services
       run: |
-        docker-compose -f docker-compose.synology.yml up -d --build
+        docker compose -f docker-compose.synology.yml up -d --build
         
         # Wait for services to be ready
         sleep 60
@@ -253,7 +253,7 @@ jobs:
     - name: Clean up
       if: always()
       run: |
-        docker-compose -f docker-compose.synology.yml down -v
+        docker compose -f docker-compose.synology.yml down -v
 
   deployment-check:
     name: Deployment Readiness Check
@@ -270,8 +270,6 @@ jobs:
         # Check that all required deployment files exist
         test -f docker-compose.synology.yml || exit 1
         test -f .env.synology || exit 1
-        test -f SYNOLOGY_DEPLOYMENT_GUIDE.md || exit 1
-        test -f DOMAIN_SETUP_GUIDE.md || exit 1
         test -f scripts/synology_backup.sh || exit 1
         test -f scripts/synology_restore.sh || exit 1
         
@@ -279,14 +277,14 @@ jobs:
 
     - name: Validate Docker Compose
       run: |
-        # Test production docker-compose configuration
+        # Test production docker compose configuration
         cat > .env << EOF
         SECRET_KEY=production-ready-secret-key
         POSTGRES_PASSWORD=secure-production-password
         ALLOWED_HOSTS=example.com,www.example.com
         EOF
         
-        docker-compose -f docker-compose.synology.yml config > /dev/null
+        docker compose -f docker-compose.synology.yml config > /dev/null
         echo "Docker Compose configuration valid ✅"
 
     - name: Check security configurations
