@@ -125,8 +125,10 @@ export const WeekDayLabel = styled.div`
 export const DaysGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: auto;
   gap: 2px;
   padding: 0 0.8rem 0.8rem;
+  align-items: start;
 `;
 
 export const DayCell = styled.div<{
@@ -135,19 +137,20 @@ export const DayCell = styled.div<{
   $otherMonth?: boolean;
   $hasEvents?: boolean;
 }>`
-  min-height: 62px;
+  min-height: 58px;
   border-radius: 8px;
   padding: 4px 5px;
+  align-self: stretch;
   cursor: pointer;
   background: ${({ $today, $selected }) =>
     $selected
-      ? '#1a1a2e'
+      ? 'rgba(180, 120, 40, 0.12)'
       : $today
         ? 'rgba(201, 169, 110, 0.1)'
         : 'transparent'};
   border: ${({ $today, $selected }) =>
     $selected
-      ? '2px solid #1a1a2e'
+      ? '2px solid #c9a96e'
       : $today
         ? '1.5px solid rgba(201, 169, 110, 0.4)'
         : '1.5px solid transparent'};
@@ -158,7 +161,7 @@ export const DayCell = styled.div<{
 
   &:hover {
     background: ${({ $selected }) =>
-      $selected ? '#1a1a2e' : 'rgba(0, 0, 0, 0.04)'};
+      $selected ? 'rgba(180, 120, 40, 0.18)' : 'rgba(0, 0, 0, 0.04)'};
   }
 `;
 
@@ -166,7 +169,7 @@ export const DayNumber = styled.div<{ $today?: boolean; $selected?: boolean }>`
   font-size: 0.78rem;
   font-weight: ${({ $today, $selected }) =>
     $today || $selected ? '700' : '400'};
-  color: ${({ $selected }) => ($selected ? '#e8d5a3' : 'rgba(0, 0, 0, 0.7)')};
+  color: ${({ $selected }) => ($selected ? '#7a4a18' : 'rgba(0, 0, 0, 0.7)')};
   line-height: 1;
   margin-bottom: 3px;
 `;
@@ -177,29 +180,42 @@ export const DayEvents = styled.div`
   gap: 2px;
 `;
 
-export const EventPill = styled.div<{
-  $recurring?: boolean;
-  $active?: boolean;
-}>`
-  font-size: 0.62rem;
-  font-weight: 500;
-  padding: 1px 4px;
+export const EventPill = styled.div<{ $recurring?: boolean }>`
+  padding: 2px 4px 3px;
   border-radius: 3px;
   background: ${({ $recurring }) =>
-    $recurring ? 'rgba(80, 120, 200, 0.12)' : 'rgba(201, 169, 110, 0.15)'};
-  color: ${({ $recurring }) => ($recurring ? '#4a6dba' : '#9a7030')};
+    $recurring ? 'rgba(80, 120, 200, 0.1)' : 'rgba(201, 169, 110, 0.13)'};
   border-left: 2px solid
     ${({ $recurring }) => ($recurring ? '#4a6dba' : '#c9a96e')};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   cursor: pointer;
   transition: background 0.1s;
+  overflow: hidden;
 
   &:hover {
     background: ${({ $recurring }) =>
-      $recurring ? 'rgba(80, 120, 200, 0.22)' : 'rgba(201, 169, 110, 0.28)'};
+      $recurring ? 'rgba(80, 120, 200, 0.2)' : 'rgba(201, 169, 110, 0.25)'};
   }
+`;
+
+export const EventPillTitle = styled.div<{ $recurring?: boolean }>`
+  font-size: 0.61rem;
+  font-weight: 600;
+  color: ${({ $recurring }) => ($recurring ? '#4a6dba' : '#8a6020')};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+`;
+
+export const EventPillMeta = styled.div<{ $recurring?: boolean }>`
+  font-size: 0.57rem;
+  color: ${({ $recurring }) =>
+    $recurring ? 'rgba(74,109,186,0.7)' : 'rgba(138,96,32,0.65)'};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  margin-top: 1px;
 `;
 
 export const MoreDot = styled.div`
@@ -246,52 +262,67 @@ export const InactiveBadge = styled.span`
   border: 1px solid rgba(220, 60, 60, 0.15);
 `;
 
-// ── Recurring cards (horizontal grid) ────────────────────────────────────────
+// ── Recurring cards — grouped by weekday ─────────────────────────────────────
 
+// Outer flex row: one column per day, Mon → Sun
 export const RecurringGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 0.6rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   padding: 0.75rem 1rem 1rem;
 `;
 
+// One column per weekday
+export const RecurringDayGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 118px;
+  flex: 1 1 118px;
+  max-width: 160px;
+`;
+
+export const RecurringDayHeader = styled.div`
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4a6dba;
+  padding: 0 0.1rem;
+`;
+
 export const RecurringCard = styled.div<{ $selected?: boolean }>`
-  border-radius: 10px;
-  padding: 0.7rem 0.75rem 0.65rem;
+  border-radius: 9px;
+  padding: 0.6rem 0.7rem;
   cursor: pointer;
   background: ${({ $selected }) =>
-    $selected ? '#1a1a2e' : 'rgba(74, 109, 186, 0.05)'};
+    $selected ? 'rgba(180, 120, 40, 0.12)' : 'rgba(74, 109, 186, 0.05)'};
   border: 1.5px solid
-    ${({ $selected }) =>
-      $selected ? '#1a1a2e' : 'rgba(74, 109, 186, 0.18)'};
+    ${({ $selected }) => ($selected ? '#c9a96e' : 'rgba(74, 109, 186, 0.18)')};
   transition:
     background 0.15s,
     border-color 0.15s;
 
   &:hover {
     background: ${({ $selected }) =>
-      $selected ? '#1a1a2e' : 'rgba(74, 109, 186, 0.1)'};
+      $selected ? 'rgba(180, 120, 40, 0.18)' : 'rgba(74, 109, 186, 0.1)'};
     border-color: ${({ $selected }) =>
-      $selected ? '#1a1a2e' : 'rgba(74, 109, 186, 0.3)'};
+      $selected ? '#c9a96e' : 'rgba(74, 109, 186, 0.35)'};
   }
 `;
 
+// day label inside card — hidden now (shown in header), kept for compat
 export const RecurringCardDay = styled.div<{ $selected?: boolean }>`
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: ${({ $selected }) => ($selected ? '#c9a96e' : '#4a6dba')};
-  margin-bottom: 0.25rem;
+  display: none;
 `;
 
 export const RecurringCardTitle = styled.div<{ $selected?: boolean }>`
   font-size: 0.82rem;
   font-weight: 600;
-  color: ${({ $selected }) =>
-    $selected ? '#ffffff' : '#1a1a2e'};
+  color: ${({ $selected }) => ($selected ? '#7a4a18' : '#1a1a2e')};
   line-height: 1.3;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -299,16 +330,16 @@ export const RecurringCardTitle = styled.div<{ $selected?: boolean }>`
 `;
 
 export const RecurringCardTime = styled.div<{ $selected?: boolean }>`
-  font-size: 0.72rem;
-  color: ${({ $selected }) =>
-    $selected ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)'};
+  font-size: 0.71rem;
+  font-weight: 500;
+  color: ${({ $selected }) => ($selected ? '#9a6820' : '#4a6dba')};
 `;
 
 export const RecurringCardLocation = styled.div<{ $selected?: boolean }>`
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   color: ${({ $selected }) =>
-    $selected ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.3)'};
-  margin-top: 1px;
+    $selected ? 'rgba(120,70,20,0.6)' : 'rgba(0,0,0,0.32)'};
+  margin-top: 2px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -337,7 +368,7 @@ export const EventListItem = styled.div<{ $selected?: boolean }>`
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   cursor: pointer;
   background: ${({ $selected }) =>
-    $selected ? 'rgba(26, 26, 46, 0.045)' : 'transparent'};
+    $selected ? 'rgba(180, 120, 40, 0.07)' : 'transparent'};
   transition: background 0.15s;
 
   &:last-child {
@@ -359,7 +390,7 @@ export const EventDateNum = styled.div<{ $selected?: boolean }>`
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1;
-  color: ${({ $selected }) => ($selected ? '#1a1a2e' : '#1a1a2e')};
+  color: #1a1a2e;
 `;
 
 export const EventDateDow = styled.div`

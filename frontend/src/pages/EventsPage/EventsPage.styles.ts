@@ -238,6 +238,7 @@ export const ViewToggleButton = styled.button<{ $isActive: boolean }>`
 export const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: minmax(120px, auto);
   gap: 1px;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 12px;
@@ -309,6 +310,8 @@ export const CalendarDay = styled.div<{
 }>`
   background: white;
   min-height: 120px;
+  max-height: 220px;
+  overflow-y: auto;
   padding: 0.5rem;
   position: relative;
   opacity: ${({ $isCurrentMonth }) => ($isCurrentMonth ? 1 : 0.4)};
@@ -322,11 +325,13 @@ export const CalendarDay = styled.div<{
 
   @media (max-width: 768px) {
     min-height: 80px;
+    max-height: 160px;
     padding: 0.25rem;
   }
 
   @media (max-width: 480px) {
     min-height: 60px;
+    max-height: 120px;
     padding: 0.2rem;
   }
 `;

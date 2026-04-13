@@ -38,7 +38,6 @@ import {
   EventLocation,
   EventMeta,
   EventsContainer,
-  EventsCount,
   EventsGrid,
   EventSundaySchool,
   EventTime,
@@ -617,7 +616,7 @@ const EventsPage: React.FC = () => {
               $hasEvents={dayEvents.length > 0}
             >
               <DayNumber $isToday={isToday(day)}>{day.getDate()}</DayNumber>
-              {dayEvents.slice(0, 3).map(ev => (
+              {dayEvents.map(ev => (
                 <CalendarEvent
                   key={`${ev.id}-${day.toDateString()}`}
                   onClick={e => {
@@ -640,9 +639,6 @@ const EventsPage: React.FC = () => {
                   </CalendarEventTime>
                 </CalendarEvent>
               ))}
-              {dayEvents.length > 3 && (
-                <EventsCount>+{dayEvents.length - 3} till</EventsCount>
-              )}
             </CalendarDay>
           );
         })}

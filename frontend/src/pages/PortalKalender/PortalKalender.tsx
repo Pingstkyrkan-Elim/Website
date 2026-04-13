@@ -62,7 +62,6 @@ import {
   MetaDot,
   MonthGroupLabel,
   MonthTitle,
-  MoreDot,
   NavArrow,
   NewEventButton,
   PageHeader,
@@ -72,7 +71,11 @@ import {
   RecurringCardLocation,
   RecurringCardTime,
   RecurringCardTitle,
+  RecurringDayGroup,
+  RecurringDayHeader,
   RecurringGrid,
+  EventPillMeta,
+  EventPillTitle,
   SaveButton,
   SectionCount,
   SectionLabel,
@@ -694,22 +697,35 @@ const PortalKalender: React.FC = () => {
                     {cell.day}
                   </DayNumber>
                   <DayEvents>
-                    {dayEvents.slice(0, 2).map(ev => (
-                      <EventPill
-                        key={ev.id}
-                        $recurring={ev.is_recurring}
-                        onClick={e => {
-                          e.stopPropagation();
-                          selectEvent(ev);
-                        }}
-                        title={ev.title}
-                      >
-                        {ev.title}
-                      </EventPill>
-                    ))}
-                    {dayEvents.length > 2 && (
-                      <MoreDot>+{dayEvents.length - 2}</MoreDot>
-                    )}
+                    {dayEvents.map(ev => {
+                      const pillTime = ev.is_recurring
+                        ? ev.recurrence_time
+                          ? formatTime(ev.recurrence_time)
+                          : ''
+                        : ev.start_date
+                          ? localTimeStr(new Date(ev.start_date))
+                          : '';
+                      return (
+                        <EventPill
+                          key={ev.id}
+                          $recurring={ev.is_recurring}
+                          onClick={e => {
+                            e.stopPropagation();
+                            selectEvent(ev);
+                          }}
+                          title={`${ev.title} · ${pillTime} · ${ev.location}`}
+                        >
+                          <EventPillTitle $recurring={ev.is_recurring}>
+                            {ev.title}
+                          </EventPillTitle>
+                          <EventPillMeta $recurring={ev.is_recurring}>
+                            {pillTime}
+                            {pillTime && ev.location ? ' · ' : ''}
+                            {ev.location}
+                          </EventPillMeta>
+                        </EventPill>
+                      );
+                    })}
                   </DayEvents>
                 </DayCell>
               );
@@ -719,10 +735,27 @@ const PortalKalender: React.FC = () => {
 
         {/* ── Event list ── */}
         <EventListCard>
-          {/* Recurring events — horizontal cards */}
+          {/* Recurring events — grouped by weekday Mon → Sun */}
           {(() => {
-            const recurring = sortedEvents.filter(ev => ev.is_recurring);
+            const recurring = events.filter(ev => ev.is_recurring);
             if (recurring.length === 0) return null;
+
+            // Build map: recurrence_day (0–6) → events sorted by time
+            const byDay = new Map<number, typeof recurring>();
+            for (const ev of recurring) {
+              const day = ev.recurrence_day ?? 0;
+              if (!byDay.has(day)) byDay.set(day, []);
+              byDay.get(day)!.push(ev);
+            }
+            Array.from(byDay.values()).forEach(evs =>
+              evs.sort((a: PortalEvent, b: PortalEvent) =>
+                (a.recurrence_time ?? '').localeCompare(b.recurrence_time ?? '')
+              )
+            );
+
+            // Days present, in Mon-Sun order (0=Mon … 6=Sun in our model)
+            const orderedDays = [0, 1, 2, 3, 4, 5, 6].filter(d => byDay.has(d));
+
             return (
               <>
                 <SectionLabel>
@@ -730,38 +763,42 @@ const PortalKalender: React.FC = () => {
                   <SectionCount>{recurring.length}</SectionCount>
                 </SectionLabel>
                 <RecurringGrid>
-                  {recurring.map(ev => {
-                    const sel = editingEvent?.id === ev.id;
+                  {orderedDays.map(day => {
+                    const dayEvs = byDay.get(day)!;
                     const dayLabel =
-                      DAYS_OF_WEEK.find(
-                        d => d.value === String(ev.recurrence_day)
-                      )?.label ?? '—';
+                      DAYS_OF_WEEK.find(d => d.value === String(day))?.label ??
+                      '—';
                     return (
-                      <RecurringCard
-                        key={ev.id}
-                        $selected={sel}
-                        onClick={() => selectEvent(ev)}
-                      >
-                        <RecurringCardDay $selected={sel}>
-                          {dayLabel}
-                        </RecurringCardDay>
-                        <RecurringCardTitle $selected={sel}>
-                          {ev.title}
-                          {!ev.is_active && (
-                            <InactiveBadge style={{ marginLeft: 4 }}>
-                              Inaktiv
-                            </InactiveBadge>
-                          )}
-                        </RecurringCardTitle>
-                        {ev.recurrence_time && (
-                          <RecurringCardTime $selected={sel}>
-                            kl. {formatTime(ev.recurrence_time)}
-                          </RecurringCardTime>
-                        )}
-                        <RecurringCardLocation $selected={sel}>
-                          {ev.location}
-                        </RecurringCardLocation>
-                      </RecurringCard>
+                      <RecurringDayGroup key={day}>
+                        <RecurringDayHeader>{dayLabel}</RecurringDayHeader>
+                        {dayEvs.map(ev => {
+                          const sel = editingEvent?.id === ev.id;
+                          return (
+                            <RecurringCard
+                              key={ev.id}
+                              $selected={sel}
+                              onClick={() => selectEvent(ev)}
+                            >
+                              <RecurringCardTitle $selected={sel}>
+                                {ev.title}
+                                {!ev.is_active && (
+                                  <InactiveBadge style={{ marginLeft: 4 }}>
+                                    Inaktiv
+                                  </InactiveBadge>
+                                )}
+                              </RecurringCardTitle>
+                              {ev.recurrence_time && (
+                                <RecurringCardTime $selected={sel}>
+                                  kl. {formatTime(ev.recurrence_time)}
+                                </RecurringCardTime>
+                              )}
+                              <RecurringCardLocation $selected={sel}>
+                                {ev.location}
+                              </RecurringCardLocation>
+                            </RecurringCard>
+                          );
+                        })}
+                      </RecurringDayGroup>
                     );
                   })}
                 </RecurringGrid>
