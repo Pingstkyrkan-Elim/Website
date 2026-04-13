@@ -385,3 +385,108 @@ export const DropdownItem = styled(Link)`
     border-left-color: rgba(200, 160, 80, 0.5);
   }
 `;
+
+// ── Portal login button ────────────────────────────────────────────────────────
+
+export const PortalButtonWrap = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+`;
+
+export const PortalIconButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7));
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const PortalDropdown = styled.div<{ $open: boolean }>`
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: rgba(14, 10, 5, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+  border: 1px solid rgba(200, 160, 80, 0.18);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  min-width: 200px;
+  padding: 0.6rem;
+  opacity: ${({ $open }) => ($open ? 1 : 0)};
+  visibility: ${({ $open }) => ($open ? 'visible' : 'hidden')};
+  transform: ${({ $open }) => ($open ? 'translateY(0)' : 'translateY(-8px)')};
+  transition: all 0.2s ease;
+  z-index: 1001;
+`;
+
+export const PortalDropdownUser = styled.div`
+  padding: 0.5rem 0.8rem 0.7rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 0.4rem;
+`;
+
+export const PortalDropdownUserName = styled.div`
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e8d5a3;
+`;
+
+export const PortalDropdownUserRole = styled.div`
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.1rem;
+`;
+
+export const PortalDropdownItem = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: rgba(200, 160, 80, 0.1);
+    color: #e8d5a3;
+  }
+`;
+
+export const PortalDropdownLogout = styled.button`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+  margin-top: 0.2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.7rem;
+
+  &:hover {
+    background: rgba(220, 60, 60, 0.1);
+    color: #f08080;
+  }
+`;

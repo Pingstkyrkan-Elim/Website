@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import {
   HeaderWrapper,
   Nav,
@@ -20,6 +21,14 @@ import {
   DropdownButton,
   DropdownMenu,
   DropdownItem,
+  PortalButtonWrap,
+  PortalIconButton,
+  PortalDropdown,
+  PortalDropdownUser,
+  PortalDropdownUserName,
+  PortalDropdownUserRole,
+  PortalDropdownItem,
+  PortalDropdownLogout,
 } from './Header.styles';
 
 const navigationItems = [
@@ -38,63 +47,70 @@ const programItems = [
   { name: 'Ungdomsträffar', path: '/programs/ungdomstraffar' },
 ];
 
+// User icon SVG
+const UserIcon = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
 const Header: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [portalOpen, setPortalOpen] = useState(false);
   const [isOverHero, setIsOverHero] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useAuth();
+  const portalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if we're on homepage and get hero + first content section height
       if (location.pathname === '/') {
-        const heroHeight = window.innerHeight; // 100vh
-        const firstSectionHeight = window.innerHeight * 0.6; // Approximate height
-        const totalHeroArea = heroHeight + firstSectionHeight;
+        const totalHeroArea = window.innerHeight + window.innerHeight * 0.6;
         setIsOverHero(window.scrollY < totalHeroArea);
       } else {
         setIsOverHero(false);
       }
     };
-
-    // Set initial state
     handleScroll();
-
-    // Add scroll listener
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
-  const handleMobileToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const closeMobileNav = () => {
-    setMobileOpen(false);
-  };
-
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const closeDropdown = () => {
-    setDropdownOpen(false);
-  };
-
-  // Close dropdown when clicking outside
+  // Close portal dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => {
-      setDropdownOpen(false);
+    const handleClickOutside = (e: MouseEvent) => {
+      if (portalRef.current && !portalRef.current.contains(e.target as Node)) {
+        setPortalOpen(false);
+      }
     };
+    if (portalOpen) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [portalOpen]);
 
-    if (dropdownOpen) {
-      document.addEventListener('click', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
+  // Close nav dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => setDropdownOpen(false);
+    if (dropdownOpen) document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, [dropdownOpen]);
+
+  const handleLogout = () => {
+    logout();
+    setPortalOpen(false);
+    navigate('/');
+  };
 
   return (
     <>
@@ -103,23 +119,18 @@ const Header: React.FC = () => {
           <Logo to='/'>Pingstkyrkan Elim</Logo>
 
           <DesktopNav>
-            {/* Hem, Om Oss, Kalender */}
             {navigationItems.slice(0, 3).map(item => (
               <NavItem key={item.name}>
-                <NavLink
-                  to={item.path}
-                  $isActive={location.pathname === item.path}
-                >
+                <NavLink to={item.path} $isActive={location.pathname === item.path}>
                   {item.name}
                 </NavLink>
               </NavItem>
             ))}
 
-            {/* Program dropdown */}
             <NavItem>
               <DropdownContainer onClick={e => e.stopPropagation()}>
                 <DropdownButton
-                  onClick={handleDropdownToggle}
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
                   $isActive={location.pathname.startsWith('/programs')}
                   className={dropdownOpen ? 'open' : ''}
                 >
@@ -131,7 +142,7 @@ const Header: React.FC = () => {
                     <DropdownItem
                       key={program.name}
                       to={program.path}
-                      onClick={closeDropdown}
+                      onClick={() => setDropdownOpen(false)}
                     >
                       {program.name}
                     </DropdownItem>
@@ -140,23 +151,58 @@ const Header: React.FC = () => {
               </DropdownContainer>
             </NavItem>
 
-            {/* PMU Second Hand, Mission, Kontakt */}
             {navigationItems.slice(3).map(item => (
               <NavItem key={item.name}>
-                <NavLink
-                  to={item.path}
-                  $isActive={location.pathname === item.path}
-                >
+                <NavLink to={item.path} $isActive={location.pathname === item.path}>
                   {item.name}
                 </NavLink>
               </NavItem>
             ))}
           </DesktopNav>
 
-          <MobileMenuButton
-            onClick={handleMobileToggle}
-            aria-label='Toggle menu'
-          >
+          {/* Portal login/user icon */}
+          <PortalButtonWrap ref={portalRef}>
+            <PortalIconButton
+              onClick={() => setPortalOpen(!portalOpen)}
+              aria-label='Portal'
+            >
+              <UserIcon />
+            </PortalIconButton>
+
+            <PortalDropdown $open={portalOpen}>
+              {isAuthenticated && user ? (
+                <>
+                  <PortalDropdownUser>
+                    <PortalDropdownUserName>{user.full_name}</PortalDropdownUserName>
+                    <PortalDropdownUserRole>
+                      {user.groups.join(' · ') || 'Portal'}
+                    </PortalDropdownUserRole>
+                  </PortalDropdownUser>
+                  <PortalDropdownItem
+                    to='/portal/dashboard'
+                    onClick={() => setPortalOpen(false)}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    Gå till portalen
+                  </PortalDropdownItem>
+                  <PortalDropdownLogout onClick={handleLogout}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    Logga ut
+                  </PortalDropdownLogout>
+                </>
+              ) : (
+                <PortalDropdownItem
+                  to='/portal/login'
+                  onClick={() => setPortalOpen(false)}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                  Logga in på portalen
+                </PortalDropdownItem>
+              )}
+            </PortalDropdown>
+          </PortalButtonWrap>
+
+          <MobileMenuButton onClick={() => setMobileOpen(!mobileOpen)} aria-label='Toggle menu'>
             <div className='line' />
             <div className='line' />
             <div className='line' />
@@ -164,13 +210,11 @@ const Header: React.FC = () => {
         </Nav>
       </HeaderWrapper>
 
-      <MobileNavOverlay $isOpen={mobileOpen} onClick={closeMobileNav} />
+      <MobileNavOverlay $isOpen={mobileOpen} onClick={() => setMobileOpen(false)} />
       <MobileNav $isOpen={mobileOpen}>
         <MobileNavHeader>
           <MobileNavTitle>Meny</MobileNavTitle>
-          <CloseButton onClick={closeMobileNav} aria-label='Close menu'>
-            ×
-          </CloseButton>
+          <CloseButton onClick={() => setMobileOpen(false)} aria-label='Close menu'>×</CloseButton>
         </MobileNavHeader>
         <MobileNavList>
           {navigationItems.map(item => (
@@ -178,12 +222,21 @@ const Header: React.FC = () => {
               <MobileNavLink
                 to={item.path}
                 $isActive={location.pathname === item.path}
-                onClick={closeMobileNav}
+                onClick={() => setMobileOpen(false)}
               >
                 {item.name}
               </MobileNavLink>
             </MobileNavItem>
           ))}
+          <MobileNavItem>
+            <MobileNavLink
+              to={isAuthenticated ? '/portal/dashboard' : '/portal/login'}
+              $isActive={location.pathname.startsWith('/portal')}
+              onClick={() => setMobileOpen(false)}
+            >
+              {isAuthenticated ? 'Portal' : 'Logga in'}
+            </MobileNavLink>
+          </MobileNavItem>
         </MobileNavList>
       </MobileNav>
     </>

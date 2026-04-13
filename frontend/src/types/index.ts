@@ -65,6 +65,35 @@ export interface NewsPost {
   updated_at: string;
 }
 
+export interface PortalEvent {
+  id: number;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date?: string | null;
+  location: string;
+  registration_required: boolean;
+  registration_info?: string;
+  max_participants?: number | null;
+  contact_person?: string;
+  image?: string | null;
+  is_active: boolean;
+  is_recurring: boolean;
+  recurrence_day: number | null;
+  recurrence_day_display: string | null;
+  recurrence_time: string | null;
+  recurrence_duration_minutes: number | null;
+  is_suspended: boolean;
+  suspended_until: string | null;
+  next_occurrence: string | null;
+  has_sunday_school: boolean;
+  has_communion: boolean;
+  created_by: number | null;
+  created_by_name: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Event {
   id: number;
   title: string;

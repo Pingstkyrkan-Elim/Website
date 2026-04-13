@@ -29,4 +29,15 @@ urlpatterns = [
     path("mission/", views.MissionCountryListView.as_view(), name="mission-list"),
     # Second Hand
     path("second-hand/", views.secondhand_store, name="secondhand-store"),
+    # Portal — event management (authenticated, kalender group)
+    path(
+        "portal/events/",
+        views.PortalEventListCreateView.as_view(),
+        name="portal-event-list",
+    ),
+    path(
+        "portal/events/<int:pk>/",
+        views.PortalEventDetailView.as_view(),
+        name="portal-event-detail",
+    ),
 ]

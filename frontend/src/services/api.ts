@@ -12,6 +12,7 @@ import {
   ContactForm,
   DonationForm,
   PaginatedResponse,
+  PortalEvent,
 } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api/v1';
@@ -23,20 +24,38 @@ const api = axios.create({
   },
 });
 
-// Add request interceptor for authentication if needed
-api.interceptors.request.use(
-  config => {
-    // Add auth token if available
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
+// Attach JWT token to every request
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
+  return config;
+});
+
+// ── Portal auth ───────────────────────────────────────────────────────────────
+
+export interface PortalUser {
+  id: number;
+  first_name: string;
+  last_name: string;
+  full_name: string;
+  email: string;
+  groups: string[];
+}
+
+export const loginUser = async (
+  email: string,
+  password: string
+): Promise<{ access: string; refresh: string }> => {
+  const response = await api.post('/users/auth/login/', { email, password });
+  return response.data;
+};
+
+export const getPortalMe = async (): Promise<PortalUser> => {
+  const response = await api.get<PortalUser>('/users/auth/me/');
+  return response.data;
+};
 
 // Church information
 export const getChurchInfo = async (): Promise<ChurchInfo> => {
@@ -140,6 +159,40 @@ export const getHistoryEntries = async (): Promise<HistoryEntry[]> => {
   const data = response.data;
   if (Array.isArray(data)) return data;
   return (data as PaginatedResponse<HistoryEntry>).results ?? [];
+};
+
+// ── Portal: Event CRUD ────────────────────────────────────────────────────────
+
+export const portalGetEvents = async (): Promise<PortalEvent[]> => {
+  const response = await api.get<{ count: number; results: PortalEvent[] }>(
+    '/portal/events/'
+  );
+  return response.data.results ?? (response.data as unknown as PortalEvent[]);
+};
+
+export const portalCreateEvent = async (
+  data: FormData | Partial<PortalEvent>
+): Promise<PortalEvent> => {
+  const isFormData = data instanceof FormData;
+  const response = await api.post<PortalEvent>('/portal/events/', data, {
+    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+  });
+  return response.data;
+};
+
+export const portalUpdateEvent = async (
+  id: number,
+  data: FormData | Partial<PortalEvent>
+): Promise<PortalEvent> => {
+  const isFormData = data instanceof FormData;
+  const response = await api.patch<PortalEvent>(`/portal/events/${id}/`, data, {
+    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+  });
+  return response.data;
+};
+
+export const portalDeleteEvent = async (id: number): Promise<void> => {
+  await api.delete(`/portal/events/${id}/`);
 };
 
 export default api;

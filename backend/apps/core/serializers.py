@@ -75,6 +75,30 @@ class EventSerializer(serializers.ModelSerializer):
         return dt.isoformat()
 
 
+class PortalEventSerializer(serializers.ModelSerializer):
+    """Full event serializer for the portal — includes authorship info"""
+
+    recurrence_day_display = serializers.CharField(
+        source="get_recurrence_day_display", read_only=True
+    )
+    next_occurrence = serializers.SerializerMethodField()
+    created_by_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Event
+        fields = "__all__"
+        read_only_fields = ["created_at", "updated_at", "created_by"]
+
+    def get_next_occurrence(self, obj):
+        dt = obj.get_next_occurrence()
+        return dt.isoformat() if dt else None
+
+    def get_created_by_name(self, obj):
+        if obj.created_by:
+            return obj.created_by.get_full_name() or obj.created_by.email
+        return None
+
+
 class DonationSerializer(serializers.ModelSerializer):
     donation_type_display = serializers.CharField(
         source="get_donation_type_display", read_only=True

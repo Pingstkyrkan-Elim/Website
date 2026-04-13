@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Routes,
+  Navigate,
   Route,
+  Routes,
   useLocation,
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './components/GlobalStyles/GlobalStyles';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 import Layout from './components/Layout/Layout';
+import PortalLayout from './components/PortalLayout/PortalLayout';
+
 import HomePage from './pages/HomePage/HomePage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import HistoriaPage from './pages/HistoriaPage/HistoriaPage';
@@ -23,6 +27,9 @@ import ContactPage from './pages/ContactPage/ContactPage';
 import TeamPage from './pages/TeamPage/TeamPage';
 import CountryDetailPage from './pages/CountryDetailPage/CountryDetailPage';
 import SecondHandPage from './pages/SecondHandPage/SecondHandPage';
+import PortalLoginPage from './pages/PortalLoginPage/PortalLoginPage';
+import PortalDashboard from './pages/PortalDashboard/PortalDashboard';
+import PortalKalender from './pages/PortalKalender/PortalKalender';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -32,19 +39,26 @@ function ScrollToTop() {
   return null;
 }
 
-// Modern church theme with styled-components
+// Protected route — redirects to login if not authenticated
+function PortalRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated, isLoading } = useAuth();
+  if (isLoading) return null;
+  if (!isAuthenticated) return <Navigate to='/portal/login' replace />;
+  return <PortalLayout>{children}</PortalLayout>;
+}
+
+// Redirect already-logged-in users away from login page
+function GuestRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated, isLoading } = useAuth();
+  if (isLoading) return null;
+  if (isAuthenticated) return <Navigate to='/portal/dashboard' replace />;
+  return <>{children}</>;
+}
+
 const theme = {
   colors: {
-    primary: {
-      main: '#7a5828',
-      light: '#a07840',
-      dark: '#4a3418',
-    },
-    secondary: {
-      main: '#c8922a',
-      light: '#dba840',
-      dark: '#a07020',
-    },
+    primary: { main: '#7a5828', light: '#a07840', dark: '#4a3418' },
+    secondary: { main: '#c8922a', light: '#dba840', dark: '#a07020' },
     neutral: {
       white: '#ffffff',
       light: '#f5ede0',
@@ -98,13 +112,9 @@ const theme = {
   },
 };
 
-// Create a query client for React Query
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      retry: 1,
-    },
+    queries: { staleTime: 5 * 60 * 1000, retry: 1 },
   },
 });
 
@@ -114,27 +124,146 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Router>
-          <ScrollToTop />
-          <Layout>
+          <AuthProvider>
+            <ScrollToTop />
             <Routes>
-              <Route path='/' element={<HomePage />} />
-              <Route path='/about' element={<AboutPage />} />
-              <Route path='/historia' element={<HistoriaPage />} />
-              <Route path='/mission' element={<MissionPage />} />
+              {/* ── Public website ─────────────────────────────────────── */}
+              <Route
+                path='/'
+                element={
+                  <Layout>
+                    <HomePage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/about'
+                element={
+                  <Layout>
+                    <AboutPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/historia'
+                element={
+                  <Layout>
+                    <HistoriaPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/mission'
+                element={
+                  <Layout>
+                    <MissionPage />
+                  </Layout>
+                }
+              />
               <Route
                 path='/mission/country/:id'
-                element={<CountryDetailPage />}
+                element={
+                  <Layout>
+                    <CountryDetailPage />
+                  </Layout>
+                }
               />
-              <Route path='/programs' element={<ProgramsPage />} />
-              <Route path='/news' element={<NewsPage />} />
-              <Route path='/news/:id' element={<NewsDetailPage />} />
-              <Route path='/events' element={<EventsPage />} />
-              <Route path='/events/:id' element={<EventDetailPage />} />
-              <Route path='/team' element={<TeamPage />} />
-              <Route path='/contact' element={<ContactPage />} />
-              <Route path='/pmu-second-hand' element={<SecondHandPage />} />
+              <Route
+                path='/programs'
+                element={
+                  <Layout>
+                    <ProgramsPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/news'
+                element={
+                  <Layout>
+                    <NewsPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/news/:id'
+                element={
+                  <Layout>
+                    <NewsDetailPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/events'
+                element={
+                  <Layout>
+                    <EventsPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/events/:id'
+                element={
+                  <Layout>
+                    <EventDetailPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/team'
+                element={
+                  <Layout>
+                    <TeamPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/contact'
+                element={
+                  <Layout>
+                    <ContactPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/pmu-second-hand'
+                element={
+                  <Layout>
+                    <SecondHandPage />
+                  </Layout>
+                }
+              />
+
+              {/* ── Portal ─────────────────────────────────────────────── */}
+              <Route
+                path='/portal'
+                element={<Navigate to='/portal/login' replace />}
+              />
+              <Route
+                path='/portal/login'
+                element={
+                  <GuestRoute>
+                    <PortalLoginPage />
+                  </GuestRoute>
+                }
+              />
+              <Route
+                path='/portal/dashboard'
+                element={
+                  <PortalRoute>
+                    <PortalDashboard />
+                  </PortalRoute>
+                }
+              />
+              <Route
+                path='/portal/kalender'
+                element={
+                  <PortalRoute>
+                    <PortalKalender />
+                  </PortalRoute>
+                }
+              />
             </Routes>
-          </Layout>
+          </AuthProvider>
         </Router>
       </ThemeProvider>
     </QueryClientProvider>

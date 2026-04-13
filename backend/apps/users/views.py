@@ -3,10 +3,48 @@ from django.contrib.auth import get_user_model
 from rest_framework import generics, permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import UserCreateSerializer, UserSerializer, UserUpdateSerializer
 
 User = get_user_model()
+
+
+# ── JWT Auth ──────────────────────────────────────────────────────────────────
+
+
+class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Accept email instead of username for login"""
+
+    username_field = User.USERNAME_FIELD  # = "email"
+
+
+class PortalLoginView(TokenObtainPairView):
+    """POST email + password → access + refresh JWT tokens"""
+
+    serializer_class = EmailTokenObtainPairSerializer
+
+
+@api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
+def portal_me(request):
+    """Return current user info + portal permission groups"""
+    user = request.user
+    groups = list(user.groups.values_list("name", flat=True))
+    return Response(
+        {
+            "id": user.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "full_name": user.full_name,
+            "email": user.email,
+            "groups": groups,
+        }
+    )
+
+
+# ── Users ─────────────────────────────────────────────────────────────────────
 
 
 class UserListView(generics.ListAPIView):

@@ -25,11 +25,23 @@ from .serializers import (
     HistoryEntrySerializer,
     MissionCountrySerializer,
     NewsPostSerializer,
+    PortalEventSerializer,
     ProgramSerializer,
     SecondHandStoreSerializer,
     ServiceSerializer,
     TeamMemberSerializer,
 )
+
+
+class IsKalenderUser(permissions.BasePermission):
+    """Allow access only to users in the 'kalender' group"""
+
+    def has_permission(self, request, view):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.groups.filter(name="kalender").exists()
+        )
 
 
 class ServiceListView(generics.ListAPIView):
@@ -205,3 +217,25 @@ def secondhand_store(request):
         return Response(None)
     serializer = SecondHandStoreSerializer(store)
     return Response(serializer.data)
+
+
+# ── Portal: Event CRUD (requires kalender permission) ─────────────────────────
+
+
+class PortalEventListCreateView(generics.ListCreateAPIView):
+    """List all events or create a new one (kalender users only)"""
+
+    queryset = Event.objects.select_related("created_by").order_by("-start_date")
+    serializer_class = PortalEventSerializer
+    permission_classes = [IsKalenderUser]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+class PortalEventDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Retrieve, update or delete a single event (kalender users only)"""
+
+    queryset = Event.objects.select_related("created_by")
+    serializer_class = PortalEventSerializer
+    permission_classes = [IsKalenderUser]

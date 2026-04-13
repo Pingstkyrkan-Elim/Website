@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
@@ -171,6 +172,16 @@ class Event(BaseModel):
         blank=True,
         null=True,
         help_text="Automatically resume from this date. Leave blank to suspend indefinitely.",  # noqa: E501
+    )
+
+    # Authorship
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="created_events",
+        verbose_name="Skapad av",
     )
 
     # Extra features
