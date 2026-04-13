@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  Announcement,
   ChurchInfo,
   HistoryEntry,
   MissionCountry,
@@ -193,6 +194,55 @@ export const portalUpdateEvent = async (
 
 export const portalDeleteEvent = async (id: number): Promise<void> => {
   await api.delete(`/portal/events/${id}/`);
+};
+
+// ── Announcements (public) ────────────────────────────────────────────────────
+
+export const getAnnouncements = async (): Promise<Announcement[]> => {
+  const response = await api.get<Announcement[] | { results: Announcement[] }>(
+    '/announcements/'
+  );
+  const data = response.data;
+  if (Array.isArray(data)) return data;
+  return data.results ?? [];
+};
+
+// ── Portal: Announcement CRUD ─────────────────────────────────────────────────
+
+export const portalGetAnnouncements = async (): Promise<Announcement[]> => {
+  const response = await api.get<Announcement[] | { results: Announcement[] }>(
+    '/portal/announcements/'
+  );
+  const data = response.data;
+  if (Array.isArray(data)) return data;
+  return data.results ?? [];
+};
+
+export const portalCreateAnnouncement = async (
+  data: FormData | Partial<Announcement>
+): Promise<Announcement> => {
+  const isFormData = data instanceof FormData;
+  const response = await api.post<Announcement>('/portal/announcements/', data, {
+    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+  });
+  return response.data;
+};
+
+export const portalUpdateAnnouncement = async (
+  id: number,
+  data: FormData | Partial<Announcement>
+): Promise<Announcement> => {
+  const isFormData = data instanceof FormData;
+  const response = await api.patch<Announcement>(
+    `/portal/announcements/${id}/`,
+    data,
+    { headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {} }
+  );
+  return response.data;
+};
+
+export const portalDeleteAnnouncement = async (id: number): Promise<void> => {
+  await api.delete(`/portal/announcements/${id}/`);
 };
 
 export default api;

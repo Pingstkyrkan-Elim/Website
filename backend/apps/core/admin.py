@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import (
+    Announcement,
     Contact,
     Donation,
     Event,
@@ -12,6 +13,16 @@ from .models import (
     Service,
     TeamMember,
 )
+
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ("title", "date", "location", "is_active", "created_at")
+    list_filter = ("is_active", "date")
+    search_fields = ("title", "description", "location")
+    list_editable = ("is_active",)
+    date_hierarchy = "date"
+    ordering = ("-date",)
 
 
 @admin.register(Service)

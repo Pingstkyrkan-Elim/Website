@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import (
+    Announcement,
     Contact,
     Donation,
     Event,
@@ -169,6 +170,13 @@ class SecondHandStoreSerializer(serializers.ModelSerializer):
             "pmu_url",
             "donation_info",
         ]
+
+
+class AnnouncementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Announcement
+        fields = ["id", "title", "description", "date", "location", "image", "is_active", "created_at", "updated_at"]
+        read_only_fields = ["id", "created_at", "updated_at"]
 
 
 class TeamMemberSerializer(serializers.ModelSerializer):

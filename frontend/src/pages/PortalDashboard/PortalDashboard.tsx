@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { IconCalendar, IconHeart } from '../../components/Icons';
+import { IconCalendar, IconClipboardList, IconHeart } from '../../components/Icons';
 import {
   CardCTA,
   CardDescription,
@@ -37,6 +37,16 @@ const PORTAL_SECTIONS: PortalSection[] = [
       'Lägg till och redigera gudstjänster och evenemang. Hantera återkommande aktiviteter och specialevenemang.',
     icon: <IconCalendar size={20} color="#c9a96e" />,
     color: 'rgba(201, 169, 110, 0.12)',
+  },
+  {
+    key: 'annonser',
+    permission: 'kalender',
+    path: '/portal/annonser',
+    label: 'Annonser',
+    description:
+      'Skapa och hantera viktiga annonser som visas på startsidan. Ange datum, plats och beskrivning.',
+    icon: <IconClipboardList size={20} color="#7a9e7e" />,
+    color: 'rgba(122, 158, 126, 0.12)',
   },
   {
     key: 'lovsang',

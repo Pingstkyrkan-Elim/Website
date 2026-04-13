@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { IconCalendar, IconHeart, IconHome } from '../Icons';
+import { IconCalendar, IconClipboardList, IconHeart, IconHome } from '../Icons';
 import {
   Breadcrumb,
   LogoutButton,
@@ -44,6 +44,12 @@ const NAV_ITEMS: NavEntry[] = [
     permission: 'kalender',
   },
   {
+    path: '/portal/annonser',
+    label: 'Annonser',
+    icon: <IconClipboardList size={16} />,
+    permission: 'kalender',
+  },
+  {
     path: '/portal/lovsang',
     label: 'Lovsång',
     icon: <IconHeart size={16} />,
@@ -54,6 +60,7 @@ const NAV_ITEMS: NavEntry[] = [
 const PAGE_TITLES: Record<string, string> = {
   '/portal/dashboard': 'Översikt',
   '/portal/kalender': 'Kalender',
+  '/portal/annonser': 'Annonser',
   '/portal/lovsang': 'Lovsång',
 };
 

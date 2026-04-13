@@ -5,6 +5,19 @@ from . import views
 urlpatterns = [
     # Church information
     path("church-info/", views.church_info, name="church-info"),
+    # Announcements (public)
+    path("announcements/", views.AnnouncementListView.as_view(), name="announcement-list"),
+    # Portal — announcement management (authenticated, kalender group)
+    path(
+        "portal/announcements/",
+        views.PortalAnnouncementListCreateView.as_view(),
+        name="portal-announcement-list",
+    ),
+    path(
+        "portal/announcements/<int:pk>/",
+        views.PortalAnnouncementDetailView.as_view(),
+        name="portal-announcement-detail",
+    ),
     # Services
     path("services/", views.ServiceListView.as_view(), name="service-list"),
     path("services/upcoming/", views.upcoming_services, name="upcoming-services"),

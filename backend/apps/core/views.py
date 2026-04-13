@@ -7,6 +7,7 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 
 from .models import (
+    Announcement,
     Contact,
     Donation,
     Event,
@@ -19,6 +20,7 @@ from .models import (
     TeamMember,
 )
 from .serializers import (
+    AnnouncementSerializer,
     ContactSerializer,
     DonationSerializer,
     EventSerializer,
@@ -217,6 +219,33 @@ def secondhand_store(request):
         return Response(None)
     serializer = SecondHandStoreSerializer(store)
     return Response(serializer.data)
+
+
+class AnnouncementListView(generics.ListAPIView):
+    """List active announcements for the public home page"""
+
+    queryset = Announcement.objects.filter(is_active=True)
+    serializer_class = AnnouncementSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+# ── Portal: Announcement CRUD (requires kalender permission) ──────────────────
+
+
+class PortalAnnouncementListCreateView(generics.ListCreateAPIView):
+    """List all announcements or create a new one (kalender users only)"""
+
+    queryset = Announcement.objects.order_by("-date")
+    serializer_class = AnnouncementSerializer
+    permission_classes = [IsKalenderUser]
+
+
+class PortalAnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Retrieve, update or delete a single announcement (kalender users only)"""
+
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+    permission_classes = [IsKalenderUser]
 
 
 # ── Portal: Event CRUD (requires kalender permission) ─────────────────────────

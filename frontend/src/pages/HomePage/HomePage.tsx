@@ -1,8 +1,9 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { IconMapPin, IconClock } from '../../components/Icons';
-import { getLatestNews } from '../../services/api';
+import { IconMapPin } from '../../components/Icons';
+import { getAnnouncements, getLatestNews } from '../../services/api';
+import { Announcement } from '../../types';
 import {
   HomePageWrapper,
   HeroSection,
@@ -32,7 +33,6 @@ import {
   ActivityCardDescription,
   ActivityCardMeta,
   ActivityCardLocation,
-  ActivityCardTime,
   ActivityCardCTA,
   CardContentWrapper,
 } from './HomePage.styles';
@@ -43,6 +43,16 @@ const HomePage: React.FC = () => {
     queryKey: ['latestNews'],
     queryFn: () => getLatestNews(3),
   });
+
+  const { data: allAnnouncements = [] } = useQuery(
+    'announcements',
+    getAnnouncements
+  );
+
+  // 3 most recent, newest first (left to right)
+  const announcements: Announcement[] = [...allAnnouncements]
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .slice(0, 3);
 
   return (
     <HomePageWrapper>
@@ -177,95 +187,55 @@ const HomePage: React.FC = () => {
         </Container>
       </ContentSection>
 
-      <ActivitiesSection>
-        <Container>
-          <SectionTitle>Viktiga Annonser</SectionTitle>
-          <ActivityCardsGrid>
-            <ActivityCard>
-              <ActivityCardImage $backgroundImage='Pastor.jpg' />
-              <ActivityCardContent>
-                <ActivityCardMainContent>
-                  <ActivityCardDate>Nutid</ActivityCardDate>
-                  <ActivityCardTitle>
-                    Vi söker Pastor / Föreståndare
-                  </ActivityCardTitle>
-                  <ActivityCardDescription>
-                    Har du ett hjärta för att nå unga människor och familjer med
-                    evangeliet? Brinner du för att leda en levande och
-                    mångkulturell församling i tillväxt?
-                  </ActivityCardDescription>
-                  <ActivityCardMeta>
-                    <ActivityCardLocation>
-                      <IconMapPin size={13} />
-                      Elim Pingstkyrka
-                    </ActivityCardLocation>
-                  </ActivityCardMeta>
-                </ActivityCardMainContent>
-                <ActivityCardCTA onClick={() => navigate('/events')}>
-                  Läs mer
-                </ActivityCardCTA>
-              </ActivityCardContent>
-            </ActivityCard>
-
-            <ActivityCard>
-              <ActivityCardImage $backgroundImage='HomePage.png' />
-              <ActivityCardContent>
-                <ActivityCardMainContent>
-                  <ActivityCardDate>12-14 September 2025</ActivityCardDate>
-                  <ActivityCardTitle>Möteshelg</ActivityCardTitle>
-                  <ActivityCardDescription>
-                    Fredag kl.19.00 kvällsmöte med Morgan Carlsson
-                  </ActivityCardDescription>
-                  <ActivityCardDescription>
-                    Lördag kl.14.00 - 16.00 seminarium med Ignmar Aronson
-                  </ActivityCardDescription>
-                  <ActivityCardMeta>
-                    <ActivityCardLocation>
-                      <IconMapPin size={13} />
-                      Elim Pingstkyrka
-                    </ActivityCardLocation>
-                    <ActivityCardTime>
-                      <IconClock size={13} />
-                      Lordag: 14:00
-                    </ActivityCardTime>
-                  </ActivityCardMeta>
-                </ActivityCardMainContent>
-                <ActivityCardCTA onClick={() => navigate('/events')}>
-                  Läs mer
-                </ActivityCardCTA>
-              </ActivityCardContent>
-            </ActivityCard>
-
-            <ActivityCard>
-              <ActivityCardImage $backgroundImage='Gudtjanst.jpeg' />
-              <ActivityCardContent>
-                <ActivityCardMainContent>
-                  <ActivityCardDate>31 December 2025</ActivityCardDate>
-                  <ActivityCardTitle>Nyårsbön & Reflektion</ActivityCardTitle>
-                  <ActivityCardDescription>
-                    Avsluta året tillsammans i bön och tacksamhet. Vi
-                    reflekterar över det gångna året och ber för det nya som
-                    komma skall.
-                  </ActivityCardDescription>
-                  <ActivityCardMeta>
-                    <ActivityCardLocation>
-                      <IconMapPin size={13} />
-                      Elim Pingstkyrka
-                    </ActivityCardLocation>
-                    <ActivityCardTime>
-                      <IconClock size={13} />
-                      22:00
-                    </ActivityCardTime>
-                  </ActivityCardMeta>
-                </ActivityCardMainContent>
-                <ActivityCardCTA onClick={() => navigate('/events')}>
-                  Läs mer
-                </ActivityCardCTA>
-              </ActivityCardContent>
-            </ActivityCard>
-          </ActivityCardsGrid>
-        </Container>
-      </ActivitiesSection>
+      {announcements.length > 0 && (
+        <ActivitiesSection>
+          <Container>
+            <SectionTitle>Viktiga Annonser</SectionTitle>
+            <ActivityCardsGrid>
+              {announcements.map((a: Announcement) => (
+                <ActivityCard key={a.id}>
+                  <ActivityCardImage
+                    $backgroundImage={a.image ? undefined : undefined}
+                    style={
+                      a.image
+                        ? {
+                            backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('${a.image}')`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                          }
+                        : undefined
+                    }
+                  />
+                  <ActivityCardContent>
+                    <ActivityCardMainContent>
+                      <ActivityCardDate>
+                        {new Date(a.date + 'T00:00:00').toLocaleDateString(
+                          'sv-SE',
+                          { day: 'numeric', month: 'long', year: 'numeric' }
+                        )}
+                      </ActivityCardDate>
+                      <ActivityCardTitle>{a.title}</ActivityCardTitle>
+                      {a.description && (
+                        <ActivityCardDescription>
+                          {a.description}
+                        </ActivityCardDescription>
+                      )}
+                      {a.location && (
+                        <ActivityCardMeta>
+                          <ActivityCardLocation>
+                            <IconMapPin size={13} />
+                            {a.location}
+                          </ActivityCardLocation>
+                        </ActivityCardMeta>
+                      )}
+                    </ActivityCardMainContent>
+                  </ActivityCardContent>
+                </ActivityCard>
+              ))}
+            </ActivityCardsGrid>
+          </Container>
+        </ActivitiesSection>
+      )}
 
       {latestNews && latestNews.length > 0 && (
         <ContentSection>

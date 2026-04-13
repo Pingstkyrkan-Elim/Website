@@ -373,6 +373,24 @@ class SecondHandStore(BaseModel):
         return self.name
 
 
+class Announcement(BaseModel):
+    """Viktiga annonser — important announcements shown on the home page"""
+
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    date = models.DateField()
+    location = models.CharField(max_length=200, blank=True)
+    image = models.ImageField(upload_to="announcements/", blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "announcements"
+        ordering = ["date"]
+
+    def __str__(self):
+        return f"{self.title} ({self.date})"
+
+
 class TeamMember(BaseModel):
     """Church team members and leadership"""
 

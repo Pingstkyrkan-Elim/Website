@@ -122,6 +122,18 @@ export interface Event {
   updated_at: string;
 }
 
+export interface Announcement {
+  id: number;
+  title: string;
+  description: string;
+  date: string; // "YYYY-MM-DD"
+  location: string;
+  image?: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface TeamMember {
   id: number;
   name: string;
