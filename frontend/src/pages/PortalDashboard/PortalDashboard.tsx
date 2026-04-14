@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { IconCalendar, IconClipboardList, IconHeart } from '../../components/Icons';
+import { IconCalendar, IconClipboardList } from '../../components/Icons';
 import {
   CardCTA,
   CardDescription,
@@ -47,16 +47,6 @@ const PORTAL_SECTIONS: PortalSection[] = [
       'Skapa och hantera viktiga annonser som visas på startsidan. Ange datum, plats och beskrivning.',
     icon: <IconClipboardList size={20} color="#7a9e7e" />,
     color: 'rgba(122, 158, 126, 0.12)',
-  },
-  {
-    key: 'lovsang',
-    permission: 'lovsang',
-    path: '/portal/lovsang',
-    label: 'Lovsång',
-    description:
-      'Hantera lovsångsguidens låtar, ackord och schema. Håll lovsångsteamet uppdaterat.',
-    icon: <IconHeart size={20} color="#e87b8c" />,
-    color: 'rgba(232, 123, 140, 0.1)',
   },
 ];
 

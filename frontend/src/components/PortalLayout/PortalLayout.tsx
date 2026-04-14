@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { IconCalendar, IconClipboardList, IconHeart, IconHome } from '../Icons';
+import { IconCalendar, IconClipboardList, IconHome } from '../Icons';
 import {
   Breadcrumb,
   LogoutButton,
@@ -49,19 +49,12 @@ const NAV_ITEMS: NavEntry[] = [
     icon: <IconClipboardList size={16} />,
     permission: 'kalender',
   },
-  {
-    path: '/portal/lovsang',
-    label: 'Lovsång',
-    icon: <IconHeart size={16} />,
-    permission: 'lovsang',
-  },
 ];
 
 const PAGE_TITLES: Record<string, string> = {
   '/portal/dashboard': 'Översikt',
   '/portal/kalender': 'Kalender',
   '/portal/annonser': 'Annonser',
-  '/portal/lovsang': 'Lovsång',
 };
 
 interface PortalLayoutProps {
