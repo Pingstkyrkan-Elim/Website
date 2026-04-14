@@ -47,7 +47,7 @@ export const HeroSection = styled.section`
     content: '';
     position: absolute;
     inset: 0;
-    background: url('/images/Activity-1.png') center center / cover no-repeat;
+    background: url('/images/alpha-hero.jpg') center 85px / cover no-repeat;
     z-index: 0;
   }
 
@@ -285,73 +285,206 @@ export const SectionLead = styled.p`
 
 // ── Intro card ────────────────────────────────────────────────────────────────
 
-export const IntroCard = styled.div`
-  background: #ffffff;
-  border: 1px solid rgba(180, 140, 60, 0.12);
-  border-radius: 24px;
-  padding: 3.5rem;
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.04),
-    0 12px 40px rgba(180, 120, 20, 0.08);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
+// ── Intro — unified split-panel card ─────────────────────────────────────────
 
-  @media (max-width: 768px) {
+export const IntroDuoLayout = styled.div<{ $single?: boolean }>`
+  display: grid;
+  grid-template-columns: ${({ $single }) => $single ? '1fr' : '1.1fr 0.9fr'};
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    0 24px 64px rgba(0, 0, 0, 0.13);
+
+  @media (max-width: 860px) {
     grid-template-columns: 1fr;
-    padding: 2rem 1.6rem;
-    gap: 2rem;
+    border-radius: 22px;
   }
 `;
 
-export const IntroText = styled.div``;
+/* ── Left: dark editorial panel ── */
+
+export const IntroCard = styled.div`
+  background: #1a1208;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  /* large α watermark */
+  &::after {
+    content: 'α';
+    position: absolute;
+    bottom: -0.2em;
+    right: -0.05em;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18rem;
+    font-weight: 700;
+    color: rgba(200, 150, 40, 0.055);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* top golden accent line */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #c97820, rgba(200, 150, 40, 0.1));
+  }
+
+  @media (max-width: 600px) {
+    padding: 2.8rem 2rem;
+  }
+`;
+
+export const IntroText = styled.div`
+  position: relative;
+  z-index: 1;
+`;
 
 export const IntroQuote = styled.blockquote`
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.55rem;
+  font-size: 1.75rem;
   font-weight: 500;
-  color: #1a1208;
-  line-height: 1.48;
-  margin: 0 0 1.3rem;
+  color: #f5efe0;
+  line-height: 1.42;
+  margin: 0 0 1.8rem;
   font-style: italic;
 
   &::before {
     content: '"';
-    font-size: 2.8rem;
-    color: rgba(200, 150, 40, 0.5);
-    line-height: 0;
-    vertical-align: -0.45rem;
-    margin-right: 0.05em;
+    display: block;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 4.5rem;
+    color: #c97820;
+    line-height: 0.75;
+    margin-bottom: 1rem;
+    font-style: normal;
+    opacity: 0.8;
   }
 `;
 
 export const IntroBody = styled.p`
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  line-height: 1.75;
-  color: #4a3820;
+  font-size: 0.9rem;
+  line-height: 1.85;
+  color: rgba(245, 235, 215, 0.62);
   margin: 0;
 `;
 
-export const IntroImageWrap = styled.div`
-  border-radius: 18px;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.08),
-    0 16px 48px rgba(0, 0, 0, 0.12);
+/* kept to avoid breaking stale imports */
+export const IntroImageWrap = styled.div`display: none;`;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
+/* ── Right: warm registration panel ── */
+
+export const IntroRegCard = styled.div`
+  background: linear-gradient(160deg, #fffcf4 0%, #fff6e0 100%);
+  padding: 4rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(200, 150, 40, 0.18);
+  position: relative;
+  overflow: hidden;
+
+  /* radial glow top-right */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(200, 150, 40, 0.13) 0%, transparent 70%);
+    pointer-events: none;
   }
 
-  &:hover img {
-    transform: scale(1.04);
+  @media (max-width: 600px) {
+    padding: 2.8rem 2rem;
+  }
+`;
+
+export const IntroRegTag = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(201, 120, 32, 0.1);
+  border: 1px solid rgba(201, 120, 32, 0.28);
+  border-radius: 50px;
+  padding: 0.35rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #b8680e;
+  margin-bottom: 1.4rem;
+  width: fit-content;
+`;
+
+export const IntroRegTitle = styled.h3`
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1208;
+  margin: 0 0 1rem;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+`;
+
+export const IntroRegDesc = styled.p`
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.82;
+  color: #5a4428;
+  margin: 0 0 auto;
+  padding-bottom: 2.2rem;
+`;
+
+export const IntroRegMeta = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #7a6040;
+  margin-bottom: 1.8rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(200, 150, 40, 0.15);
+
+  span {
+    color: #c97820;
+    font-weight: 600;
+  }
+`;
+
+export const IntroRegBtn = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.6rem;
+  border-radius: 50px;
+  background: #1a1208;
+  color: #f5efe0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  width: fit-content;
+  box-shadow: 0 4px 18px rgba(26, 18, 8, 0.25);
+
+  &:hover {
+    background: #2e200e;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(26, 18, 8, 0.35);
   }
 `;
 
@@ -476,37 +609,67 @@ export const TopicText = styled.p`
   margin: 0;
 `;
 
-// ── Gallery ───────────────────────────────────────────────────────────────────
+// ── Gallery — full-width wrapper + 3-column scroll cards ─────────────────────
 
-export const GalleryGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.1rem;
+export const AlphaGalleryWrapper = styled.div`
+  width: 100%;
 `;
 
-export const GalleryItem = styled.div`
-  border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.26s ease, box-shadow 0.26s ease;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.55s ease;
-  }
+export const AlphaGalleryCard = styled.div`
+  flex: 0 0 calc(33.333% - 0.5rem);
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.25s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    border-color: rgba(201, 120, 32, 0.3);
+    box-shadow: 0 6px 24px rgba(201, 120, 32, 0.1);
+    transform: translateY(-2px);
   }
 
-  &:hover img {
-    transform: scale(1.06);
+  @media (max-width: 600px) {
+    flex: 0 0 65%;
+  }
+`;
+
+export const AlphaGalleryCardImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  display: block;
+
+  &.loaded {
+    opacity: 1;
+  }
+
+  ${AlphaGalleryCard}:hover & {
+    transform: scale(1.04);
+  }
+`;
+
+export const AlphaGalleryCardOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+  opacity: 0;
+  transition: background 0.2s ease, opacity 0.2s ease;
+
+  ${AlphaGalleryCard}:hover & {
+    background: rgba(0, 0, 0, 0.22);
+    opacity: 1;
   }
 `;
 

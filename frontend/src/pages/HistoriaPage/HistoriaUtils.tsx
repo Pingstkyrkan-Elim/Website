@@ -119,12 +119,13 @@ export const staticHistoryData: HistoryEntry[] = [
     year_start: 2000,
     title: 'En Levande Församling Idag',
     content:
-      'Under 2000- och 2010-talet fortsatte Pingstkyrkan Elim att växa som en levande, mångkulturell församling. Joakim Freiman ledde församlingen 2002–2016 och Ingmar Aronson tillträdde 2018.\n\nIdag är Elim en åldersblandad och multietnisk pingstkyrka med många barn och ungdomar och flera olika verksamheter för alla åldrar. Predikan tolkas ofta till engelska och predikotexten finns även översatt till flera olika språk.\n\nVi brinner för att göra Jesus känd, trodd och efterföljd i Trelleborg med omnejd och välkomnar alla som vill uppleva livet med Jesus.',
+      'Under 2000- och 2010-talet fortsatte Pingstkyrkan Elim att växa som en levande, mångkulturell församling. Joakim Freiman ledde församlingen 2002–2016. Ingmar Aronson ledde församlingen 2018-2025 och Samir Clementsson tillträdde 2026.\n\nIdag är Elim en åldersblandad och multietnisk pingstkyrka med många barn och ungdomar och flera olika verksamheter för alla åldrar. Predikan tolkas ofta till engelska och predikotexten finns även översatt till flera olika språk.\n\nVi brinner för att göra Jesus känd, trodd och efterföljd i Trelleborg med omnejd och välkomnar alla som vill uppleva livet med Jesus.',
     images: ['historia/ElimPastors2.webp'],
     leaders: [
       'Torbjörn Söder 1994–2001',
       'Joakim Freiman 2002–2016',
-      'Ingmar Aronson 2018–',
+      'Ingmar Aronson 2018–2025',
+      'Samir Clementsson 2026–',
     ],
     order: 6,
   },

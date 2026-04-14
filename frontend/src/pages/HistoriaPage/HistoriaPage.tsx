@@ -12,9 +12,6 @@ import {
   HeroEyebrow,
   HeroTitle,
   HeroSubtitle,
-  HeroScroll,
-  HeroScrollLine,
-  HeroScrollLabel,
   TimelineSection,
   TimelineInner,
   Entry,
@@ -278,7 +275,7 @@ const HistoriaPage: React.FC = () => {
     <PageWrapper>
       <Hero>
         <HeroBackground />
-        <HeroDecorYear>1919 – 2025</HeroDecorYear>
+        <HeroDecorYear>1919 – 2026</HeroDecorYear>
 
         <HeroContent>
           <HeroEyebrow>Pingstkyrkan Elim · Trelleborg</HeroEyebrow>
@@ -288,10 +285,6 @@ const HistoriaPage: React.FC = () => {
           </HeroSubtitle>
         </HeroContent>
 
-        <HeroScroll>
-          <HeroScrollLine />
-          <HeroScrollLabel>Scrolla</HeroScrollLabel>
-        </HeroScroll>
       </Hero>
 
       <TimelineSection>

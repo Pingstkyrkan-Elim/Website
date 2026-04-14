@@ -47,7 +47,13 @@ const NAV_ITEMS: NavEntry[] = [
     path: '/portal/annonser',
     label: 'Annonser',
     icon: <IconClipboardList size={16} />,
-    permission: 'kalender',
+    permission: 'annonser',
+  },
+  {
+    path: '/portal/alpha',
+    label: 'Alpha',
+    icon: <span style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '1rem', lineHeight: 1 }}>α</span>,
+    permission: 'alpha',
   },
 ];
 
@@ -55,6 +61,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/portal/dashboard': 'Översikt',
   '/portal/kalender': 'Kalender',
   '/portal/annonser': 'Annonser',
+  '/portal/alpha': 'Alpha',
 };
 
 interface PortalLayoutProps {

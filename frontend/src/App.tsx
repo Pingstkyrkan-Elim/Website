@@ -32,6 +32,7 @@ import PortalLoginPage from './pages/PortalLoginPage/PortalLoginPage';
 import PortalDashboard from './pages/PortalDashboard/PortalDashboard';
 import PortalKalender from './pages/PortalKalender/PortalKalender';
 import PortalAnnonser from './pages/PortalAnnonser/PortalAnnonser';
+import PortalAlpha from './pages/PortalAlpha/PortalAlpha';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -285,6 +286,14 @@ function App() {
                 element={
                   <PortalRoute>
                     <PortalAnnonser />
+                  </PortalRoute>
+                }
+              />
+              <Route
+                path='/portal/alpha'
+                element={
+                  <PortalRoute>
+                    <PortalAlpha />
                   </PortalRoute>
                 }
               />

@@ -445,6 +445,7 @@ class AlphaProgram(BaseModel):
         ),
         blank=True,
     )
+    next_alpha_venue = models.CharField(max_length=200, default="Pingstkyrkan Elim", blank=True)
     next_alpha_location = models.CharField(max_length=200, default="Engelbrektsgatan 68, Trelleborg", blank=True)
     next_alpha_email = models.EmailField(default="pingstkyrkan.trelleborg@gmail.com", blank=True)
 

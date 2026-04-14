@@ -50,6 +50,28 @@ class IsKalenderUser(permissions.BasePermission):
         )
 
 
+class IsAnnonserUser(permissions.BasePermission):
+    """Allow access only to users in the 'annonser' group"""
+
+    def has_permission(self, request, view):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.groups.filter(name="annonser").exists()
+        )
+
+
+class IsAlphaUser(permissions.BasePermission):
+    """Allow access only to users in the 'alpha' group"""
+
+    def has_permission(self, request, view):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.groups.filter(name="alpha").exists()
+        )
+
+
 class ServiceListView(generics.ListAPIView):
     """List all active services"""
 
@@ -237,19 +259,19 @@ class AnnouncementListView(generics.ListAPIView):
 
 
 class PortalAnnouncementListCreateView(generics.ListCreateAPIView):
-    """List all announcements or create a new one (kalender users only)"""
+    """List all announcements or create a new one (annonser users only)"""
 
     queryset = Announcement.objects.order_by("-date")
     serializer_class = AnnouncementSerializer
-    permission_classes = [IsKalenderUser]
+    permission_classes = [IsAnnonserUser]
 
 
 class PortalAnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """Retrieve, update or delete a single announcement (kalender users only)"""
+    """Retrieve, update or delete a single announcement (annonser users only)"""
 
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
-    permission_classes = [IsKalenderUser]
+    permission_classes = [IsAnnonserUser]
 
 
 @api_view(["GET"])
@@ -264,10 +286,10 @@ def alpha_program(request):
 
 
 class PortalAlphaProgramView(generics.RetrieveUpdateAPIView):
-    """Retrieve or update Alpha program content (kalender users only)"""
+    """Retrieve or update Alpha program content (alpha users only)"""
 
     serializer_class = AlphaProgramSerializer
-    permission_classes = [IsKalenderUser]
+    permission_classes = [IsAlphaUser]
 
     def get_object(self):
         obj = AlphaProgram.objects.first()
@@ -281,10 +303,10 @@ class PortalAlphaProgramView(generics.RetrieveUpdateAPIView):
 
 
 class PortalAlphaPhotoListCreateView(generics.ListCreateAPIView):
-    """List or upload gallery photos for Alpha (kalender users only)"""
+    """List or upload gallery photos for Alpha (alpha users only)"""
 
     serializer_class = AlphaPhotoSerializer
-    permission_classes = [IsKalenderUser]
+    permission_classes = [IsAlphaUser]
 
     def get_queryset(self):
         return AlphaPhoto.objects.all()
@@ -295,11 +317,11 @@ class PortalAlphaPhotoListCreateView(generics.ListCreateAPIView):
 
 
 class PortalAlphaPhotoDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """Retrieve, update or delete a gallery photo (kalender users only)"""
+    """Retrieve, update or delete a gallery photo (alpha users only)"""
 
     queryset = AlphaPhoto.objects.all()
     serializer_class = AlphaPhotoSerializer
-    permission_classes = [IsKalenderUser]
+    permission_classes = [IsAlphaUser]
 
 
 # ── Portal: Event CRUD (requires kalender permission) ─────────────────────────

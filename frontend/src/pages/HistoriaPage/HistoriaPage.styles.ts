@@ -48,13 +48,13 @@ export const HeroBackground = styled.div`
 
 export const HeroDecorYear = styled.div`
   position: absolute;
-  bottom: -0.1em;
+  bottom: 0.09em;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(120px, 20vw, 280px);
   font-weight: 700;
-  color: rgba(184, 134, 11, 0.12);
+  color: rgba(107, 78, 7, 0.33);
   -webkit-text-stroke: 1px rgba(184, 134, 11, 0.4);
   letter-spacing: -0.05em;
   line-height: 1;

@@ -234,6 +234,7 @@ export interface AlphaProgram {
   next_alpha_tag: string;
   next_alpha_title: string;
   next_alpha_desc: string;
+  next_alpha_venue: string;
   next_alpha_location: string;
   next_alpha_email: string;
   closing_quote: string;

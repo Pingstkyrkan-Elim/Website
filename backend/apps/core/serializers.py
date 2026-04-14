@@ -207,6 +207,7 @@ class AlphaProgramSerializer(serializers.ModelSerializer):
             "next_alpha_tag",
             "next_alpha_title",
             "next_alpha_desc",
+            "next_alpha_venue",
             "next_alpha_location",
             "next_alpha_email",
             "closing_quote",

@@ -1,8 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { useQuery } from 'react-query';
-import { IconMapPin } from '../../components/Icons';
-import { getAlphaProgram, resolveMediaUrl } from '../../services/api';
-import { AlphaProgram, AlphaStep } from '../../types';
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconMapPin,
+  IconX,
+  IconZoomIn,
+} from '../../components/Icons';
+import { getAlphaProgram } from '../../services/api';
+import { AlphaPhoto, AlphaProgram, AlphaStep } from '../../types';
+import {
+  HistGalleryTrack,
+  HistGalleryDots,
+  HistGalleryDot,
+  HistLightbox,
+  HistLightboxImg,
+  HistLightboxClose,
+  HistLightboxNav,
+  HistLightboxCounter,
+} from '../HistoriaPage/HistoriaPage.styles';
 import {
   AlphaWrapper,
   MeshOrb,
@@ -23,11 +40,17 @@ import {
   SectionEyebrow,
   SectionTitle,
   SectionLead,
+  IntroDuoLayout,
   IntroCard,
   IntroText,
   IntroQuote,
   IntroBody,
-  IntroImageWrap,
+  IntroRegCard,
+  IntroRegTag,
+  IntroRegTitle,
+  IntroRegDesc,
+  IntroRegMeta,
+  IntroRegBtn,
   VideoWrap,
   StepsGrid,
   StepCard,
@@ -38,19 +61,14 @@ import {
   TopicCard,
   TopicNumber,
   TopicText,
-  NextAlphaCard,
-  NextAlphaTag,
-  NextAlphaTitle,
-  NextAlphaDesc,
-  InfoRow,
-  InfoItem,
-  RegisterBtn,
   ClosingSection,
   ClosingQuote,
   ClosingSource,
   Divider,
-  GalleryGrid,
-  GalleryItem,
+  AlphaGalleryWrapper,
+  AlphaGalleryCard,
+  AlphaGalleryCardImg,
+  AlphaGalleryCardOverlay,
 } from './AlphaPage.styles';
 
 // ── Default fallback data ──────────────────────────────────────────────────────
@@ -70,22 +88,121 @@ const DEFAULT_TOPICS = [
 ];
 
 // ── Scroll-reveal hook ────────────────────────────────────────────────────────
+// Uses a callback ref so it works even when the element mounts after data loads.
 
 function useInView(threshold = 0.12) {
-  const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
+  const ref = useCallback(
+    (el: HTMLDivElement | null) => {
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+        { threshold }
+      );
+      obs.observe(el);
+    },
+    [threshold]
+  );
   return { ref, visible };
 }
+
+// ── Gallery with horizontal scroll + lightbox ─────────────────────────────────
+
+const AlphaGallery: React.FC<{ photos: AlphaPhoto[] }> = ({ photos }) => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const prevLight = useCallback(
+    () => setLightboxIndex(i => i !== null ? (i - 1 + photos.length) % photos.length : null),
+    [photos.length]
+  );
+  const nextLight = useCallback(
+    () => setLightboxIndex(i => i !== null ? (i + 1) % photos.length : null),
+    [photos.length]
+  );
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevLight();
+      if (e.key === 'ArrowRight') nextLight();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [lightboxIndex, closeLightbox, prevLight, nextLight]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const onScroll = () => {
+      const cardWidth = track.scrollWidth / photos.length;
+      setActiveSlide(Math.round(track.scrollLeft / cardWidth));
+    };
+    track.addEventListener('scroll', onScroll, { passive: true });
+    return () => track.removeEventListener('scroll', onScroll);
+  }, [photos.length]);
+
+  return (
+    <>
+      <AlphaGalleryWrapper>
+        <HistGalleryTrack ref={trackRef as React.RefObject<HTMLDivElement>}>
+          {photos.map((photo, i) => (
+            <AlphaGalleryCard key={photo.id} onClick={() => setLightboxIndex(i)}>
+              <AlphaGalleryCardImg
+                src={photo.image}
+                alt={photo.caption || `Alpha — bild ${i + 1}`}
+                onLoad={e => (e.currentTarget.className = 'loaded')}
+              />
+              <AlphaGalleryCardOverlay>
+                <IconZoomIn size={18} />
+              </AlphaGalleryCardOverlay>
+            </AlphaGalleryCard>
+          ))}
+        </HistGalleryTrack>
+        <HistGalleryDots>
+          {photos.map((_, i) => (
+            <HistGalleryDot
+              key={i}
+              $active={i === activeSlide}
+              onClick={() => {
+                const track = trackRef.current;
+                if (!track) return;
+                const cardWidth = track.scrollWidth / photos.length;
+                track.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
+              }}
+            />
+          ))}
+        </HistGalleryDots>
+      </AlphaGalleryWrapper>
+
+      {lightboxIndex !== null && ReactDOM.createPortal(
+        <HistLightbox onClick={closeLightbox}>
+          <HistLightboxClose onClick={closeLightbox}>
+            <IconX size={18} />
+          </HistLightboxClose>
+          <HistLightboxNav $dir="prev" onClick={e => { e.stopPropagation(); prevLight(); }}>
+            <IconChevronLeft size={22} />
+          </HistLightboxNav>
+          <HistLightboxImg
+            src={photos[lightboxIndex].image}
+            alt={photos[lightboxIndex].caption || `Alpha — bild ${lightboxIndex + 1}`}
+            onClick={e => e.stopPropagation()}
+          />
+          <HistLightboxNav $dir="next" onClick={e => { e.stopPropagation(); nextLight(); }}>
+            <IconChevronRight size={22} />
+          </HistLightboxNav>
+          <HistLightboxCounter>
+            {lightboxIndex + 1} / {photos.length}
+          </HistLightboxCounter>
+        </HistLightbox>,
+        document.body
+      )}
+    </>
+  );
+};
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -98,7 +215,6 @@ const AlphaPage: React.FC = () => {
   const video  = useInView();
   const steps  = useInView();
   const topics = useInView();
-  const next   = useInView();
   const gallery = useInView();
 
   const d = data;
@@ -107,16 +223,18 @@ const AlphaPage: React.FC = () => {
   const heroSubtitle  = d?.hero_subtitle  ?? 'Utforska livet, tron och meningen — i en öppen och välkomnande atmosfär där alla frågor är välkomna.';
   const introQuote    = d?.intro_quote    ?? 'En plats där du kan utforska livet, tron och meningen.';
   const introBody     = d?.intro_body     ?? '';
-  const introImage    = resolveMediaUrl(d?.intro_image);
-  const videoUrl      = d?.video_url      ?? 'https://www.youtube.com/embed/HTCwMn6LKCI?rel=0&modestbranding=1';
+  const introImage    = d?.intro_image ?? null;
+  const videoUrl      = d?.video_url      ?? '';
   const videoTitle    = d?.video_title    ?? 'Vad är Alpha?';
   const stepsData     = (d?.steps && d.steps.length > 0) ? d.steps : DEFAULT_STEPS;
   const topicsData    = (d?.topics && d.topics.length > 0) ? d.topics : DEFAULT_TOPICS;
-  const nextTag       = d?.next_alpha_tag   ?? 'Nästa Alpha';
-  const nextTitle     = d?.next_alpha_title ?? 'Välkommen med under vårterminen!';
-  const nextDesc      = d?.next_alpha_desc  ?? '';
-  const nextLocation  = d?.next_alpha_location ?? 'Engelbrektsgatan 68, Trelleborg';
-  const nextEmail     = d?.next_alpha_email ?? 'pingstkyrkan.trelleborg@gmail.com';
+  const nextTag       = d?.next_alpha_tag      ?? '';
+  const nextTitle     = d?.next_alpha_title    ?? '';
+  const nextDesc      = d?.next_alpha_desc     ?? '';
+  const nextVenue     = d?.next_alpha_venue    ?? '';
+  const nextLocation  = d?.next_alpha_location ?? '';
+  const nextEmail     = d?.next_alpha_email    ?? '';
+  const hasNextAlpha  = !!(d && nextTitle.trim());
   const closingQuote  = d?.closing_quote  ?? '"Alpha är en plats där du kan vara precis den du är — med alla dina frågor, tvivel och tankar."';
   const galleryPhotos = d?.gallery ?? [];
 
@@ -142,7 +260,7 @@ const AlphaPage: React.FC = () => {
         </ScrollIndicator>
       </HeroSection>
 
-      {/* ── What is Alpha ──────────────────────────────────────── */}
+      {/* ── What is Alpha + Registration ───────────────────────── */}
       <Section id="vad-ar-alpha">
         <Container>
           <div
@@ -153,21 +271,31 @@ const AlphaPage: React.FC = () => {
               transition: 'opacity 0.7s ease, transform 0.7s ease',
             }}
           >
-            <IntroCard>
-              <IntroText>
-                <IntroQuote>{introQuote}</IntroQuote>
-                <IntroBody>{introBody}</IntroBody>
-              </IntroText>
-              <IntroImageWrap>
-                <img
-                  src={introImage || '/images/Activity-1.png'}
-                  alt="Alpha gemenskap"
-                  onError={e => {
-                    (e.target as HTMLImageElement).src = '/images/Gudtjanst.jpeg';
-                  }}
-                />
-              </IntroImageWrap>
-            </IntroCard>
+            <IntroDuoLayout $single={!hasNextAlpha}>
+              {/* Left — what is Alpha */}
+              <IntroCard>
+                <IntroText>
+                  <IntroQuote>{introQuote}</IntroQuote>
+                  <IntroBody>{introBody}</IntroBody>
+                </IntroText>
+              </IntroCard>
+
+              {/* Right — registration (only when configured) */}
+              {hasNextAlpha && (
+                <IntroRegCard id="anmalan">
+                  <IntroRegTag>{nextTag}</IntroRegTag>
+                  <IntroRegTitle>{nextTitle}</IntroRegTitle>
+                  <IntroRegDesc>{nextDesc}</IntroRegDesc>
+                  <IntroRegMeta>
+                    <IconMapPin size={14} />
+                    {nextVenue && <span>{nextVenue}</span>}{nextLocation ? `${nextVenue ? ', ' : ''}${nextLocation}` : ''}
+                  </IntroRegMeta>
+                  <IntroRegBtn href={`mailto:${nextEmail}?subject=Anmälan Alpha`}>
+                    Anmäl dig
+                  </IntroRegBtn>
+                </IntroRegCard>
+              )}
+            </IntroDuoLayout>
           </div>
         </Container>
       </Section>
@@ -276,49 +404,11 @@ const AlphaPage: React.FC = () => {
                 transition: 'opacity 0.7s ease, transform 0.7s ease',
               }}
             >
-              <GalleryGrid>
-                {galleryPhotos.map((photo) => (
-                  <GalleryItem key={photo.id}>
-                    <img
-                      src={resolveMediaUrl(photo.image) ?? photo.image}
-                      alt={photo.caption || 'Alpha'}
-                    />
-                  </GalleryItem>
-                ))}
-              </GalleryGrid>
+              <AlphaGallery photos={galleryPhotos} />
             </div>
           </Container>
         </Section>
       )}
-
-      {/* ── Next Alpha ─────────────────────────────────────────── */}
-      <Section id="anmalan">
-        <Container>
-          <div
-            ref={next.ref}
-            style={{
-              opacity: next.visible ? 1 : 0,
-              transform: next.visible ? 'none' : 'translateY(40px)',
-              transition: 'opacity 0.7s ease, transform 0.7s ease',
-            }}
-          >
-            <NextAlphaCard>
-              <NextAlphaTag>{nextTag}</NextAlphaTag>
-              <NextAlphaTitle>{nextTitle}</NextAlphaTitle>
-              <NextAlphaDesc>{nextDesc}</NextAlphaDesc>
-              <InfoRow>
-                <InfoItem>
-                  <IconMapPin size={15} />
-                  <span>Pingstkyrkan Elim</span>, {nextLocation}
-                </InfoItem>
-              </InfoRow>
-              <RegisterBtn href={`mailto:${nextEmail}?subject=Anmälan Alpha`}>
-                Anmäl dig
-              </RegisterBtn>
-            </NextAlphaCard>
-          </div>
-        </Container>
-      </Section>
 
       {/* ── Closing quote ──────────────────────────────────────── */}
       <ClosingSection>

@@ -413,7 +413,7 @@ export const DonationInner = styled.div`
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1.8rem;
   align-items: start;
 
   @media (max-width: 768px) {

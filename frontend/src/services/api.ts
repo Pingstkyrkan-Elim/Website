@@ -20,13 +20,6 @@ import {
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api/v1';
 
-/**
- * Returns the media URL as-is. Absolute URLs (http://localhost:8000/media/...)
- * from the backend work directly from the browser via Docker port-forwarding.
- */
-export const resolveMediaUrl = (url: string | null | undefined): string | null => {
-  return url ?? null;
-};
 
 const api = axios.create({
   baseURL: API_BASE_URL,

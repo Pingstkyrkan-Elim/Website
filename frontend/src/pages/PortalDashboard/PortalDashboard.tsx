@@ -40,13 +40,34 @@ const PORTAL_SECTIONS: PortalSection[] = [
   },
   {
     key: 'annonser',
-    permission: 'kalender',
+    permission: 'annonser',
     path: '/portal/annonser',
     label: 'Annonser',
     description:
       'Skapa och hantera viktiga annonser som visas på startsidan. Ange datum, plats och beskrivning.',
     icon: <IconClipboardList size={20} color="#7a9e7e" />,
     color: 'rgba(122, 158, 126, 0.12)',
+  },
+  {
+    key: 'alpha',
+    permission: 'alpha',
+    path: '/portal/alpha',
+    label: 'Alpha',
+    description:
+      'Hantera Alpha-kursen: ladda upp och ta bort bilder i galleriet, och uppdatera informationen om nästa kursomgång.',
+    icon: (
+      <span style={{
+        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontStyle: 'italic',
+        fontSize: '1.4rem',
+        lineHeight: 1,
+        color: '#c97820',
+        fontWeight: 600,
+      }}>
+        α
+      </span>
+    ),
+    color: 'rgba(201, 120, 32, 0.1)',
   },
 ];
 
