@@ -206,6 +206,41 @@ export interface HistoryEntry {
   order: number;
 }
 
+export interface AlphaPhoto {
+  id: number;
+  image: string;
+  caption?: string;
+  order: number;
+}
+
+export interface AlphaStep {
+  emoji: string;
+  title: string;
+  desc: string;
+}
+
+export interface AlphaProgram {
+  id: number;
+  hero_eyebrow: string;
+  hero_title: string;
+  hero_subtitle: string;
+  intro_quote: string;
+  intro_body: string;
+  intro_image?: string | null;
+  video_url: string;
+  video_title: string;
+  steps: AlphaStep[];
+  topics: string[];
+  next_alpha_tag: string;
+  next_alpha_title: string;
+  next_alpha_desc: string;
+  next_alpha_location: string;
+  next_alpha_email: string;
+  closing_quote: string;
+  gallery: AlphaPhoto[];
+  updated_at: string;
+}
+
 export interface ApiResponse<T> {
   data: T;
   message?: string;

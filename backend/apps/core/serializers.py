@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from .models import (
+    AlphaPhoto,
+    AlphaProgram,
     Announcement,
     Contact,
     Donation,
@@ -177,6 +179,41 @@ class AnnouncementSerializer(serializers.ModelSerializer):
         model = Announcement
         fields = ["id", "title", "description", "date", "location", "image", "is_active", "created_at", "updated_at"]
         read_only_fields = ["id", "created_at", "updated_at"]
+
+
+class AlphaPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AlphaPhoto
+        fields = ["id", "image", "caption", "order"]
+
+
+class AlphaProgramSerializer(serializers.ModelSerializer):
+    gallery = AlphaPhotoSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = AlphaProgram
+        fields = [
+            "id",
+            "hero_eyebrow",
+            "hero_title",
+            "hero_subtitle",
+            "intro_quote",
+            "intro_body",
+            "intro_image",
+            "video_url",
+            "video_title",
+            "steps",
+            "topics",
+            "next_alpha_tag",
+            "next_alpha_title",
+            "next_alpha_desc",
+            "next_alpha_location",
+            "next_alpha_email",
+            "closing_quote",
+            "gallery",
+            "updated_at",
+        ]
+        read_only_fields = ["id", "updated_at"]
 
 
 class TeamMemberSerializer(serializers.ModelSerializer):

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { IconMapPin } from '../../components/Icons';
-import { getAnnouncements, getLatestNews } from '../../services/api';
+import { getAnnouncements, getLatestNews, resolveMediaUrl } from '../../services/api';
 import { Announcement } from '../../types';
 import {
   HomePageWrapper,
@@ -265,7 +265,7 @@ const HomePage: React.FC = () => {
                     $delay={i * 115}
                     onClick={() => setActiveAnnouncement(a)}
                   >
-                    <AnnouncerImage $src={a.image ?? null}>
+                    <AnnouncerImage $src={resolveMediaUrl(a.image) ?? null}>
                       {!a.image && (
                         <AnnouncerImagePlaceholderIcon>
                           <svg
@@ -321,7 +321,7 @@ const HomePage: React.FC = () => {
         <ModalOverlay onClick={() => setActiveAnnouncement(null)}>
           <ModalCard onClick={e => e.stopPropagation()}>
             <div style={{ position: 'relative' }}>
-              <ModalImageHeader $src={activeAnnouncement.image ?? null}>
+              <ModalImageHeader $src={resolveMediaUrl(activeAnnouncement.image) ?? null}>
                 {!activeAnnouncement.image && (
                   <div
                     style={{

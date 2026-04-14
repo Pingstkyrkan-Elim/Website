@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {
+  AlphaPhoto,
+  AlphaProgram,
   Announcement,
   ChurchInfo,
   HistoryEntry,
@@ -17,6 +19,14 @@ import {
 } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api/v1';
+
+/**
+ * Returns the media URL as-is. Absolute URLs (http://localhost:8000/media/...)
+ * from the backend work directly from the browser via Docker port-forwarding.
+ */
+export const resolveMediaUrl = (url: string | null | undefined): string | null => {
+  return url ?? null;
+};
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -243,6 +253,39 @@ export const portalUpdateAnnouncement = async (
 
 export const portalDeleteAnnouncement = async (id: number): Promise<void> => {
   await api.delete(`/portal/announcements/${id}/`);
+};
+
+// ── Alpha Program ─────────────────────────────────────────────────────────────
+
+export const getAlphaProgram = async (): Promise<AlphaProgram> => {
+  const response = await api.get<AlphaProgram>('/alpha-program/');
+  return response.data;
+};
+
+export const portalGetAlphaProgram = async (): Promise<AlphaProgram> => {
+  const response = await api.get<AlphaProgram>('/portal/alpha-program/');
+  return response.data;
+};
+
+export const portalUpdateAlphaProgram = async (
+  data: FormData | Partial<AlphaProgram>
+): Promise<AlphaProgram> => {
+  const isFormData = data instanceof FormData;
+  const response = await api.patch<AlphaProgram>('/portal/alpha-program/', data, {
+    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+  });
+  return response.data;
+};
+
+export const portalUploadAlphaPhoto = async (formData: FormData): Promise<AlphaPhoto> => {
+  const response = await api.post<AlphaPhoto>('/portal/alpha-photos/', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+};
+
+export const portalDeleteAlphaPhoto = async (id: number): Promise<void> => {
+  await api.delete(`/portal/alpha-photos/${id}/`);
 };
 
 export default api;

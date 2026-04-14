@@ -7,6 +7,8 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 
 from .models import (
+    AlphaPhoto,
+    AlphaProgram,
     Announcement,
     Contact,
     Donation,
@@ -20,6 +22,8 @@ from .models import (
     TeamMember,
 )
 from .serializers import (
+    AlphaPhotoSerializer,
+    AlphaProgramSerializer,
     AnnouncementSerializer,
     ContactSerializer,
     DonationSerializer,
@@ -245,6 +249,56 @@ class PortalAnnouncementDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
+    permission_classes = [IsKalenderUser]
+
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def alpha_program(request):
+    """Get the single Alpha program instance"""
+    instance = AlphaProgram.objects.first()
+    if not instance:
+        instance = AlphaProgram.objects.create()
+    serializer = AlphaProgramSerializer(instance, context={"request": request})
+    return Response(serializer.data)
+
+
+class PortalAlphaProgramView(generics.RetrieveUpdateAPIView):
+    """Retrieve or update Alpha program content (kalender users only)"""
+
+    serializer_class = AlphaProgramSerializer
+    permission_classes = [IsKalenderUser]
+
+    def get_object(self):
+        obj = AlphaProgram.objects.first()
+        if not obj:
+            obj = AlphaProgram.objects.create()
+        return obj
+
+    def get_parsers(self):
+        from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
+        return [MultiPartParser(), FormParser(), JSONParser()]
+
+
+class PortalAlphaPhotoListCreateView(generics.ListCreateAPIView):
+    """List or upload gallery photos for Alpha (kalender users only)"""
+
+    serializer_class = AlphaPhotoSerializer
+    permission_classes = [IsKalenderUser]
+
+    def get_queryset(self):
+        return AlphaPhoto.objects.all()
+
+    def perform_create(self, serializer):
+        alpha, _ = AlphaProgram.objects.get_or_create(pk=1)
+        serializer.save(alpha=alpha)
+
+
+class PortalAlphaPhotoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Retrieve, update or delete a gallery photo (kalender users only)"""
+
+    queryset = AlphaPhoto.objects.all()
+    serializer_class = AlphaPhotoSerializer
     permission_classes = [IsKalenderUser]
 
 

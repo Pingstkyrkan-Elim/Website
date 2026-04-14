@@ -391,6 +391,105 @@ class Announcement(BaseModel):
         return f"{self.title} ({self.date})"
 
 
+class AlphaProgram(BaseModel):
+    """Alpha course page content — single-instance model"""
+
+    # Hero
+    hero_eyebrow = models.CharField(max_length=200, default="Pingstkyrkan Elim · Trelleborg")
+    hero_title = models.CharField(max_length=200, default="Alpha")
+    hero_subtitle = models.TextField(
+        default="Utforska livet, tron och meningen — i en öppen och välkomnande atmosfär där alla frågor är välkomna."
+    )
+
+    # Intro card
+    intro_quote = models.CharField(
+        max_length=300, default="En plats där du kan utforska livet, tron och meningen."
+    )
+    intro_body = models.TextField(
+        default=(
+            "Alpha är en kostnadsfri kurs på ca 13 veckor där vi samlas för att samtala kring "
+            "de stora frågorna i livet. Vem är Jesus? Finns Gud? Vad händer efter döden? Vi möts "
+            "i en avslappnad atmosfär med god mat, film och samtal — utan press och utan förväntningar. "
+            "Du behöver ingen förkunskap. Det enda som krävs är nyfikenhet."
+        )
+    )
+    intro_image = models.ImageField(upload_to="alpha/", blank=True, null=True)
+
+    # Video
+    video_url = models.URLField(
+        default="https://www.youtube.com/embed/HTCwMn6LKCI?rel=0&modestbranding=1", blank=True
+    )
+    video_title = models.CharField(max_length=200, default="Vad är Alpha?", blank=True)
+
+    # Steps (3 steps: Mat, Film, Samtal) — list of {emoji, title, desc}
+    steps = models.JSONField(
+        default=list,
+        blank=True,
+        help_text='List of {emoji, title, desc} objects',
+    )
+
+    # Topics (13 topics) — list of strings
+    topics = models.JSONField(
+        default=list,
+        blank=True,
+        help_text='List of topic strings',
+    )
+
+    # Next Alpha section
+    next_alpha_tag = models.CharField(max_length=100, default="Nästa Alpha", blank=True)
+    next_alpha_title = models.CharField(max_length=200, default="Välkommen med under vårterminen!", blank=True)
+    next_alpha_desc = models.TextField(
+        default=(
+            "Vi startar en ny omgång av Alpha snart. Kursen är gratis och öppen för alla — "
+            "oavsett bakgrund, tro eller frågor. Anmäl dig eller kontakta oss för mer information om tid och plats."
+        ),
+        blank=True,
+    )
+    next_alpha_location = models.CharField(max_length=200, default="Engelbrektsgatan 68, Trelleborg", blank=True)
+    next_alpha_email = models.EmailField(default="pingstkyrkan.trelleborg@gmail.com", blank=True)
+
+    # Closing
+    closing_quote = models.TextField(
+        default=(
+            '"Alpha är en plats där du kan vara precis den du är — med alla dina frågor, tvivel och tankar."'
+        ),
+        blank=True,
+    )
+
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "alpha_program"
+
+    def __str__(self):
+        return "Alpha Program"
+
+    def save(self, *args, **kwargs):
+        if not self.pk and AlphaProgram.objects.exists():
+            # Enforce single instance — update instead
+            existing = AlphaProgram.objects.first()
+            self.pk = existing.pk
+        super().save(*args, **kwargs)
+
+
+class AlphaPhoto(BaseModel):
+    """Gallery photos for the Alpha page"""
+
+    alpha = models.ForeignKey(
+        AlphaProgram, on_delete=models.CASCADE, related_name="gallery"
+    )
+    image = models.ImageField(upload_to="alpha/gallery/")
+    caption = models.CharField(max_length=200, blank=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = "alpha_photos"
+        ordering = ["order", "created_at"]
+
+    def __str__(self):
+        return f"Alpha photo #{self.order}"
+
+
 class TeamMember(BaseModel):
     """Church team members and leadership"""
 

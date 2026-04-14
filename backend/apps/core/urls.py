@@ -5,6 +5,12 @@ from . import views
 urlpatterns = [
     # Church information
     path("church-info/", views.church_info, name="church-info"),
+    # Alpha program (public)
+    path("alpha-program/", views.alpha_program, name="alpha-program"),
+    # Portal — Alpha content management (authenticated, kalender group)
+    path("portal/alpha-program/", views.PortalAlphaProgramView.as_view(), name="portal-alpha-program"),
+    path("portal/alpha-photos/", views.PortalAlphaPhotoListCreateView.as_view(), name="portal-alpha-photo-list"),
+    path("portal/alpha-photos/<int:pk>/", views.PortalAlphaPhotoDetailView.as_view(), name="portal-alpha-photo-detail"),
     # Announcements (public)
     path("announcements/", views.AnnouncementListView.as_view(), name="announcement-list"),
     # Portal — announcement management (authenticated, kalender group)

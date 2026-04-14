@@ -19,6 +19,7 @@ import AboutPage from './pages/AboutPage/AboutPage';
 import HistoriaPage from './pages/HistoriaPage/HistoriaPage';
 import MissionPage from './pages/MissionPage/MissionPage';
 import ProgramsPage from './pages/ProgramsPage/ProgramsPage';
+import AlphaPage from './pages/AlphaPage/AlphaPage';
 import NewsPage from './pages/NewsPage/NewsPage';
 import NewsDetailPage from './pages/NewsDetailPage/NewsDetailPage';
 import EventsPage from './pages/EventsPage/EventsPage';
@@ -174,6 +175,22 @@ function App() {
                 element={
                   <Layout>
                     <ProgramsPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/alpha'
+                element={
+                  <Layout>
+                    <AlphaPage />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/programs/alpha-kurs'
+                element={
+                  <Layout>
+                    <AlphaPage />
                   </Layout>
                 }
               />
