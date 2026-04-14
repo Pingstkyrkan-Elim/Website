@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { IconMapPin } from '../../components/Icons';
@@ -23,22 +23,47 @@ import {
   HomeWelcomeCardContent,
   ServiceDescription,
   ActivitiesSection,
-  ActivityCardsGrid,
-  ActivityCard,
-  ActivityCardImage,
-  ActivityCardContent,
-  ActivityCardMainContent,
-  ActivityCardDate,
-  ActivityCardTitle,
-  ActivityCardDescription,
-  ActivityCardMeta,
-  ActivityCardLocation,
-  ActivityCardCTA,
+  AnnouncerDepthPanel,
+  AnnouncersList,
+  AnnouncerCard,
+  AnnouncerImage,
+  AnnouncerImagePlaceholderIcon,
+  AnnouncerBody,
+  AnnouncerBodyTop,
+  AnnouncerDateChip,
+  AnnouncerTitle,
+  AnnouncerDesc,
+  AnnouncerLocation,
+  AnnouncerCTA,
+  ModalOverlay,
+  ModalCard,
+  ModalImageHeader,
+  ModalCloseBtn,
+  ModalBody,
+  ModalDateChip,
+  ModalTitle,
+  ModalDivider,
+  ModalDesc,
+  ModalMeta,
+  ModalMetaRow,
   CardContentWrapper,
 } from './HomePage.styles';
 
+// ── helpers ───────────────────────────────────────────────────────────────────
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('sv-SE', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+// ── component ─────────────────────────────────────────────────────────────────
+
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+
   const { data: latestNews } = useQuery({
     queryKey: ['latestNews'],
     queryFn: () => getLatestNews(3),
@@ -49,10 +74,49 @@ const HomePage: React.FC = () => {
     getAnnouncements
   );
 
-  // 3 most recent, newest first (left to right)
   const announcements: Announcement[] = [...allAnnouncements]
     .sort((a, b) => (a.date < b.date ? 1 : -1))
     .slice(0, 3);
+
+  // Scroll-triggered entrance animation
+  const announcerRef = useRef<HTMLDivElement>(null);
+  const [announcerVisible, setAnnouncerVisible] = useState(false);
+
+  useEffect(() => {
+    const el = announcerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnnouncerVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.08 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [announcements.length]);
+
+  // Modal state
+  const [activeAnnouncement, setActiveAnnouncement] =
+    useState<Announcement | null>(null);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    if (!activeAnnouncement) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveAnnouncement(null);
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [activeAnnouncement]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    document.body.style.overflow = activeAnnouncement ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [activeAnnouncement]);
 
   return (
     <HomePageWrapper>
@@ -187,54 +251,122 @@ const HomePage: React.FC = () => {
         </Container>
       </ContentSection>
 
+      {/* ── Viktiga Annonser ─────────────────────────────────────── */}
       {announcements.length > 0 && (
         <ActivitiesSection>
           <Container>
             <SectionTitle>Viktiga Annonser</SectionTitle>
-            <ActivityCardsGrid>
-              {announcements.map((a: Announcement) => (
-                <ActivityCard key={a.id}>
-                  <ActivityCardImage
-                    $backgroundImage={a.image ? undefined : undefined}
-                    style={
-                      a.image
-                        ? {
-                            backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('${a.image}')`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                          }
-                        : undefined
-                    }
-                  />
-                  <ActivityCardContent>
-                    <ActivityCardMainContent>
-                      <ActivityCardDate>
-                        {new Date(a.date + 'T00:00:00').toLocaleDateString(
-                          'sv-SE',
-                          { day: 'numeric', month: 'long', year: 'numeric' }
+            <AnnouncerDepthPanel ref={announcerRef}>
+              <AnnouncersList>
+                {announcements.map((a: Announcement, i: number) => (
+                  <AnnouncerCard
+                    key={a.id}
+                    $visible={announcerVisible}
+                    $delay={i * 115}
+                    onClick={() => setActiveAnnouncement(a)}
+                  >
+                    <AnnouncerImage $src={a.image ?? null}>
+                      {!a.image && (
+                        <AnnouncerImagePlaceholderIcon>
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.1"
+                          >
+                            <rect x="3" y="3" width="18" height="18" rx="3" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                          </svg>
+                        </AnnouncerImagePlaceholderIcon>
+                      )}
+                    </AnnouncerImage>
+
+                    <AnnouncerBody>
+                      <AnnouncerBodyTop>
+                        <AnnouncerDateChip>{formatDate(a.date)}</AnnouncerDateChip>
+                        <AnnouncerTitle>{a.title}</AnnouncerTitle>
+                        {a.description && (
+                          <AnnouncerDesc>{a.description}</AnnouncerDesc>
                         )}
-                      </ActivityCardDate>
-                      <ActivityCardTitle>{a.title}</ActivityCardTitle>
-                      {a.description && (
-                        <ActivityCardDescription>
-                          {a.description}
-                        </ActivityCardDescription>
-                      )}
-                      {a.location && (
-                        <ActivityCardMeta>
-                          <ActivityCardLocation>
-                            <IconMapPin size={13} />
+                        {a.location && (
+                          <AnnouncerLocation>
+                            <IconMapPin size={12} />
                             {a.location}
-                          </ActivityCardLocation>
-                        </ActivityCardMeta>
-                      )}
-                    </ActivityCardMainContent>
-                  </ActivityCardContent>
-                </ActivityCard>
-              ))}
-            </ActivityCardsGrid>
+                          </AnnouncerLocation>
+                        )}
+                      </AnnouncerBodyTop>
+
+                      <AnnouncerCTA
+                        onClick={e => {
+                          e.stopPropagation();
+                          setActiveAnnouncement(a);
+                        }}
+                      >
+                        Läs mer
+                      </AnnouncerCTA>
+                    </AnnouncerBody>
+                  </AnnouncerCard>
+                ))}
+              </AnnouncersList>
+            </AnnouncerDepthPanel>
           </Container>
         </ActivitiesSection>
+      )}
+
+      {/* ── Modal ────────────────────────────────────────────────── */}
+      {activeAnnouncement && (
+        <ModalOverlay onClick={() => setActiveAnnouncement(null)}>
+          <ModalCard onClick={e => e.stopPropagation()}>
+            <div style={{ position: 'relative' }}>
+              <ModalImageHeader $src={activeAnnouncement.image ?? null}>
+                {!activeAnnouncement.image && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      opacity: 0.3,
+                      color: '#7a5828',
+                    }}
+                  >
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8">
+                      <rect x="3" y="3" width="18" height="18" rx="3" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                  </div>
+                )}
+              </ModalImageHeader>
+              <ModalCloseBtn onClick={() => setActiveAnnouncement(null)}>
+                ✕
+              </ModalCloseBtn>
+            </div>
+
+            <ModalBody>
+              <ModalDateChip>{formatDate(activeAnnouncement.date)}</ModalDateChip>
+              <ModalTitle>{activeAnnouncement.title}</ModalTitle>
+              <ModalDivider />
+
+              {activeAnnouncement.description && (
+                <ModalDesc>{activeAnnouncement.description}</ModalDesc>
+              )}
+
+              {activeAnnouncement.location && (
+                <ModalMeta>
+                  <ModalMetaRow>
+                    <IconMapPin size={15} />
+                    {activeAnnouncement.location}
+                  </ModalMetaRow>
+                </ModalMeta>
+              )}
+            </ModalBody>
+          </ModalCard>
+        </ModalOverlay>
       )}
 
       {latestNews && latestNews.length > 0 && (

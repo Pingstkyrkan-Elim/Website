@@ -16,11 +16,7 @@ export const HeroSection = styled.section`
   min-height: calc(100vh + 70px); /* Extra height to cover navbar */
   margin-top: -70px; /* Pull up to cover navbar area */
   padding-top: 70px; /* Add padding to account for navbar */
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.45) 60%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
+  background: rgba(8, 5, 2, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,7 +138,7 @@ const cloudFloat = keyframes`
 
 export const ContentSection = styled.section`
   padding: 6rem 0;
-  background: rgba(12, 8, 3, 0.5);
+  background: rgba(8, 5, 2, 0.35);
   position: relative;
   overflow: hidden;
 
@@ -207,7 +203,7 @@ export const ContentSection = styled.section`
 // Special first content section — transparent overlay over the fixed bg image
 export const FirstContentSection = styled.section`
   padding: 5rem 0;
-  background: rgba(10, 6, 2, 0.45);
+  background: rgba(8, 5, 2, 0.35);
   position: relative;
 `;
 
@@ -780,7 +776,7 @@ export const HomeWelcomeCardContent = styled.p.attrs({
 // Activities Section — transparent overlay over the fixed bg image
 export const ActivitiesSection = styled.section`
   padding: 6rem 0;
-  background: rgba(8, 5, 1, 0.52);
+  background: rgba(8, 5, 2, 0.35);
   position: relative;
   overflow: hidden;
 
@@ -1080,4 +1076,356 @@ export const CardCTA = styled.button`
 
 export const ActivityCardCTA = styled(CardCTA)`
   /* Inherits all styles from CardCTA with dark section styling */
+`;
+
+// ── Viktiga Annonser — redesign ───────────────────────────────────────────────
+
+const announcerSlideUp = keyframes`
+  from { opacity: 0; transform: translateY(52px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
+
+const modalIn = keyframes`
+  from { opacity: 0; transform: scale(0.93) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+`;
+
+const overlayIn = keyframes`
+  from { opacity: 0; }
+  to   { opacity: 1; }
+`;
+
+/* Depth panel that wraps all cards */
+export const AnnouncerDepthPanel = styled.div`
+  max-width: 1040px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1.4rem 1rem;
+  }
+`;
+
+export const AnnouncersList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+`;
+
+export const AnnouncerCard = styled.div<{ $delay?: number; $visible?: boolean }>`
+  display: flex;
+  align-items: stretch;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+  min-height: 136px;
+
+  opacity: ${({ $visible }) => ($visible ? undefined : 0)};
+  animation: ${({ $visible }) => ($visible ? announcerSlideUp : 'none')}
+    0.68s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation-delay: ${({ $delay }) => $delay ?? 0}ms;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    min-height: unset;
+  }
+`;
+
+export const AnnouncerImage = styled.div<{ $src?: string | null }>`
+  width: 220px;
+  flex-shrink: 0;
+  background: ${({ $src }) =>
+    $src
+      ? `url('${$src}') center/cover no-repeat`
+      : `linear-gradient(145deg, rgba(201,169,110,0.5) 0%, rgba(100,65,20,0.65) 100%)`};
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: ${({ $src }) =>
+      $src
+        ? `linear-gradient(to right, rgba(0,0,0,0.18) 0%, transparent 60%)`
+        : `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.1) 0%, transparent 65%)`};
+  }
+
+  @media (max-width: 640px) {
+    width: 100%;
+    height: 180px;
+  }
+`;
+
+export const AnnouncerImagePlaceholderIcon = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.28;
+  color: #fff;
+  z-index: 1;
+`;
+
+export const AnnouncerBody = styled.div`
+  flex: 1;
+  padding: 1.5rem 1.8rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+
+  @media (max-width: 640px) {
+    padding: 1.2rem 1.3rem;
+  }
+`;
+
+export const AnnouncerBodyTop = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+`;
+
+export const AnnouncerDateChip = styled.span`
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 220, 150, 0.9);
+  font-family: 'Inter', sans-serif;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+`;
+
+export const AnnouncerTitle = styled.h3`
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  line-height: 1.3;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+`;
+
+export const AnnouncerDesc = styled.p`
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+export const AnnouncerLocation = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+`;
+
+export const AnnouncerCTA = styled.button`
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.42rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateX(2px);
+  }
+`;
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(80, 60, 30, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: ${overlayIn} 0.25s ease;
+`;
+
+export const ModalCard = styled.div`
+  background: #ffffff;
+  border: 1px solid rgba(200, 175, 130, 0.25);
+  border-radius: 24px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 580px;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 40px 80px rgba(80, 55, 20, 0.22),
+    0 16px 32px rgba(0, 0, 0, 0.1);
+  animation: ${modalIn} 0.38s cubic-bezier(0.34, 1.06, 0.64, 1);
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(160, 120, 64, 0.2) transparent;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: rgba(160, 120, 64, 0.2); border-radius: 2px; }
+`;
+
+export const ModalImageHeader = styled.div<{ $src?: string | null }>`
+  width: 100%;
+  height: 260px;
+  background: ${({ $src }) =>
+    $src
+      ? `url('${$src}') center/cover no-repeat`
+      : `linear-gradient(145deg, #f5e6c8 0%, #e8c98a 50%, #d4a84b 100%)`};
+  position: relative;
+  flex-shrink: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, #ffffff);
+  }
+`;
+
+export const ModalCloseBtn = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    background: #ffffff;
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  }
+`;
+
+export const ModalBody = styled.div`
+  padding: 0.5rem 2rem 2.4rem;
+  background: #ffffff;
+
+  @media (max-width: 480px) {
+    padding: 0.5rem 1.4rem 2rem;
+  }
+`;
+
+export const ModalDateChip = styled.div`
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a07840;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 0.55rem;
+`;
+
+export const ModalTitle = styled.h2`
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  line-height: 1.18;
+  margin: 0 0 1.1rem;
+  letter-spacing: -0.02em;
+`;
+
+export const ModalDivider = styled.div`
+  height: 1px;
+  background: rgba(160, 120, 64, 0.15);
+  margin-bottom: 1.3rem;
+`;
+
+export const ModalDesc = styled.p`
+  font-family: 'Inter', sans-serif;
+  font-size: 0.97rem;
+  line-height: 1.72;
+  color: #4a4a5a;
+  margin: 0 0 1.4rem;
+  white-space: pre-line;
+`;
+
+export const ModalMeta = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+`;
+
+export const ModalMetaRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #7a7a8a;
+  background: rgba(160, 120, 64, 0.07);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+
+  svg {
+    flex-shrink: 0;
+    color: #a07840;
+  }
 `;
