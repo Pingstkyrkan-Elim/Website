@@ -121,8 +121,9 @@ export const getEvent = async (id: number): Promise<Event> => {
 
 // Team
 export const getTeamMembers = async (): Promise<TeamMember[]> => {
-  const response = await api.get<TeamMember[]>('/team/');
-  return response.data;
+  const response = await api.get<{ results: TeamMember[] } | TeamMember[]>('/team/');
+  const data = response.data;
+  return Array.isArray(data) ? data : (data as { results: TeamMember[] }).results;
 };
 
 // Contact

@@ -504,8 +504,17 @@ class TeamMember(BaseModel):
         ("staff", "Staff"),
     ]
 
+    SECTIONS = [
+        ("pastorer", "Pastorer"),
+        ("ungdom", "Ungdomspastor"),
+        ("styrelse", "Styrelse"),
+        ("other", "Övrigt"),
+    ]
+
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=20, choices=ROLES)
+    section = models.CharField(max_length=20, choices=SECTIONS, default="other")
+    role_title = models.CharField(max_length=100, blank=True, help_text="Displayed role title, e.g. 'Pastor & föreståndare'")
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to="team/", blank=True, null=True)
     email = models.EmailField(blank=True)

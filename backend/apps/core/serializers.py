@@ -219,6 +219,7 @@ class AlphaProgramSerializer(serializers.ModelSerializer):
 
 class TeamMemberSerializer(serializers.ModelSerializer):
     role_display = serializers.CharField(source="get_role_display", read_only=True)
+    section_display = serializers.CharField(source="get_section_display", read_only=True)
 
     class Meta:
         model = TeamMember
@@ -227,6 +228,9 @@ class TeamMemberSerializer(serializers.ModelSerializer):
             "name",
             "role",
             "role_display",
+            "section",
+            "section_display",
+            "role_title",
             "bio",
             "photo",
             "email",

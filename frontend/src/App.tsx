@@ -33,6 +33,7 @@ import PortalDashboard from './pages/PortalDashboard/PortalDashboard';
 import PortalKalender from './pages/PortalKalender/PortalKalender';
 import PortalAnnonser from './pages/PortalAnnonser/PortalAnnonser';
 import PortalAlpha from './pages/PortalAlpha/PortalAlpha';
+import PreTeensPage from './pages/PreTeensPage/PreTeensPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -248,6 +249,15 @@ function App() {
                 element={
                   <Layout>
                     <SecondHandPage />
+                  </Layout>
+                }
+              />
+
+              <Route
+                path='/programs/pre-teens'
+                element={
+                  <Layout>
+                    <PreTeensPage />
                   </Layout>
                 }
               />
