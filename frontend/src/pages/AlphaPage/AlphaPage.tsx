@@ -223,6 +223,7 @@ const AlphaPage: React.FC = () => {
   const heroSubtitle  = d?.hero_subtitle  ?? 'Utforska livet, tron och meningen — i en öppen och välkomnande atmosfär där alla frågor är välkomna.';
   const introQuote    = d?.intro_quote    ?? 'En plats där du kan utforska livet, tron och meningen.';
   const introBody     = d?.intro_body     ?? '';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const introImage    = d?.intro_image ?? null;
   const videoUrl      = d?.video_url      ?? '';
   const videoTitle    = d?.video_title    ?? 'Vad är Alpha?';

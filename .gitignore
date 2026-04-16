@@ -133,12 +133,14 @@ backups/
 *.backup
 
 # ===== SSL CERTIFICATES =====
-# SSL certificates and private keys
+# SSL certificate files are excluded by extension (covers all directories)
 *.key
 *.crt
 *.pem
-ssl/
+*.p12
+*.pfx
 certificates/
+# nginx/ssl/ directory: keep the folder placeholder, exclude actual cert files
 nginx/ssl/*
 !nginx/ssl/.gitkeep
 

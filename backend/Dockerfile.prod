@@ -26,7 +26,6 @@ RUN adduser --disabled-password --gecos '' --uid 1000 appuser
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt \
-    && pip install --no-cache-dir gunicorn==21.2.0 \
     && rm -rf /root/.cache/pip
 
 # Copy project

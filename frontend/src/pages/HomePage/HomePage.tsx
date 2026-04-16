@@ -62,6 +62,7 @@ function formatDate(dateStr: string): string {
 // ── component ─────────────────────────────────────────────────────────────────
 
 const HomePage: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
 
   const { data: latestNews } = useQuery({

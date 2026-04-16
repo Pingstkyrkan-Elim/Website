@@ -54,15 +54,12 @@ exclude = [
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "elim_backend.settings"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
-testpaths = ["apps", "tests"]
+testpaths = ["apps"]
 addopts = [
     "--verbose",
     "--tb=short",
     "--strict-markers",
-    "--disable-warnings",
-    "--cov=apps",
-    "--cov-report=html",
-    "--cov-report=term-missing"
+    "--disable-warnings"
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",

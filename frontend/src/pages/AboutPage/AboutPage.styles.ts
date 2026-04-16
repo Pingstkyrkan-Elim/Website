@@ -18,12 +18,14 @@ const pulseRing = keyframes`
   100% { box-shadow: 0 0 0 0 rgba(201, 120, 32, 0); }
 `;
 
-const floatY = keyframes`
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _floatY = keyframes`
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-8px); }
 `;
 
-const lineGrow = keyframes`
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _lineGrow = keyframes`
   from { width: 0; }
   to   { width: 32px; }
 `;

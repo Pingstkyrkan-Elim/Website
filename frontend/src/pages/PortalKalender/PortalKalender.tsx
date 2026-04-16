@@ -67,7 +67,6 @@ import {
   PageHeader,
   PageTitle,
   RecurringCard,
-  RecurringCardDay,
   RecurringCardLocation,
   RecurringCardTime,
   RecurringCardTitle,

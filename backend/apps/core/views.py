@@ -394,4 +394,3 @@ class PortalPreTeensDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PreTeensContent.objects.all()
     serializer_class = PreTeensContentSerializer
     permission_classes = [IsPreTeensUser]
-
