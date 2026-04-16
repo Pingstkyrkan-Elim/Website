@@ -171,6 +171,20 @@ CORS_ALLOWED_ORIGINS = env.list(
 
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS", default=["http://localhost:3000", "http://127.0.0.1:3000"]
+)
+
+# Production security settings (only when not in DEBUG mode)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = env.bool("USE_HTTPS", default=False)
+    CSRF_COOKIE_SECURE = env.bool("USE_HTTPS", default=False)
+    SECURE_HSTS_SECONDS = 31536000 if env.bool("USE_HTTPS", default=False) else 0
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("USE_HTTPS", default=False)
+    SECURE_HSTS_PRELOAD = env.bool("USE_HTTPS", default=False)
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+
 # Celery Configuration
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://localhost:6379/0")
 CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND", default="redis://localhost:6379/0")
@@ -180,22 +194,33 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
 
 # Logging
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message}",
+            "style": "{",
+        },
+    },
     "handlers": {
         "file": {
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": "debug.log",
+            "filename": os.path.join(LOG_DIR, "django.log"),
+            "formatter": "verbose",
         },
         "console": {
             "level": "INFO",
             "class": "logging.StreamHandler",
+            "formatter": "verbose",
         },
     },
     "root": {
         "handlers": ["console", "file"],
-        "level": "INFO",
+        "level": env("LOG_LEVEL", default="INFO"),
     },
 }

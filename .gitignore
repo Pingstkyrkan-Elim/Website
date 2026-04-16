@@ -139,6 +139,8 @@ backups/
 *.pem
 ssl/
 certificates/
+nginx/ssl/*
+!nginx/ssl/.gitkeep
 
 # ===== SYNOLOGY/PRODUCTION =====
 # Production deployment files — docker-compose.synology.yml and .env.synology
