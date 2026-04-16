@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -60,14 +61,18 @@ class AuthEndpointTest(TestCase):
 
     def test_login_returns_tokens(self):
         url = reverse("portal-login")
-        resp = self.client.post(url, {"email": "auth@elim.se", "password": "Sekret123!"}, format="json")
+        resp = self.client.post(
+            url, {"email": "auth@elim.se", "password": "Sekret123!"}, format="json"
+        )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertIn("access", resp.data)
         self.assertIn("refresh", resp.data)
 
     def test_login_wrong_password(self):
         url = reverse("portal-login")
-        resp = self.client.post(url, {"email": "auth@elim.se", "password": "wrong"}, format="json")
+        resp = self.client.post(
+            url, {"email": "auth@elim.se", "password": "wrong"}, format="json"
+        )
         self.assertEqual(resp.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_me_requires_auth(self):
@@ -122,7 +127,9 @@ class UserRegistrationTest(TestCase):
             "password": "Sekret123!",
         }
         resp = self.client.post(url, data, format="json")
-        self.assertIn(resp.status_code, [status.HTTP_400_BAD_REQUEST, status.HTTP_409_CONFLICT])
+        self.assertIn(
+            resp.status_code, [status.HTTP_400_BAD_REQUEST, status.HTTP_409_CONFLICT]
+        )
 
 
 # ── Profile ────────────────────────────────────────────────────────────────────

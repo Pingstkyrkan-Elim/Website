@@ -178,7 +178,17 @@ class SecondHandStoreSerializer(serializers.ModelSerializer):
 class AnnouncementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Announcement
-        fields = ["id", "title", "description", "date", "location", "image", "is_active", "created_at", "updated_at"]
+        fields = [
+            "id",
+            "title",
+            "description",
+            "date",
+            "location",
+            "image",
+            "is_active",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = ["id", "created_at", "updated_at"]
 
 
@@ -227,7 +237,9 @@ class PreTeensContentSerializer(serializers.ModelSerializer):
 
 class TeamMemberSerializer(serializers.ModelSerializer):
     role_display = serializers.CharField(source="get_role_display", read_only=True)
-    section_display = serializers.CharField(source="get_section_display", read_only=True)
+    section_display = serializers.CharField(
+        source="get_section_display", read_only=True
+    )
 
     class Meta:
         model = TeamMember

@@ -8,11 +8,25 @@ urlpatterns = [
     # Alpha program (public)
     path("alpha-program/", views.alpha_program, name="alpha-program"),
     # Portal — Alpha content management (authenticated, kalender group)
-    path("portal/alpha-program/", views.PortalAlphaProgramView.as_view(), name="portal-alpha-program"),
-    path("portal/alpha-photos/", views.PortalAlphaPhotoListCreateView.as_view(), name="portal-alpha-photo-list"),
-    path("portal/alpha-photos/<int:pk>/", views.PortalAlphaPhotoDetailView.as_view(), name="portal-alpha-photo-detail"),
+    path(
+        "portal/alpha-program/",
+        views.PortalAlphaProgramView.as_view(),
+        name="portal-alpha-program",
+    ),
+    path(
+        "portal/alpha-photos/",
+        views.PortalAlphaPhotoListCreateView.as_view(),
+        name="portal-alpha-photo-list",
+    ),
+    path(
+        "portal/alpha-photos/<int:pk>/",
+        views.PortalAlphaPhotoDetailView.as_view(),
+        name="portal-alpha-photo-detail",
+    ),
     # Announcements (public)
-    path("announcements/", views.AnnouncementListView.as_view(), name="announcement-list"),
+    path(
+        "announcements/", views.AnnouncementListView.as_view(), name="announcement-list"
+    ),
     # Portal — announcement management (authenticated, kalender group)
     path(
         "portal/announcements/",
@@ -51,8 +65,16 @@ urlpatterns = [
     # Pre-Teens (public — next upcoming event)
     path("pre-teens/", views.preteens_content, name="preteens-content"),
     # Portal — Pre-Teens CRUD (pre-teens group)
-    path("portal/pre-teens/", views.PortalPreTeensListCreateView.as_view(), name="portal-preteens-list"),
-    path("portal/pre-teens/<int:pk>/", views.PortalPreTeensDetailView.as_view(), name="portal-preteens-detail"),
+    path(
+        "portal/pre-teens/",
+        views.PortalPreTeensListCreateView.as_view(),
+        name="portal-preteens-list",
+    ),
+    path(
+        "portal/pre-teens/<int:pk>/",
+        views.PortalPreTeensDetailView.as_view(),
+        name="portal-preteens-detail",
+    ),
     # Portal — event management (authenticated, kalender group)
     path(
         "portal/events/",

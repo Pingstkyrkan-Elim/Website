@@ -312,6 +312,7 @@ class PortalAlphaProgramView(generics.RetrieveUpdateAPIView):
 
     def get_parsers(self):
         from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
+
         return [MultiPartParser(), FormParser(), JSONParser()]
 
 

@@ -395,7 +395,9 @@ class AlphaProgram(BaseModel):
     """Alpha course page content — single-instance model"""
 
     # Hero
-    hero_eyebrow = models.CharField(max_length=200, default="Pingstkyrkan Elim · Trelleborg")
+    hero_eyebrow = models.CharField(
+        max_length=200, default="Pingstkyrkan Elim · Trelleborg"
+    )
     hero_title = models.CharField(max_length=200, default="Alpha")
     hero_subtitle = models.TextField(
         default="Utforska livet, tron och meningen — i en öppen och välkomnande atmosfär där alla frågor är välkomna."
@@ -417,7 +419,8 @@ class AlphaProgram(BaseModel):
 
     # Video
     video_url = models.URLField(
-        default="https://www.youtube.com/embed/HTCwMn6LKCI?rel=0&modestbranding=1", blank=True
+        default="https://www.youtube.com/embed/HTCwMn6LKCI?rel=0&modestbranding=1",
+        blank=True,
     )
     video_title = models.CharField(max_length=200, default="Vad är Alpha?", blank=True)
 
@@ -425,19 +428,21 @@ class AlphaProgram(BaseModel):
     steps = models.JSONField(
         default=list,
         blank=True,
-        help_text='List of {emoji, title, desc} objects',
+        help_text="List of {emoji, title, desc} objects",
     )
 
     # Topics (13 topics) — list of strings
     topics = models.JSONField(
         default=list,
         blank=True,
-        help_text='List of topic strings',
+        help_text="List of topic strings",
     )
 
     # Next Alpha section
     next_alpha_tag = models.CharField(max_length=100, default="Nästa Alpha", blank=True)
-    next_alpha_title = models.CharField(max_length=200, default="Välkommen med under vårterminen!", blank=True)
+    next_alpha_title = models.CharField(
+        max_length=200, default="Välkommen med under vårterminen!", blank=True
+    )
     next_alpha_desc = models.TextField(
         default=(
             "Vi startar en ny omgång av Alpha snart. Kursen är gratis och öppen för alla — "
@@ -445,9 +450,15 @@ class AlphaProgram(BaseModel):
         ),
         blank=True,
     )
-    next_alpha_venue = models.CharField(max_length=200, default="Pingstkyrkan Elim", blank=True)
-    next_alpha_location = models.CharField(max_length=200, default="Engelbrektsgatan 68, Trelleborg", blank=True)
-    next_alpha_email = models.EmailField(default="pingstkyrkan.trelleborg@gmail.com", blank=True)
+    next_alpha_venue = models.CharField(
+        max_length=200, default="Pingstkyrkan Elim", blank=True
+    )
+    next_alpha_location = models.CharField(
+        max_length=200, default="Engelbrektsgatan 68, Trelleborg", blank=True
+    )
+    next_alpha_email = models.EmailField(
+        default="pingstkyrkan.trelleborg@gmail.com", blank=True
+    )
 
     # Closing
     closing_quote = models.TextField(
@@ -514,7 +525,11 @@ class TeamMember(BaseModel):
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=20, choices=ROLES)
     section = models.CharField(max_length=20, choices=SECTIONS, default="other")
-    role_title = models.CharField(max_length=100, blank=True, help_text="Displayed role title, e.g. 'Pastor & föreståndare'")
+    role_title = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Displayed role title, e.g. 'Pastor & föreståndare'",
+    )
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to="team/", blank=True, null=True)
     email = models.EmailField(blank=True)

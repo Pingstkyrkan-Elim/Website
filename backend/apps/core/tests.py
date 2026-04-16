@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
+
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -15,7 +16,11 @@ User = get_user_model()
 
 def make_user(email="core@elim.se", password="Sekret123!"):
     return User.objects.create_user(
-        email=email, username=email, first_name="Test", last_name="User", password=password
+        email=email,
+        username=email,
+        first_name="Test",
+        last_name="User",
+        password=password,
     )
 
 
@@ -90,7 +95,9 @@ class ServicePublicTest(TestCase):
 
     def test_upcoming_services_public(self):
         resp = self.client.get(reverse("upcoming-services"))
-        self.assertIn(resp.status_code, [status.HTTP_200_OK, status.HTTP_204_NO_CONTENT])
+        self.assertIn(
+            resp.status_code, [status.HTTP_200_OK, status.HTTP_204_NO_CONTENT]
+        )
 
 
 # ── News ──────────────────────────────────────────────────────────────────────

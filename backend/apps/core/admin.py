@@ -32,7 +32,18 @@ class AlphaProgramAdmin(admin.ModelAdmin):
         ("Intro", {"fields": ("intro_quote", "intro_body", "intro_image")}),
         ("Video", {"fields": ("video_url", "video_title")}),
         ("Content", {"fields": ("steps", "topics")}),
-        ("Nästa Alpha", {"fields": ("next_alpha_tag", "next_alpha_title", "next_alpha_desc", "next_alpha_location", "next_alpha_email")}),
+        (
+            "Nästa Alpha",
+            {
+                "fields": (
+                    "next_alpha_tag",
+                    "next_alpha_title",
+                    "next_alpha_desc",
+                    "next_alpha_location",
+                    "next_alpha_email",
+                )
+            },
+        ),
         ("Closing", {"fields": ("closing_quote", "is_active")}),
     )
 
