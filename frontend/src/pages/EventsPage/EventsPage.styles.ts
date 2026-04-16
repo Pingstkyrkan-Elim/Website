@@ -1039,12 +1039,10 @@ export const PrintStyles = createGlobalStyle`
       print-color-adjust: exact !important;
     }
 
-    /* Collapse the document to exactly one page — prevents blank extra pages
-       caused by invisible DOM content still occupying layout space */
+    /* Allow natural multi-page flow */
     html, body {
-      height: 100% !important;
-      max-height: 100% !important;
-      overflow: hidden !important;
+      height: auto !important;
+      overflow: visible !important;
     }
 
     /* Hide everything */
@@ -1058,18 +1056,15 @@ export const PrintStyles = createGlobalStyle`
       visibility: visible !important;
     }
 
-    /* Cover the full page */
+    /* Position at top of document — no height cap, no overflow clip */
     #print-calendar {
-      position: fixed !important;
+      position: absolute !important;
       top: 0 !important;
       left: 0 !important;
       right: 0 !important;
-      bottom: 0 !important;
-      overflow: hidden !important;
+      overflow: visible !important;
       font-family: 'Playfair Display', Georgia, serif;
       color: #1a1008;
-      display: flex !important;
-      flex-direction: column !important;
     }
   }
 `;
@@ -1129,28 +1124,23 @@ export const PrintMonthTitle = styled.h2`
 
 export const PrintWeeksGrid = styled.div`
   @media print {
-    display: flex;
-    gap: 5mm;
-    align-items: flex-start;
-    flex: 1;
-    min-height: 0;
+    columns: 2;
+    column-gap: 5mm;
   }
 `;
 
-export const PrintColumn = styled.div`
-  @media print {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5mm;
-  }
-`;
+/* PrintColumn is kept as a passthrough — no longer used for layout */
+export const PrintColumn = styled.div``;
 
 export const PrintWeekBlock = styled.div`
   @media print {
     border: 0.5pt solid #d4aa60;
     overflow: hidden;
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 2.5mm;
+    box-sizing: border-box;
   }
 `;
 

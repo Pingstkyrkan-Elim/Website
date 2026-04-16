@@ -73,7 +73,6 @@ import {
   PrintArea,
   PrintButton,
   PrintChurchName,
-  PrintColumn,
   PrintDayBlock,
   PrintDayName,
   PrintEventName,
@@ -478,62 +477,55 @@ const EventsPage: React.FC = () => {
         )}
 
         <PrintWeeksGrid>
-          {[
-            weeks.slice(0, Math.ceil(weeks.length / 2)),
-            weeks.slice(Math.ceil(weeks.length / 2)),
-          ].map((colWeeks, colIdx) => (
-            <PrintColumn key={colIdx}>
-              {colWeeks.map(({ weekNumber, weekLabel, days }) => (
-                <PrintWeekBlock key={weekNumber}>
-                  <PrintWeekHeader>
-                    <PrintWeekNumber>Vecka {weekNumber}</PrintWeekNumber>
-                    <PrintWeekRange>{weekLabel}</PrintWeekRange>
-                  </PrintWeekHeader>
+          {weeks.map(({ weekNumber, weekLabel, days }) => (
+            <PrintWeekBlock key={weekNumber}>
+              <PrintWeekHeader>
+                <PrintWeekNumber>Vecka {weekNumber}</PrintWeekNumber>
+                <PrintWeekRange>{weekLabel}</PrintWeekRange>
+              </PrintWeekHeader>
 
-                  {days.map(({ date, dayName, events }) => (
-                    <PrintDayBlock key={date.toDateString()}>
-                      <PrintDayName>
-                        {dayName} {date.getDate()}{' '}
-                        {date.toLocaleDateString('sv-SE', { month: 'long' })}
-                      </PrintDayName>
+              {days.map(({ date, dayName, events }) => (
+                <PrintDayBlock key={date.toDateString()}>
+                  <PrintDayName>
+                    {dayName} {date.getDate()}{' '}
+                    {date.toLocaleDateString('sv-SE', { month: 'long' })}
+                  </PrintDayName>
 
-                      {events.map(ev => (
-                        <PrintEventRow key={ev.id}>
-                          <PrintEventTime>
-                            {getEventDisplayTime(ev)}
-                          </PrintEventTime>
-                          <PrintEventName>{ev.title}</PrintEventName>
-                          {ev.has_sunday_school && (
-                            <PrintEventTag
-                              $bg='rgba(42,90,106,0.1)'
-                              $color='#2a5a6a'
-                            >
-                              Söndagsskolan
-                            </PrintEventTag>
-                          )}
-                          {ev.has_communion && (
-                            <PrintEventTag
-                              $bg='rgba(122,58,160,0.1)'
-                              $color='#7a3aa0'
-                            >
-                              Nattvard
-                            </PrintEventTag>
-                          )}
-                          {ev.registration_required && (
-                            <PrintEventTag
-                              $bg='rgba(160,80,32,0.1)'
-                              $color='#a05020'
-                            >
-                              Anmälan krävs
-                            </PrintEventTag>
-                          )}
-                        </PrintEventRow>
-                      ))}
-                    </PrintDayBlock>
+                  {events.map(ev => (
+                    <PrintEventRow key={ev.id}>
+                      <PrintEventTime>
+                        {getEventDisplayTime(ev)}
+                      </PrintEventTime>
+                      <PrintEventName>{ev.title}</PrintEventName>
+                      {ev.has_sunday_school && (
+                        <PrintEventTag
+                          $bg='rgba(42,90,106,0.1)'
+                          $color='#2a5a6a'
+                        >
+                          Söndagsskolan
+                        </PrintEventTag>
+                      )}
+                      {ev.has_communion && (
+                        <PrintEventTag
+                          $bg='rgba(122,58,160,0.1)'
+                          $color='#7a3aa0'
+                        >
+                          Nattvard
+                        </PrintEventTag>
+                      )}
+                      {ev.registration_required && (
+                        <PrintEventTag
+                          $bg='rgba(160,80,32,0.1)'
+                          $color='#a05020'
+                        >
+                          Anmälan krävs
+                        </PrintEventTag>
+                      )}
+                    </PrintEventRow>
                   ))}
-                </PrintWeekBlock>
+                </PrintDayBlock>
               ))}
-            </PrintColumn>
+            </PrintWeekBlock>
           ))}
         </PrintWeeksGrid>
 
