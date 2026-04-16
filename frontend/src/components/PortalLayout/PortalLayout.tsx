@@ -52,13 +52,34 @@ const NAV_ITEMS: NavEntry[] = [
   {
     path: '/portal/alpha',
     label: 'Alpha',
-    icon: <span style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '1rem', lineHeight: 1 }}>α</span>,
+    icon: (
+      <span
+        style={{
+          fontFamily: 'Georgia, serif',
+          fontStyle: 'italic',
+          fontSize: '1rem',
+          lineHeight: 1,
+        }}
+      >
+        α
+      </span>
+    ),
     permission: 'alpha',
   },
   {
     path: '/portal/pre-teens',
     label: 'Pre-Teens',
-    icon: <span style={{ fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.02em' }}>PT</span>,
+    icon: (
+      <span
+        style={{
+          fontWeight: 700,
+          fontSize: '0.75rem',
+          letterSpacing: '0.02em',
+        }}
+      >
+        PT
+      </span>
+    ),
     permission: 'pre-teens',
   },
 ];
@@ -127,18 +148,18 @@ const PortalLayout: React.FC<PortalLayoutProps> = ({ children }) => {
           <LogoutButton onClick={handleLogout}>
             <NavIcon>
               <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                width='16'
+                height='16'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
               >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" y1="12" x2="9" y2="12" />
+                <path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4' />
+                <polyline points='16 17 21 12 16 7' />
+                <line x1='21' y1='12' x2='9' y2='12' />
               </svg>
             </NavIcon>
             Logga ut

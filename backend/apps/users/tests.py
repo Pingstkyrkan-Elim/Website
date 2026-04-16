@@ -111,6 +111,7 @@ class UserRegistrationTest(TestCase):
             "first_name": "New",
             "last_name": "Member",
             "password": "Sekret123!",
+            "password_confirm": "Sekret123!",
         }
         resp = self.client.post(url, data, format="json")
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
@@ -125,6 +126,7 @@ class UserRegistrationTest(TestCase):
             "first_name": "Dup",
             "last_name": "User",
             "password": "Sekret123!",
+            "password_confirm": "Sekret123!",
         }
         resp = self.client.post(url, data, format="json")
         self.assertIn(

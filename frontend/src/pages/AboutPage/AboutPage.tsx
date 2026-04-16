@@ -40,7 +40,7 @@ const photoUrl = (photo: string | undefined): string => {
 function useInView(threshold = 0.12) {
   const [visible, setVisible] = useState(false);
   const ref = useCallback<React.RefCallback<HTMLDivElement>>(
-    (el) => {
+    el => {
       if (!el) return;
       const obs = new IntersectionObserver(
         ([e]) => {
@@ -109,14 +109,18 @@ const PastorBlock: React.FC<{ member: TeamMember }> = ({ member }) => {
     <PastorSection>
       <PastorInner>
         <PastorImagePanel ref={img.ref} $visible={img.visible}>
-          {member.photo && <img src={photoUrl(member.photo)} alt={member.name} />}
+          {member.photo && (
+            <img src={photoUrl(member.photo)} alt={member.name} />
+          )}
         </PastorImagePanel>
 
         <PastorTextPanel ref={text.ref} $visible={text.visible}>
           <PastorTextInner>
             <SectionLabel $visible={text.visible}>Pastorer</SectionLabel>
             <MemberName>{member.name}</MemberName>
-            {member.role_title && <MemberRoleTitle>{member.role_title}</MemberRoleTitle>}
+            {member.role_title && (
+              <MemberRoleTitle>{member.role_title}</MemberRoleTitle>
+            )}
             <MemberDivider />
             {member.bio && <MemberBio>{member.bio}</MemberBio>}
           </PastorTextInner>
@@ -129,7 +133,7 @@ const PastorBlock: React.FC<{ member: TeamMember }> = ({ member }) => {
 // ── UngdomBlock — same cinematic split-panel as pastors, reversed ─────────────
 
 const UngdomBlock: React.FC<{ member: TeamMember }> = ({ member }) => {
-  const img  = useInView(0.1);
+  const img = useInView(0.1);
   const text = useInView(0.1);
 
   return (
@@ -139,14 +143,18 @@ const UngdomBlock: React.FC<{ member: TeamMember }> = ({ member }) => {
           <PastorTextInner>
             <SectionLabel $visible={text.visible}>Ungdomspastor</SectionLabel>
             <MemberName>{member.name}</MemberName>
-            {member.role_title && <MemberRoleTitle>{member.role_title}</MemberRoleTitle>}
+            {member.role_title && (
+              <MemberRoleTitle>{member.role_title}</MemberRoleTitle>
+            )}
             <MemberDivider />
             {member.bio && <MemberBio>{member.bio}</MemberBio>}
           </PastorTextInner>
         </PastorTextPanel>
 
         <PastorImagePanel ref={img.ref} $visible={img.visible} $reversed>
-          {member.photo && <img src={photoUrl(member.photo)} alt={member.name} />}
+          {member.photo && (
+            <img src={photoUrl(member.photo)} alt={member.name} />
+          )}
         </PastorImagePanel>
       </PastorInner>
     </PastorSection>
@@ -157,15 +165,17 @@ const UngdomBlock: React.FC<{ member: TeamMember }> = ({ member }) => {
 
 const StyrelseBlock: React.FC<{ member: TeamMember }> = ({ member }) => {
   const header = useInView(0.1);
-  const image  = useInView(0.08);
-  const bio    = useInView(0.1);
+  const image = useInView(0.08);
+  const bio = useInView(0.1);
 
   return (
     <StyrelseSection>
       <StyrelseHeaderWrap ref={header.ref} $visible={header.visible}>
         <SectionLabel $visible={header.visible}>Styrelse</SectionLabel>
         <MemberName>{member.name}</MemberName>
-        {member.role_title && <MemberRoleTitle>{member.role_title}</MemberRoleTitle>}
+        {member.role_title && (
+          <MemberRoleTitle>{member.role_title}</MemberRoleTitle>
+        )}
       </StyrelseHeaderWrap>
 
       {member.photo && (
@@ -184,13 +194,15 @@ const StyrelseBlock: React.FC<{ member: TeamMember }> = ({ member }) => {
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 const AboutPage: React.FC = () => {
-  const { data, isLoading } = useQuery<TeamMember[]>('team-members', getTeamMembers);
+  const { data, isLoading } = useQuery<TeamMember[]>(
+    'team-members',
+    getTeamMembers
+  );
 
-  const members =
-    Array.isArray(data) && data.length > 0 ? data : FALLBACK;
+  const members = Array.isArray(data) && data.length > 0 ? data : FALLBACK;
 
-  const pastors  = members.filter(m => m.section === 'pastorer');
-  const ungdom   = members.filter(m => m.section === 'ungdom');
+  const pastors = members.filter(m => m.section === 'pastorer');
+  const ungdom = members.filter(m => m.section === 'ungdom');
   const styrelse = members.filter(m => m.section === 'styrelse');
 
   if (isLoading && !data) {
@@ -199,17 +211,17 @@ const AboutPage: React.FC = () => {
 
   return (
     <OmOssWrapper>
-
       {/* ── Hero — photo banner ──────────────────────────────────── */}
       <HeroSection>
         <HeroInner>
           <HeroEyebrow>Pingstkyrkan Elim · Trelleborg</HeroEyebrow>
           <HeroTitle>
-            Om<span className="outline">Oss</span>
+            Om<span className='outline'>Oss</span>
           </HeroTitle>
           <HeroSubtitle>
             Vi är en gemenskap av människor som tror på Gud, lever i gemenskap
-            med varandra och vill vara en välsignelse för Trelleborg och världen.
+            med varandra och vill vara en välsignelse för Trelleborg och
+            världen.
           </HeroSubtitle>
         </HeroInner>
       </HeroSection>
@@ -237,7 +249,6 @@ const AboutPage: React.FC = () => {
           <StyrelseBlock member={m} />
         </React.Fragment>
       ))}
-
     </OmOssWrapper>
   );
 };

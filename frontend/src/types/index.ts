@@ -137,7 +137,14 @@ export interface Announcement {
 export interface TeamMember {
   id: number;
   name: string;
-  role: 'pastor' | 'elder' | 'deacon' | 'worship_leader' | 'youth_leader' | 'volunteer' | 'staff';
+  role:
+    | 'pastor'
+    | 'elder'
+    | 'deacon'
+    | 'worship_leader'
+    | 'youth_leader'
+    | 'volunteer'
+    | 'staff';
   role_display: string;
   section: 'pastorer' | 'ungdom' | 'styrelse' | 'other';
   section_display: string;

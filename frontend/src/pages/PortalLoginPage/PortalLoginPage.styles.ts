@@ -19,7 +19,8 @@ export const LoginWrapper = styled.div`
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(
+    background:
+      radial-gradient(
         ellipse 600px 400px at 20% 30%,
         rgba(180, 140, 80, 0.07) 0%,
         transparent 70%
@@ -105,7 +106,9 @@ export const Input = styled.input`
   color: rgba(255, 255, 255, 0.88);
   font-size: 0.95rem;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   box-sizing: border-box;
 
   &::placeholder {
@@ -131,7 +134,9 @@ export const LoginButton = styled.button<{ $loading?: boolean }>`
   font-weight: 600;
   letter-spacing: 0.05em;
   cursor: ${({ $loading }) => ($loading ? 'not-allowed' : 'pointer')};
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 
   &:hover:not(:disabled) {
     background: rgba(201, 169, 110, 0.25);

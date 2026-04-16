@@ -74,17 +74,37 @@ import {
 // ── Default fallback data ──────────────────────────────────────────────────────
 
 const DEFAULT_STEPS: AlphaStep[] = [
-  { emoji: '🍽️', title: 'Mat', desc: 'Varje träff börjar med en gemensam måltid. Det skapar en avslappnad stämning och ger tid att lära känna varandra.' },
-  { emoji: '🎬', title: 'Film', desc: 'Vi tittar tillsammans på en kort film som introducerar kvällens tema på ett engagerande och tankeväckande sätt.' },
-  { emoji: '💬', title: 'Samtal', desc: 'I små grupper pratar vi om det vi just sett. Inga rätta svar, inga krav — bara ett öppet samtal.' },
+  {
+    emoji: '🍽️',
+    title: 'Mat',
+    desc: 'Varje träff börjar med en gemensam måltid. Det skapar en avslappnad stämning och ger tid att lära känna varandra.',
+  },
+  {
+    emoji: '🎬',
+    title: 'Film',
+    desc: 'Vi tittar tillsammans på en kort film som introducerar kvällens tema på ett engagerande och tankeväckande sätt.',
+  },
+  {
+    emoji: '💬',
+    title: 'Samtal',
+    desc: 'I små grupper pratar vi om det vi just sett. Inga rätta svar, inga krav — bara ett öppet samtal.',
+  },
 ];
 
 const DEFAULT_TOPICS = [
-  'Finns det mer i livet?', 'Vem är Jesus?', 'Varför dog Jesus?',
-  'Hur kan jag ha tillit?', 'Varför och hur ber man?', 'Hur läser man Bibeln?',
-  'Hur leder Gud oss?', 'Alphahelgen — Vem är den Helige Ande?', 'Vad gör den Helige Ande?',
-  'Hur kan jag stå emot det onda?', 'Varför och hur ska jag berätta för andra?',
-  'Innebär Gud helande idag?', 'Vad säger Bibeln om kyrkan?',
+  'Finns det mer i livet?',
+  'Vem är Jesus?',
+  'Varför dog Jesus?',
+  'Hur kan jag ha tillit?',
+  'Varför och hur ber man?',
+  'Hur läser man Bibeln?',
+  'Hur leder Gud oss?',
+  'Alphahelgen — Vem är den Helige Ande?',
+  'Vad gör den Helige Ande?',
+  'Hur kan jag stå emot det onda?',
+  'Varför och hur ska jag berätta för andra?',
+  'Innebär Gud helande idag?',
+  'Vad säger Bibeln om kyrkan?',
 ];
 
 // ── Scroll-reveal hook ────────────────────────────────────────────────────────
@@ -96,7 +116,12 @@ function useInView(threshold = 0.12) {
     (el: HTMLDivElement | null) => {
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+        ([e]) => {
+          if (e.isIntersecting) {
+            setVisible(true);
+            obs.disconnect();
+          }
+        },
         { threshold }
       );
       obs.observe(el);
@@ -115,11 +140,14 @@ const AlphaGallery: React.FC<{ photos: AlphaPhoto[] }> = ({ photos }) => {
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
   const prevLight = useCallback(
-    () => setLightboxIndex(i => i !== null ? (i - 1 + photos.length) % photos.length : null),
+    () =>
+      setLightboxIndex(i =>
+        i !== null ? (i - 1 + photos.length) % photos.length : null
+      ),
     [photos.length]
   );
   const nextLight = useCallback(
-    () => setLightboxIndex(i => i !== null ? (i + 1) % photos.length : null),
+    () => setLightboxIndex(i => (i !== null ? (i + 1) % photos.length : null)),
     [photos.length]
   );
 
@@ -150,7 +178,10 @@ const AlphaGallery: React.FC<{ photos: AlphaPhoto[] }> = ({ photos }) => {
       <AlphaGalleryWrapper>
         <HistGalleryTrack ref={trackRef as React.RefObject<HTMLDivElement>}>
           {photos.map((photo, i) => (
-            <AlphaGalleryCard key={photo.id} onClick={() => setLightboxIndex(i)}>
+            <AlphaGalleryCard
+              key={photo.id}
+              onClick={() => setLightboxIndex(i)}
+            >
               <AlphaGalleryCardImg
                 src={photo.image}
                 alt={photo.caption || `Alpha — bild ${i + 1}`}
@@ -178,28 +209,44 @@ const AlphaGallery: React.FC<{ photos: AlphaPhoto[] }> = ({ photos }) => {
         </HistGalleryDots>
       </AlphaGalleryWrapper>
 
-      {lightboxIndex !== null && ReactDOM.createPortal(
-        <HistLightbox onClick={closeLightbox}>
-          <HistLightboxClose onClick={closeLightbox}>
-            <IconX size={18} />
-          </HistLightboxClose>
-          <HistLightboxNav $dir="prev" onClick={e => { e.stopPropagation(); prevLight(); }}>
-            <IconChevronLeft size={22} />
-          </HistLightboxNav>
-          <HistLightboxImg
-            src={photos[lightboxIndex].image}
-            alt={photos[lightboxIndex].caption || `Alpha — bild ${lightboxIndex + 1}`}
-            onClick={e => e.stopPropagation()}
-          />
-          <HistLightboxNav $dir="next" onClick={e => { e.stopPropagation(); nextLight(); }}>
-            <IconChevronRight size={22} />
-          </HistLightboxNav>
-          <HistLightboxCounter>
-            {lightboxIndex + 1} / {photos.length}
-          </HistLightboxCounter>
-        </HistLightbox>,
-        document.body
-      )}
+      {lightboxIndex !== null &&
+        ReactDOM.createPortal(
+          <HistLightbox onClick={closeLightbox}>
+            <HistLightboxClose onClick={closeLightbox}>
+              <IconX size={18} />
+            </HistLightboxClose>
+            <HistLightboxNav
+              $dir='prev'
+              onClick={e => {
+                e.stopPropagation();
+                prevLight();
+              }}
+            >
+              <IconChevronLeft size={22} />
+            </HistLightboxNav>
+            <HistLightboxImg
+              src={photos[lightboxIndex].image}
+              alt={
+                photos[lightboxIndex].caption ||
+                `Alpha — bild ${lightboxIndex + 1}`
+              }
+              onClick={e => e.stopPropagation()}
+            />
+            <HistLightboxNav
+              $dir='next'
+              onClick={e => {
+                e.stopPropagation();
+                nextLight();
+              }}
+            >
+              <IconChevronRight size={22} />
+            </HistLightboxNav>
+            <HistLightboxCounter>
+              {lightboxIndex + 1} / {photos.length}
+            </HistLightboxCounter>
+          </HistLightbox>,
+          document.body
+        )}
     </>
   );
 };
@@ -211,32 +258,38 @@ const AlphaPage: React.FC = () => {
     staleTime: 5 * 60 * 1000,
   });
 
-  const intro  = useInView();
-  const video  = useInView();
-  const steps  = useInView();
+  const intro = useInView();
+  const video = useInView();
+  const steps = useInView();
   const topics = useInView();
   const gallery = useInView();
 
   const d = data;
-  const heroEyebrow   = d?.hero_eyebrow   ?? 'Pingstkyrkan Elim · Trelleborg';
-  const heroTitle     = d?.hero_title     ?? 'Alpha';
-  const heroSubtitle  = d?.hero_subtitle  ?? 'Utforska livet, tron och meningen — i en öppen och välkomnande atmosfär där alla frågor är välkomna.';
-  const introQuote    = d?.intro_quote    ?? 'En plats där du kan utforska livet, tron och meningen.';
-  const introBody     = d?.intro_body     ?? '';
+  const heroEyebrow = d?.hero_eyebrow ?? 'Pingstkyrkan Elim · Trelleborg';
+  const heroTitle = d?.hero_title ?? 'Alpha';
+  const heroSubtitle =
+    d?.hero_subtitle ??
+    'Utforska livet, tron och meningen — i en öppen och välkomnande atmosfär där alla frågor är välkomna.';
+  const introQuote =
+    d?.intro_quote ?? 'En plats där du kan utforska livet, tron och meningen.';
+  const introBody = d?.intro_body ?? '';
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const introImage    = d?.intro_image ?? null;
-  const videoUrl      = d?.video_url      ?? '';
-  const videoTitle    = d?.video_title    ?? 'Vad är Alpha?';
-  const stepsData     = (d?.steps && d.steps.length > 0) ? d.steps : DEFAULT_STEPS;
-  const topicsData    = (d?.topics && d.topics.length > 0) ? d.topics : DEFAULT_TOPICS;
-  const nextTag       = d?.next_alpha_tag      ?? '';
-  const nextTitle     = d?.next_alpha_title    ?? '';
-  const nextDesc      = d?.next_alpha_desc     ?? '';
-  const nextVenue     = d?.next_alpha_venue    ?? '';
-  const nextLocation  = d?.next_alpha_location ?? '';
-  const nextEmail     = d?.next_alpha_email    ?? '';
-  const hasNextAlpha  = !!(d && nextTitle.trim());
-  const closingQuote  = d?.closing_quote  ?? '"Alpha är en plats där du kan vara precis den du är — med alla dina frågor, tvivel och tankar."';
+  const introImage = d?.intro_image ?? null;
+  const videoUrl = d?.video_url ?? '';
+  const videoTitle = d?.video_title ?? 'Vad är Alpha?';
+  const stepsData = d?.steps && d.steps.length > 0 ? d.steps : DEFAULT_STEPS;
+  const topicsData =
+    d?.topics && d.topics.length > 0 ? d.topics : DEFAULT_TOPICS;
+  const nextTag = d?.next_alpha_tag ?? '';
+  const nextTitle = d?.next_alpha_title ?? '';
+  const nextDesc = d?.next_alpha_desc ?? '';
+  const nextVenue = d?.next_alpha_venue ?? '';
+  const nextLocation = d?.next_alpha_location ?? '';
+  const nextEmail = d?.next_alpha_email ?? '';
+  const hasNextAlpha = !!(d && nextTitle.trim());
+  const closingQuote =
+    d?.closing_quote ??
+    '"Alpha är en plats där du kan vara precis den du är — med alla dina frågor, tvivel och tankar."';
   const galleryPhotos = d?.gallery ?? [];
 
   return (
@@ -251,8 +304,8 @@ const AlphaPage: React.FC = () => {
           <HeroTitle>{heroTitle}</HeroTitle>
           <HeroSubtitle>{heroSubtitle}</HeroSubtitle>
           <HeroCTARow>
-            <CTAPrimary href="#anmalan">Anmäl dig</CTAPrimary>
-            <CTASecondary href="#vad-ar-alpha">Läs mer</CTASecondary>
+            <CTAPrimary href='#anmalan'>Anmäl dig</CTAPrimary>
+            <CTASecondary href='#vad-ar-alpha'>Läs mer</CTASecondary>
           </HeroCTARow>
         </HeroInner>
         <ScrollIndicator>
@@ -262,7 +315,7 @@ const AlphaPage: React.FC = () => {
       </HeroSection>
 
       {/* ── What is Alpha + Registration ───────────────────────── */}
-      <Section id="vad-ar-alpha">
+      <Section id='vad-ar-alpha'>
         <Container>
           <div
             ref={intro.ref}
@@ -283,15 +336,20 @@ const AlphaPage: React.FC = () => {
 
               {/* Right — registration (only when configured) */}
               {hasNextAlpha && (
-                <IntroRegCard id="anmalan">
+                <IntroRegCard id='anmalan'>
                   <IntroRegTag>{nextTag}</IntroRegTag>
                   <IntroRegTitle>{nextTitle}</IntroRegTitle>
                   <IntroRegDesc>{nextDesc}</IntroRegDesc>
                   <IntroRegMeta>
                     <IconMapPin size={14} />
-                    {nextVenue && <span>{nextVenue}</span>}{nextLocation ? `${nextVenue ? ', ' : ''}${nextLocation}` : ''}
+                    {nextVenue && <span>{nextVenue}</span>}
+                    {nextLocation
+                      ? `${nextVenue ? ', ' : ''}${nextLocation}`
+                      : ''}
                   </IntroRegMeta>
-                  <IntroRegBtn href={`mailto:${nextEmail}?subject=Anmälan Alpha`}>
+                  <IntroRegBtn
+                    href={`mailto:${nextEmail}?subject=Anmälan Alpha`}
+                  >
                     Anmäl dig
                   </IntroRegBtn>
                 </IntroRegCard>
@@ -323,7 +381,7 @@ const AlphaPage: React.FC = () => {
                 <iframe
                   src={videoUrl}
                   title={videoTitle}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                   allowFullScreen
                 />
               </VideoWrap>
@@ -417,7 +475,6 @@ const AlphaPage: React.FC = () => {
         <ClosingQuote>{closingQuote}</ClosingQuote>
         <ClosingSource>Pingstkyrkan Elim · Trelleborg</ClosingSource>
       </ClosingSection>
-
     </AlphaWrapper>
   );
 };

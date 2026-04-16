@@ -233,7 +233,7 @@ const PortalAnnonser: React.FC = () => {
             {a.image && (
               <img
                 src={a.image}
-                alt=""
+                alt=''
                 style={{
                   width: 48,
                   height: 48,
@@ -267,7 +267,7 @@ const PortalAnnonser: React.FC = () => {
             <RowActions>
               <ActionBtn onClick={() => startEdit(a)}>Redigera</ActionBtn>
               <ActionBtn
-                $variant="danger"
+                $variant='danger'
                 onClick={() => {
                   if (window.confirm(`Ta bort "${a.title}"?`)) {
                     deleteMut.mutate(a.id);
@@ -286,7 +286,7 @@ const PortalAnnonser: React.FC = () => {
         <FormHeader>
           <span>{editingId !== null ? 'Redigera annons' : 'Ny annons'}</span>
           {editingId !== null && (
-            <CancelBtn type="button" onClick={resetForm}>
+            <CancelBtn type='button' onClick={resetForm}>
               ✕
             </CancelBtn>
           )}
@@ -300,14 +300,14 @@ const PortalAnnonser: React.FC = () => {
             <Input
               value={form.title}
               onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
-              placeholder="Titel på annonsen"
+              placeholder='Titel på annonsen'
             />
           </Field>
 
           <Field>
             <Label>Datum *</Label>
             <Input
-              type="date"
+              type='date'
               value={form.date}
               onChange={e => setForm(f => ({ ...f, date: e.target.value }))}
             />
@@ -317,10 +317,8 @@ const PortalAnnonser: React.FC = () => {
             <Label>Plats</Label>
             <Input
               value={form.location}
-              onChange={e =>
-                setForm(f => ({ ...f, location: e.target.value }))
-              }
-              placeholder="T.ex. Stora salen"
+              onChange={e => setForm(f => ({ ...f, location: e.target.value }))}
+              placeholder='T.ex. Stora salen'
             />
           </Field>
 
@@ -331,7 +329,7 @@ const PortalAnnonser: React.FC = () => {
               onChange={e =>
                 setForm(f => ({ ...f, description: e.target.value }))
               }
-              placeholder="Kortfattad beskrivning av annonsen…"
+              placeholder='Kortfattad beskrivning av annonsen…'
             />
           </Field>
 
@@ -340,8 +338,8 @@ const PortalAnnonser: React.FC = () => {
             <Label>Bild</Label>
             <input
               ref={fileInputRef}
-              type="file"
-              accept="image/*"
+              type='file'
+              accept='image/*'
               style={{ display: 'none' }}
               onChange={handleImageChange}
             />
@@ -350,13 +348,20 @@ const PortalAnnonser: React.FC = () => {
               onClick={() => fileInputRef.current?.click()}
             >
               {imagePreview ? (
-                <ImagePreview src={imagePreview} alt="preview" />
+                <ImagePreview src={imagePreview} alt='preview' />
               ) : (
                 <ImageUploadPlaceholder>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <polyline points="21 15 16 10 5 21" />
+                  <svg
+                    width='24'
+                    height='24'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='1.5'
+                  >
+                    <rect x='3' y='3' width='18' height='18' rx='2' />
+                    <circle cx='8.5' cy='8.5' r='1.5' />
+                    <polyline points='21 15 16 10 5 21' />
                   </svg>
                   <span>Klicka för att ladda upp bild</span>
                 </ImageUploadPlaceholder>
@@ -365,13 +370,13 @@ const PortalAnnonser: React.FC = () => {
             {imagePreview && (
               <ImageActions>
                 <ImageActionBtn
-                  type="button"
+                  type='button'
                   onClick={() => fileInputRef.current?.click()}
                 >
                   Byt bild
                 </ImageActionBtn>
                 <ImageActionBtn
-                  type="button"
+                  type='button'
                   $danger
                   onClick={handleRemoveImage}
                 >
@@ -384,7 +389,7 @@ const PortalAnnonser: React.FC = () => {
           <ToggleRow>
             <ToggleLabel>Aktiv (visas på hemsidan)</ToggleLabel>
             <Toggle
-              type="checkbox"
+              type='checkbox'
               checked={form.is_active}
               onChange={e =>
                 setForm(f => ({ ...f, is_active: e.target.checked }))
@@ -393,15 +398,15 @@ const PortalAnnonser: React.FC = () => {
           </ToggleRow>
 
           <FormActions>
-            <SubmitBtn type="submit" disabled={isBusy}>
+            <SubmitBtn type='submit' disabled={isBusy}>
               {isBusy
                 ? 'Sparar…'
                 : editingId !== null
-                ? 'Spara ändringar'
-                : 'Skapa annons'}
+                  ? 'Spara ändringar'
+                  : 'Skapa annons'}
             </SubmitBtn>
             {editingId !== null && (
-              <CancelBtn type="button" onClick={resetForm}>
+              <CancelBtn type='button' onClick={resetForm}>
                 Avbryt
               </CancelBtn>
             )}

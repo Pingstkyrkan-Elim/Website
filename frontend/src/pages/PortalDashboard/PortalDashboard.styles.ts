@@ -54,7 +54,9 @@ export const PermissionCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
   cursor: pointer;
 
   &:hover {

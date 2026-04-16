@@ -349,8 +349,7 @@ export const ImageActionBtn = styled.button<{ $danger?: boolean }>`
   padding: 0.25rem 0.6rem;
   border-radius: 5px;
   border: 1px solid
-    ${({ $danger }) =>
-      $danger ? 'rgba(180,60,60,0.3)' : 'rgba(0,0,0,0.15)'};
+    ${({ $danger }) => ($danger ? 'rgba(180,60,60,0.3)' : 'rgba(0,0,0,0.15)')};
   background: transparent;
   color: ${({ $danger }) => ($danger ? '#b43c3c' : '#555')};
   cursor: pointer;

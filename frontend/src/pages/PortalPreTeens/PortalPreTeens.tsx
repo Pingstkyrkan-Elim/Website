@@ -55,8 +55,11 @@ function photoUrl(raw: string | null | undefined): string | null {
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString('sv-SE', {
-    year: 'numeric', month: 'short', day: 'numeric',
-    hour: '2-digit', minute: '2-digit',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   });
 }
 
@@ -64,7 +67,7 @@ function formatDate(iso: string): string {
 function toDatetimeLocal(iso: string): string {
   const d = new Date(iso);
   const pad = (n: number) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
 // ── Empty form ────────────────────────────────────────────────────────────────
@@ -77,13 +80,13 @@ const PortalPreTeens: React.FC = () => {
   const qc = useQueryClient();
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const [showForm, setShowForm]       = useState(false);
-  const [editingId, setEditingId]     = useState<number | null>(null);
-  const [form, setForm]               = useState(emptyForm());
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [form, setForm] = useState(emptyForm());
   const [pendingFile, setPendingFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl]   = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [currentPhoto, setCurrentPhoto] = useState<string | null>(null);
-  const [saveError, setSaveError]     = useState('');
+  const [saveError, setSaveError] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState('');
 
@@ -102,20 +105,42 @@ const PortalPreTeens: React.FC = () => {
   };
 
   const createMutation = useMutation(portalCreatePreTeensEvent, {
-    onSuccess: () => { invalidate(); resetForm(); setSaveSuccess(true); setTimeout(() => setSaveSuccess(false), 3000); },
-    onError: (e: any) => setSaveError(e?.response?.data ? JSON.stringify(e.response.data) : 'Något gick fel.'),
+    onSuccess: () => {
+      invalidate();
+      resetForm();
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
+    },
+    onError: (e: any) =>
+      setSaveError(
+        e?.response?.data ? JSON.stringify(e.response.data) : 'Något gick fel.'
+      ),
   });
 
   const updateMutation = useMutation(
-    ({ id, data }: { id: number; data: FormData }) => portalUpdatePreTeensEvent(id, data),
+    ({ id, data }: { id: number; data: FormData }) =>
+      portalUpdatePreTeensEvent(id, data),
     {
-      onSuccess: () => { invalidate(); resetForm(); setSaveSuccess(true); setTimeout(() => setSaveSuccess(false), 3000); },
-      onError: (e: any) => setSaveError(e?.response?.data ? JSON.stringify(e.response.data) : 'Något gick fel.'),
+      onSuccess: () => {
+        invalidate();
+        resetForm();
+        setSaveSuccess(true);
+        setTimeout(() => setSaveSuccess(false), 3000);
+      },
+      onError: (e: any) =>
+        setSaveError(
+          e?.response?.data
+            ? JSON.stringify(e.response.data)
+            : 'Något gick fel.'
+        ),
     }
   );
 
   const deleteMutation = useMutation(portalDeletePreTeensEvent, {
-    onSuccess: () => { invalidate(); setDeleteError(''); },
+    onSuccess: () => {
+      invalidate();
+      setDeleteError('');
+    },
     onError: () => setDeleteError('Kunde inte ta bort evenemanget.'),
   });
 
@@ -138,7 +163,10 @@ const PortalPreTeens: React.FC = () => {
 
   const openEdit = (ev: PreTeensContent) => {
     setEditingId(ev.id);
-    setForm({ event_name: ev.event_name, event_datetime: toDatetimeLocal(ev.event_datetime) });
+    setForm({
+      event_name: ev.event_name,
+      event_datetime: toDatetimeLocal(ev.event_datetime),
+    });
     setCurrentPhoto(photoUrl(ev.photo));
     setPendingFile(null);
     setPreviewUrl(null);
@@ -173,7 +201,12 @@ const PortalPreTeens: React.FC = () => {
 
   // ── Render ─────────────────────────────────────────────────────────────────
 
-  if (isLoading) return <PTPortalWrapper><p>Laddar…</p></PTPortalWrapper>;
+  if (isLoading)
+    return (
+      <PTPortalWrapper>
+        <p>Laddar…</p>
+      </PTPortalWrapper>
+    );
 
   return (
     <PTPortalWrapper>
@@ -187,17 +220,21 @@ const PortalPreTeens: React.FC = () => {
         <EventsGrid>
           {events.map(ev => (
             <EventCard key={ev.id}>
-              {photoUrl(ev.photo)
-                ? <EventCardPhoto src={photoUrl(ev.photo)!} alt={ev.event_name} />
-                : <EventCardNoPhoto>Inget foto</EventCardNoPhoto>
-              }
+              {photoUrl(ev.photo) ? (
+                <EventCardPhoto src={photoUrl(ev.photo)!} alt={ev.event_name} />
+              ) : (
+                <EventCardNoPhoto>Inget foto</EventCardNoPhoto>
+              )}
               <EventCardBody>
                 <EventCardName>{ev.event_name}</EventCardName>
                 <EventCardDate>{formatDate(ev.event_datetime)}</EventCardDate>
                 <EventCardActions>
                   <EditBtn onClick={() => openEdit(ev)}>Redigera</EditBtn>
                   <DeleteBtn
-                    onClick={() => { if (window.confirm(`Ta bort "${ev.event_name}"?`)) deleteMutation.mutate(ev.id); }}
+                    onClick={() => {
+                      if (window.confirm(`Ta bort "${ev.event_name}"?`))
+                        deleteMutation.mutate(ev.id);
+                    }}
                     disabled={deleteMutation.isLoading}
                   >
                     Ta bort
@@ -209,7 +246,9 @@ const PortalPreTeens: React.FC = () => {
         </EventsGrid>
       )}
 
-      {deleteError && <ErrorMsg style={{ marginBottom: '1rem' }}>{deleteError}</ErrorMsg>}
+      {deleteError && (
+        <ErrorMsg style={{ marginBottom: '1rem' }}>{deleteError}</ErrorMsg>
+      )}
 
       {!showForm && (
         <NewEventBtn onClick={openCreate}>+ Nytt evenemang</NewEventBtn>
@@ -217,43 +256,60 @@ const PortalPreTeens: React.FC = () => {
 
       {/* ── Create / Edit form ── */}
       {showForm && (
-        <FormCard as="form" onSubmit={handleSubmit}>
+        <FormCard as='form' onSubmit={handleSubmit}>
           <FormTopRow>
-            <FormHeader>{editingId !== null ? 'Redigera evenemang' : 'Nytt evenemang'}</FormHeader>
-            <CancelBtn type="button" onClick={resetForm}>Avbryt</CancelBtn>
+            <FormHeader>
+              {editingId !== null ? 'Redigera evenemang' : 'Nytt evenemang'}
+            </FormHeader>
+            <CancelBtn type='button' onClick={resetForm}>
+              Avbryt
+            </CancelBtn>
           </FormTopRow>
           <FormBody>
             <Field>
               <Label>Namn på evenemanget</Label>
               <Input
                 value={form.event_name}
-                onChange={e => setForm(f => ({ ...f, event_name: e.target.value }))}
-                placeholder="t.ex. Sleep Over"
+                onChange={e =>
+                  setForm(f => ({ ...f, event_name: e.target.value }))
+                }
+                placeholder='t.ex. Sleep Over'
                 required
               />
             </Field>
             <Field>
               <Label>Datum och tid</Label>
               <Input
-                type="datetime-local"
+                type='datetime-local'
                 value={form.event_datetime}
-                onChange={e => setForm(f => ({ ...f, event_datetime: e.target.value }))}
+                onChange={e =>
+                  setForm(f => ({ ...f, event_datetime: e.target.value }))
+                }
                 required
               />
             </Field>
           </FormBody>
 
-          <FormHeader style={{ marginTop: '1.2rem' }}>Foto (bento-grid)</FormHeader>
+          <FormHeader style={{ marginTop: '1.2rem' }}>
+            Foto (bento-grid)
+          </FormHeader>
           <FormBody>
             <CurrentPhotoWrap>
-              {photoPreview
-                ? <CurrentPhoto src={photoPreview} alt="Foto" />
-                : <NoPhoto>Inget foto</NoPhoto>
-              }
+              {photoPreview ? (
+                <CurrentPhoto src={photoPreview} alt='Foto' />
+              ) : (
+                <NoPhoto>Inget foto</NoPhoto>
+              )}
             </CurrentPhotoWrap>
             <UploadRow>
-              <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
-              <UploadBtn type="button" onClick={() => fileRef.current?.click()}>
+              <input
+                ref={fileRef}
+                type='file'
+                accept='image/*'
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+              <UploadBtn type='button' onClick={() => fileRef.current?.click()}>
                 {pendingFile ? pendingFile.name : 'Välj foto'}
               </UploadBtn>
               {pendingFile && <UploadHint>Ej sparat ännu</UploadHint>}
@@ -263,8 +319,12 @@ const PortalPreTeens: React.FC = () => {
           {saveError && <ErrorMsg>{saveError}</ErrorMsg>}
 
           <FormActions>
-            <SubmitBtn type="submit" disabled={isSaving}>
-              {isSaving ? 'Sparar…' : editingId !== null ? 'Spara ändringar' : 'Skapa evenemang'}
+            <SubmitBtn type='submit' disabled={isSaving}>
+              {isSaving
+                ? 'Sparar…'
+                : editingId !== null
+                  ? 'Spara ändringar'
+                  : 'Skapa evenemang'}
             </SubmitBtn>
           </FormActions>
         </FormCard>

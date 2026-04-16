@@ -74,13 +74,14 @@ export const NavItem = styled.button<{ $active?: boolean }>`
   border: none;
   background: ${({ $active }) =>
     $active ? 'rgba(201, 169, 110, 0.12)' : 'transparent'};
-  color: ${({ $active }) =>
-    $active ? '#e8d5a3' : 'rgba(255, 255, 255, 0.5)'};
+  color: ${({ $active }) => ($active ? '#e8d5a3' : 'rgba(255, 255, 255, 0.5)')};
   font-size: 0.88rem;
   font-weight: ${({ $active }) => ($active ? '600' : '400')};
   cursor: pointer;
   text-align: left;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
   position: relative;
 
   ${({ $active }) =>
@@ -162,7 +163,9 @@ export const LogoutButton = styled.button`
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
   text-align: left;
 
   &:hover {

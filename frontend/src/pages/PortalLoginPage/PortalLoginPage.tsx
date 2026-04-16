@@ -53,39 +53,39 @@ const PortalLoginPage: React.FC = () => {
 
         <form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="email">E-post</Label>
+            <Label htmlFor='email'>E-post</Label>
             <Input
-              id="email"
-              type="email"
-              placeholder="din@email.com"
+              id='email'
+              type='email'
+              placeholder='din@email.com'
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              autoComplete="email"
+              autoComplete='email'
             />
           </FormGroup>
 
           <FormGroup>
-            <Label htmlFor="password">Lösenord</Label>
+            <Label htmlFor='password'>Lösenord</Label>
             <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
+              id='password'
+              type='password'
+              placeholder='••••••••'
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
-              autoComplete="current-password"
+              autoComplete='current-password'
             />
           </FormGroup>
 
-          <LoginButton type="submit" disabled={loading} $loading={loading}>
+          <LoginButton type='submit' disabled={loading} $loading={loading}>
             {loading ? 'Loggar in...' : 'Logga in'}
           </LoginButton>
 
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </form>
 
-        <BackLink href="/">← Tillbaka till webbplatsen</BackLink>
+        <BackLink href='/'>← Tillbaka till webbplatsen</BackLink>
       </LoginCard>
     </LoginWrapper>
   );

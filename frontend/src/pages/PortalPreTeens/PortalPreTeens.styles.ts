@@ -15,13 +15,15 @@ export const EventsGrid = styled.div`
 
 export const EventCard = styled.div`
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: box-shadow 0.2s;
 
-  &:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.1); }
+  &:hover {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export const EventCardPhoto = styled.img`
@@ -76,7 +78,9 @@ export const EditBtn = styled.button`
   cursor: pointer;
   transition: background 0.2s;
 
-  &:hover { background: #2a2a4e; }
+  &:hover {
+    background: #2a2a4e;
+  }
 `;
 
 export const DeleteBtn = styled.button`
@@ -84,15 +88,23 @@ export const DeleteBtn = styled.button`
   padding: 0.45rem 0;
   background: transparent;
   color: #dc2626;
-  border: 1px solid rgba(220,38,38,0.35);
+  border: 1px solid rgba(220, 38, 38, 0.35);
   border-radius: 8px;
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 
-  &:hover { background: rgba(220,38,38,0.07); border-color: #dc2626; }
-  &:disabled { opacity: 0.5; cursor: not-allowed; }
+  &:hover {
+    background: rgba(220, 38, 38, 0.07);
+    border-color: #dc2626;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export const NewEventBtn = styled.button`
@@ -110,7 +122,9 @@ export const NewEventBtn = styled.button`
   transition: background 0.2s;
   margin-bottom: 1.4rem;
 
-  &:hover { background: #2a2a4e; }
+  &:hover {
+    background: #2a2a4e;
+  }
 `;
 
 // ── Form extras ───────────────────────────────────────────────────────────────
@@ -133,7 +147,9 @@ export const CancelBtn = styled.button`
   cursor: pointer;
   transition: background 0.2s;
 
-  &:hover { background: #f3f4f6; }
+  &:hover {
+    background: #f3f4f6;
+  }
 `;
 
 export const CurrentPhotoWrap = styled.div`
@@ -184,7 +200,9 @@ export const UploadBtn = styled.button`
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  &:hover { background: #2a2a4e; }
+  &:hover {
+    background: #2a2a4e;
+  }
 `;
 
 export const UploadHint = styled.span`

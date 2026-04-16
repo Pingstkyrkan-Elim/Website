@@ -50,17 +50,17 @@ const programItems = [
 // User icon SVG
 const UserIcon = () => (
   <svg
-    width="22"
-    height="22"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    width='22'
+    height='22'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='1.8'
+    strokeLinecap='round'
+    strokeLinejoin='round'
   >
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
+    <path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2' />
+    <circle cx='12' cy='7' r='4' />
   </svg>
 );
 
@@ -121,7 +121,10 @@ const Header: React.FC = () => {
           <DesktopNav>
             {navigationItems.slice(0, 3).map(item => (
               <NavItem key={item.name}>
-                <NavLink to={item.path} $isActive={location.pathname === item.path}>
+                <NavLink
+                  to={item.path}
+                  $isActive={location.pathname === item.path}
+                >
                   {item.name}
                 </NavLink>
               </NavItem>
@@ -153,7 +156,10 @@ const Header: React.FC = () => {
 
             {navigationItems.slice(3).map(item => (
               <NavItem key={item.name}>
-                <NavLink to={item.path} $isActive={location.pathname === item.path}>
+                <NavLink
+                  to={item.path}
+                  $isActive={location.pathname === item.path}
+                >
                   {item.name}
                 </NavLink>
               </NavItem>
@@ -173,7 +179,9 @@ const Header: React.FC = () => {
               {isAuthenticated && user ? (
                 <>
                   <PortalDropdownUser>
-                    <PortalDropdownUserName>{user.full_name}</PortalDropdownUserName>
+                    <PortalDropdownUserName>
+                      {user.full_name}
+                    </PortalDropdownUserName>
                     <PortalDropdownUserRole>
                       {user.groups.join(' · ') || 'Portal'}
                     </PortalDropdownUserRole>
@@ -182,11 +190,38 @@ const Header: React.FC = () => {
                     to='/portal/dashboard'
                     onClick={() => setPortalOpen(false)}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <svg
+                      width='14'
+                      height='14'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <rect x='3' y='3' width='7' height='7' />
+                      <rect x='14' y='3' width='7' height='7' />
+                      <rect x='3' y='14' width='7' height='7' />
+                      <rect x='14' y='14' width='7' height='7' />
+                    </svg>
                     Gå till portalen
                   </PortalDropdownItem>
                   <PortalDropdownLogout onClick={handleLogout}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    <svg
+                      width='14'
+                      height='14'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4' />
+                      <polyline points='16 17 21 12 16 7' />
+                      <line x1='21' y1='12' x2='9' y2='12' />
+                    </svg>
                     Logga ut
                   </PortalDropdownLogout>
                 </>
@@ -195,14 +230,30 @@ const Header: React.FC = () => {
                   to='/portal/login'
                   onClick={() => setPortalOpen(false)}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                  <svg
+                    width='14'
+                    height='14'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  >
+                    <path d='M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4' />
+                    <polyline points='10 17 15 12 10 7' />
+                    <line x1='15' y1='12' x2='3' y2='12' />
+                  </svg>
                   Logga in på portalen
                 </PortalDropdownItem>
               )}
             </PortalDropdown>
           </PortalButtonWrap>
 
-          <MobileMenuButton onClick={() => setMobileOpen(!mobileOpen)} aria-label='Toggle menu'>
+          <MobileMenuButton
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label='Toggle menu'
+          >
             <div className='line' />
             <div className='line' />
             <div className='line' />
@@ -210,11 +261,19 @@ const Header: React.FC = () => {
         </Nav>
       </HeaderWrapper>
 
-      <MobileNavOverlay $isOpen={mobileOpen} onClick={() => setMobileOpen(false)} />
+      <MobileNavOverlay
+        $isOpen={mobileOpen}
+        onClick={() => setMobileOpen(false)}
+      />
       <MobileNav $isOpen={mobileOpen}>
         <MobileNavHeader>
           <MobileNavTitle>Meny</MobileNavTitle>
-          <CloseButton onClick={() => setMobileOpen(false)} aria-label='Close menu'>×</CloseButton>
+          <CloseButton
+            onClick={() => setMobileOpen(false)}
+            aria-label='Close menu'
+          >
+            ×
+          </CloseButton>
         </MobileNavHeader>
         <MobileNavList>
           {navigationItems.map(item => (

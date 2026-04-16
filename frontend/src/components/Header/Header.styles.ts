@@ -406,7 +406,7 @@ export const PortalIconButton = styled.button`
   color: white;
   opacity: 0.7;
   transition: opacity 0.2s;
-  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7));
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
 
   &:hover {
     opacity: 1;
@@ -434,7 +434,7 @@ export const PortalDropdown = styled.div<{ $open: boolean }>`
 
 export const PortalDropdownUser = styled.div`
   padding: 0.5rem 0.8rem 0.7rem;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   margin-bottom: 0.4rem;
 `;
 
@@ -446,7 +446,7 @@ export const PortalDropdownUserName = styled.div`
 
 export const PortalDropdownUserRole = styled.div`
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255, 255, 255, 0.35);
   margin-top: 0.1rem;
 `;
 
@@ -459,7 +459,9 @@ export const PortalDropdownItem = styled(Link)`
   color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
   font-size: 0.88rem;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 
   &:hover {
     background: rgba(200, 160, 80, 0.1);
@@ -479,10 +481,12 @@ export const PortalDropdownLogout = styled.button`
   color: rgba(255, 255, 255, 0.4);
   font-size: 0.88rem;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
   text-align: left;
   margin-top: 0.2rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding-top: 0.7rem;
 
   &:hover {

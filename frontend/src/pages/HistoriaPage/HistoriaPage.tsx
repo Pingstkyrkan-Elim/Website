@@ -284,7 +284,6 @@ const HistoriaPage: React.FC = () => {
             En resa genom mer än hundra år av tro, gemenskap och tillväxt.
           </HeroSubtitle>
         </HeroContent>
-
       </Hero>
 
       <TimelineSection>

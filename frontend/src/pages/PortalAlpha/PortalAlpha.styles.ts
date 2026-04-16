@@ -66,7 +66,11 @@ export const CardPreviewInner = styled.div`
     right: -40px;
     width: 180px;
     height: 180px;
-    background: radial-gradient(circle, rgba(200, 150, 40, 0.13) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(200, 150, 40, 0.13) 0%,
+      transparent 70%
+    );
     pointer-events: none;
   }
 

@@ -493,9 +493,7 @@ const EventsPage: React.FC = () => {
 
                   {events.map(ev => (
                     <PrintEventRow key={ev.id}>
-                      <PrintEventTime>
-                        {getEventDisplayTime(ev)}
-                      </PrintEventTime>
+                      <PrintEventTime>{getEventDisplayTime(ev)}</PrintEventTime>
                       <PrintEventName>{ev.title}</PrintEventName>
                       {ev.has_sunday_school && (
                         <PrintEventTag

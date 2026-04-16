@@ -35,7 +35,7 @@ const PORTAL_SECTIONS: PortalSection[] = [
     label: 'Kalender',
     description:
       'Lägg till och redigera gudstjänster och evenemang. Hantera återkommande aktiviteter och specialevenemang.',
-    icon: <IconCalendar size={20} color="#c9a96e" />,
+    icon: <IconCalendar size={20} color='#c9a96e' />,
     color: 'rgba(201, 169, 110, 0.12)',
   },
   {
@@ -45,7 +45,7 @@ const PORTAL_SECTIONS: PortalSection[] = [
     label: 'Annonser',
     description:
       'Skapa och hantera viktiga annonser som visas på startsidan. Ange datum, plats och beskrivning.',
-    icon: <IconClipboardList size={20} color="#7a9e7e" />,
+    icon: <IconClipboardList size={20} color='#7a9e7e' />,
     color: 'rgba(122, 158, 126, 0.12)',
   },
   {
@@ -56,14 +56,16 @@ const PORTAL_SECTIONS: PortalSection[] = [
     description:
       'Hantera Alpha-kursen: ladda upp och ta bort bilder i galleriet, och uppdatera informationen om nästa kursomgång.',
     icon: (
-      <span style={{
-        fontFamily: "'Cormorant Garamond', Georgia, serif",
-        fontStyle: 'italic',
-        fontSize: '1.4rem',
-        lineHeight: 1,
-        color: '#c97820',
-        fontWeight: 600,
-      }}>
+      <span
+        style={{
+          fontFamily: "'Cormorant Garamond', Georgia, serif",
+          fontStyle: 'italic',
+          fontSize: '1.4rem',
+          lineHeight: 1,
+          color: '#c97820',
+          fontWeight: 600,
+        }}
+      >
         α
       </span>
     ),
@@ -77,12 +79,14 @@ const PORTAL_SECTIONS: PortalSection[] = [
     description:
       'Uppdatera nedräkningsevenemang (namn och datum) samt fotot som visas i bento-griden på Pre-Teens-sidan.',
     icon: (
-      <span style={{
-        fontSize: '1.1rem',
-        lineHeight: 1,
-        color: '#8b5cf6',
-        fontWeight: 700,
-      }}>
+      <span
+        style={{
+          fontSize: '1.1rem',
+          lineHeight: 1,
+          color: '#8b5cf6',
+          fontWeight: 700,
+        }}
+      >
         PT
       </span>
     ),

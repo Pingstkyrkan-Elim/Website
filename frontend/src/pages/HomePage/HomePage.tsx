@@ -116,7 +116,9 @@ const HomePage: React.FC = () => {
   // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = activeAnnouncement ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [activeAnnouncement]);
 
   return (
@@ -270,16 +272,16 @@ const HomePage: React.FC = () => {
                       {!a.image && (
                         <AnnouncerImagePlaceholderIcon>
                           <svg
-                            width="40"
-                            height="40"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.1"
+                            width='40'
+                            height='40'
+                            viewBox='0 0 24 24'
+                            fill='none'
+                            stroke='currentColor'
+                            strokeWidth='1.1'
                           >
-                            <rect x="3" y="3" width="18" height="18" rx="3" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
+                            <rect x='3' y='3' width='18' height='18' rx='3' />
+                            <circle cx='8.5' cy='8.5' r='1.5' />
+                            <polyline points='21 15 16 10 5 21' />
                           </svg>
                         </AnnouncerImagePlaceholderIcon>
                       )}
@@ -287,7 +289,9 @@ const HomePage: React.FC = () => {
 
                     <AnnouncerBody>
                       <AnnouncerBodyTop>
-                        <AnnouncerDateChip>{formatDate(a.date)}</AnnouncerDateChip>
+                        <AnnouncerDateChip>
+                          {formatDate(a.date)}
+                        </AnnouncerDateChip>
                         <AnnouncerTitle>{a.title}</AnnouncerTitle>
                         {a.description && (
                           <AnnouncerDesc>{a.description}</AnnouncerDesc>
@@ -335,10 +339,17 @@ const HomePage: React.FC = () => {
                       color: '#7a5828',
                     }}
                   >
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8">
-                      <rect x="3" y="3" width="18" height="18" rx="3" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
-                      <polyline points="21 15 16 10 5 21" />
+                    <svg
+                      width='64'
+                      height='64'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='0.8'
+                    >
+                      <rect x='3' y='3' width='18' height='18' rx='3' />
+                      <circle cx='8.5' cy='8.5' r='1.5' />
+                      <polyline points='21 15 16 10 5 21' />
                     </svg>
                   </div>
                 )}
@@ -349,7 +360,9 @@ const HomePage: React.FC = () => {
             </div>
 
             <ModalBody>
-              <ModalDateChip>{formatDate(activeAnnouncement.date)}</ModalDateChip>
+              <ModalDateChip>
+                {formatDate(activeAnnouncement.date)}
+              </ModalDateChip>
               <ModalTitle>{activeAnnouncement.title}</ModalTitle>
               <ModalDivider />
 

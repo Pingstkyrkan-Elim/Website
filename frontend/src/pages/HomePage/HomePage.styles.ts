@@ -1120,7 +1120,10 @@ export const AnnouncersList = styled.div`
   gap: 0.85rem;
 `;
 
-export const AnnouncerCard = styled.div<{ $delay?: number; $visible?: boolean }>`
+export const AnnouncerCard = styled.div<{
+  $delay?: number;
+  $visible?: boolean;
+}>`
   display: flex;
   align-items: stretch;
   border-radius: 14px;
@@ -1136,8 +1139,8 @@ export const AnnouncerCard = styled.div<{ $delay?: number; $visible?: boolean }>
   min-height: 136px;
 
   opacity: ${({ $visible }) => ($visible ? undefined : 0)};
-  animation: ${({ $visible }) => ($visible ? announcerSlideUp : 'none')}
-    0.68s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation: ${({ $visible }) => ($visible ? announcerSlideUp : 'none')} 0.68s
+    cubic-bezier(0.25, 0.1, 0.25, 1) both;
   animation-delay: ${({ $delay }) => $delay ?? 0}ms;
 
   &:hover {
@@ -1264,7 +1267,10 @@ export const AnnouncerCTA = styled.button`
   font-weight: 500;
   letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
   display: flex;
   align-items: center;
   gap: 0.3rem;
@@ -1310,9 +1316,16 @@ export const ModalCard = styled.div`
   scrollbar-width: thin;
   scrollbar-color: rgba(160, 120, 64, 0.2) transparent;
 
-  &::-webkit-scrollbar { width: 4px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background: rgba(160, 120, 64, 0.2); border-radius: 2px; }
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(160, 120, 64, 0.2);
+    border-radius: 2px;
+  }
 `;
 
 export const ModalImageHeader = styled.div<{ $src?: string | null }>`
@@ -1352,7 +1365,10 @@ export const ModalCloseBtn = styled.button`
   justify-content: center;
   cursor: pointer;
   font-size: 0.95rem;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
   z-index: 2;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 

@@ -20,7 +20,6 @@ import {
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || '/api/v1';
 
-
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -121,9 +120,13 @@ export const getEvent = async (id: number): Promise<Event> => {
 
 // Team
 export const getTeamMembers = async (): Promise<TeamMember[]> => {
-  const response = await api.get<{ results: TeamMember[] } | TeamMember[]>('/team/');
+  const response = await api.get<{ results: TeamMember[] } | TeamMember[]>(
+    '/team/'
+  );
   const data = response.data;
-  return Array.isArray(data) ? data : (data as { results: TeamMember[] }).results;
+  return Array.isArray(data)
+    ? data
+    : (data as { results: TeamMember[] }).results;
 };
 
 // Contact
@@ -226,9 +229,13 @@ export const portalCreateAnnouncement = async (
   data: FormData | Partial<Announcement>
 ): Promise<Announcement> => {
   const isFormData = data instanceof FormData;
-  const response = await api.post<Announcement>('/portal/announcements/', data, {
-    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
-  });
+  const response = await api.post<Announcement>(
+    '/portal/announcements/',
+    data,
+    {
+      headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+    }
+  );
   return response.data;
 };
 
@@ -265,16 +272,26 @@ export const portalUpdateAlphaProgram = async (
   data: FormData | Partial<AlphaProgram>
 ): Promise<AlphaProgram> => {
   const isFormData = data instanceof FormData;
-  const response = await api.patch<AlphaProgram>('/portal/alpha-program/', data, {
-    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
-  });
+  const response = await api.patch<AlphaProgram>(
+    '/portal/alpha-program/',
+    data,
+    {
+      headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+    }
+  );
   return response.data;
 };
 
-export const portalUploadAlphaPhoto = async (formData: FormData): Promise<AlphaPhoto> => {
-  const response = await api.post<AlphaPhoto>('/portal/alpha-photos/', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
+export const portalUploadAlphaPhoto = async (
+  formData: FormData
+): Promise<AlphaPhoto> => {
+  const response = await api.post<AlphaPhoto>(
+    '/portal/alpha-photos/',
+    formData,
+    {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }
+  );
   return response.data;
 };
 
@@ -298,7 +315,9 @@ export const getPreTeensContent = async (): Promise<PreTeensContent> => {
 };
 
 export const portalGetPreTeensEvents = async (): Promise<PreTeensContent[]> => {
-  const response = await api.get<{ count: number; results: PreTeensContent[] } | PreTeensContent[]>('/portal/pre-teens/');
+  const response = await api.get<
+    { count: number; results: PreTeensContent[] } | PreTeensContent[]
+  >('/portal/pre-teens/');
   const data = response.data;
   if (Array.isArray(data)) return data;
   return (data as { results: PreTeensContent[] }).results ?? [];
@@ -307,8 +326,12 @@ export const portalGetPreTeensEvents = async (): Promise<PreTeensContent[]> => {
 // multipartHeaders: unset Content-Type so the browser sets it with the correct boundary
 const multipartHeaders = { 'Content-Type': undefined as unknown as string };
 
-export const portalCreatePreTeensEvent = async (data: FormData): Promise<PreTeensContent> => {
-  const response = await api.post<PreTeensContent>('/portal/pre-teens/', data, { headers: multipartHeaders });
+export const portalCreatePreTeensEvent = async (
+  data: FormData
+): Promise<PreTeensContent> => {
+  const response = await api.post<PreTeensContent>('/portal/pre-teens/', data, {
+    headers: multipartHeaders,
+  });
   return response.data;
 };
 
@@ -316,7 +339,11 @@ export const portalUpdatePreTeensEvent = async (
   id: number,
   data: FormData
 ): Promise<PreTeensContent> => {
-  const response = await api.patch<PreTeensContent>(`/portal/pre-teens/${id}/`, data, { headers: multipartHeaders });
+  const response = await api.patch<PreTeensContent>(
+    `/portal/pre-teens/${id}/`,
+    data,
+    { headers: multipartHeaders }
+  );
   return response.data;
 };
 

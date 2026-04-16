@@ -21,7 +21,9 @@ const shimmer = keyframes`
 // ── Page wrapper ──────────────────────────────────────────────────────────────
 
 // Dummy export to satisfy existing imports (no longer used as a visual element)
-export const MeshOrb = styled.div`display: none;`;
+export const MeshOrb = styled.div`
+  display: none;
+`;
 
 export const AlphaWrapper = styled.div`
   min-height: 100vh;
@@ -56,14 +58,13 @@ export const HeroSection = styled.section`
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(15, 10, 5, 0.20) 0%,
-        rgba(15, 10, 5, 0.30) 40%,
-        rgba(15, 10, 5, 0.72) 75%,
-        rgba(15, 10, 5, 0.90) 100%
-      );
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 10, 5, 0.2) 0%,
+      rgba(15, 10, 5, 0.3) 40%,
+      rgba(15, 10, 5, 0.72) 75%,
+      rgba(15, 10, 5, 0.9) 100%
+    );
     z-index: 1;
   }
 
@@ -118,7 +119,7 @@ export const HeroTitle = styled.h1`
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(3.2rem, 7vw, 5.5rem);
   font-weight: 700;
-  line-height: 1.0;
+  line-height: 1;
   letter-spacing: -0.03em;
   margin: 0 0 1.2rem;
   background: linear-gradient(
@@ -166,7 +167,9 @@ export const CTAPrimary = styled.a`
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 6px 20px rgba(200, 120, 20, 0.4);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -218,7 +221,11 @@ export const ScrollIndicator = styled.div`
 export const ScrollLine = styled.div`
   width: 1px;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
 `;
 
 // ── Shared section shell ──────────────────────────────────────────────────────
@@ -289,7 +296,7 @@ export const SectionLead = styled.p`
 
 export const IntroDuoLayout = styled.div<{ $single?: boolean }>`
   display: grid;
-  grid-template-columns: ${({ $single }) => $single ? '1fr' : '1.1fr 0.9fr'};
+  grid-template-columns: ${({ $single }) => ($single ? '1fr' : '1.1fr 0.9fr')};
   border-radius: 28px;
   overflow: hidden;
   box-shadow:
@@ -380,7 +387,9 @@ export const IntroBody = styled.p`
 `;
 
 /* kept to avoid breaking stale imports */
-export const IntroImageWrap = styled.div`display: none;`;
+export const IntroImageWrap = styled.div`
+  display: none;
+`;
 
 /* ── Right: warm registration panel ── */
 
@@ -401,7 +410,11 @@ export const IntroRegCard = styled.div`
     right: -60px;
     width: 260px;
     height: 260px;
-    background: radial-gradient(circle, rgba(200, 150, 40, 0.13) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(200, 150, 40, 0.13) 0%,
+      transparent 70%
+    );
     pointer-events: none;
   }
 
@@ -477,7 +490,10 @@ export const IntroRegBtn = styled.a`
   font-weight: 600;
   text-decoration: none;
   letter-spacing: 0.02em;
-  transition: background 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  transition:
+    background 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
   width: fit-content;
   box-shadow: 0 4px 18px rgba(26, 18, 8, 0.25);
 
@@ -532,7 +548,9 @@ export const StepCard = styled.div`
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.04),
     0 8px 28px rgba(180, 120, 20, 0.06);
-  transition: transform 0.26s ease, box-shadow 0.26s ease;
+  transition:
+    transform 0.26s ease,
+    box-shadow 0.26s ease;
 
   &:hover {
     transform: translateY(-4px);
@@ -579,7 +597,10 @@ export const TopicCard = styled.div<{ $index: number }>`
   display: flex;
   align-items: flex-start;
   gap: 0.85rem;
-  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
 
   &:hover {
     background: #fffbf4;
@@ -615,7 +636,6 @@ export const AlphaGalleryWrapper = styled.div`
   width: 100%;
 `;
 
-
 export const AlphaGalleryCard = styled.div`
   flex: 0 0 calc(33.333% - 0.5rem);
   scroll-snap-align: start;
@@ -626,7 +646,10 @@ export const AlphaGalleryCard = styled.div`
   aspect-ratio: 4 / 3;
   background: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.07);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.25s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.25s ease;
 
   &:hover {
     border-color: rgba(201, 120, 32, 0.3);
@@ -644,7 +667,9 @@ export const AlphaGalleryCardImg = styled.img`
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.5s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.5s ease;
   display: block;
 
   &.loaded {
@@ -665,7 +690,9 @@ export const AlphaGalleryCardOverlay = styled.div`
   background: rgba(0, 0, 0, 0);
   color: #fff;
   opacity: 0;
-  transition: background 0.2s ease, opacity 0.2s ease;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
 
   ${AlphaGalleryCard}:hover & {
     background: rgba(0, 0, 0, 0.22);
@@ -758,7 +785,9 @@ export const RegisterBtn = styled.a`
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 6px 22px rgba(200, 120, 20, 0.38);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -798,6 +827,11 @@ export const ClosingSource = styled.p`
 export const Divider = styled.div`
   width: 56px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(200, 150, 40, 0.55), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 150, 40, 0.55),
+    transparent
+  );
   margin: 0 auto 2.8rem;
 `;

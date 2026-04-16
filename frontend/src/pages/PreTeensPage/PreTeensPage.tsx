@@ -58,7 +58,7 @@ import {
   ClosingDot,
   ClosingCTA,
   SectionSep,
-  CountdownLabelUnder
+  CountdownLabelUnder,
 } from './PreTeensPage.styles';
 
 // ── Fallback countdown target ─────────────────────────────────────────────────
@@ -68,10 +68,10 @@ function getRemaining(target: Date) {
   const diff = target.getTime() - Date.now();
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
-    days:    Math.floor(diff / 86_400_000),
-    hours:   Math.floor((diff % 86_400_000) / 3_600_000),
-    minutes: Math.floor((diff % 3_600_000)  / 60_000),
-    seconds: Math.floor((diff % 60_000)     / 1_000),
+    days: Math.floor(diff / 86_400_000),
+    hours: Math.floor((diff % 86_400_000) / 3_600_000),
+    minutes: Math.floor((diff % 3_600_000) / 60_000),
+    seconds: Math.floor((diff % 60_000) / 1_000),
   };
 }
 
@@ -89,10 +89,15 @@ function useCountdown(target: Date) {
 function useInView(threshold = 0.12) {
   const [visible, setVisible] = useState(false);
   const ref = useCallback<React.RefCallback<HTMLDivElement>>(
-    (el) => {
+    el => {
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+        ([e]) => {
+          if (e.isIntersecting) {
+            setVisible(true);
+            obs.disconnect();
+          }
+        },
         { threshold }
       );
       obs.observe(el);
@@ -108,7 +113,8 @@ function useInView(threshold = 0.12) {
 function photoUrl(raw: string | null | undefined): string | null {
   if (!raw) return null;
   if (raw.startsWith('http')) return raw;
-  if (raw.startsWith('/')) return `${process.env.REACT_APP_API_URL ?? 'http://localhost:8000'}${raw}`;
+  if (raw.startsWith('/'))
+    return `${process.env.REACT_APP_API_URL ?? 'http://localhost:8000'}${raw}`;
   return `${process.env.REACT_APP_API_URL ?? 'http://localhost:8000'}/media/${raw}`;
 }
 
@@ -125,8 +131,8 @@ const PreTeensPage: React.FC = () => {
 
   const countdown = useCountdown(eventDate);
 
-  const bento   = useInView(0.06);
-  const light   = useInView(0.12);
+  const bento = useInView(0.06);
+  const light = useInView(0.12);
   const closing = useInView(0.12);
 
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -307,7 +313,9 @@ const PreTeensPage: React.FC = () => {
                 <CountdownUnitLabel $light={lightMode}>Sek</CountdownUnitLabel>
               </CountdownUnit>
             </CountdownNumbers>
-            <CountdownLabelUnder $light={lightMode}>Det kommer att bli super roligt!</CountdownLabelUnder>
+            <CountdownLabelUnder $light={lightMode}>
+              Det kommer att bli super roligt!
+            </CountdownLabelUnder>
           </BentoCountdownCard>
 
           {/* Verse */}
@@ -349,7 +357,10 @@ const PreTeensPage: React.FC = () => {
             <IconUser size={15} /> <span>10–13 år</span>
           </ClosingMetaItem>
         </ClosingMeta>
-        <ClosingCTA $light={lightMode} href='mailto:info@pingstkyrkan.se?subject=Pre-Teens'>
+        <ClosingCTA
+          $light={lightMode}
+          href='mailto:info@pingstkyrkan.se?subject=Pre-Teens'
+        >
           Kontakta oss
         </ClosingCTA>
       </ClosingSection>
