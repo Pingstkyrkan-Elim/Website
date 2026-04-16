@@ -528,3 +528,31 @@ class TeamMember(BaseModel):
 
     def __str__(self):
         return f"{self.name} - {self.get_role_display()}"
+
+
+class PreTeensContent(BaseModel):
+    """Pre-Teens ministry page — countdown events"""
+
+    event_name = models.CharField(
+        max_length=200,
+        default="Sleep Over",
+        help_text="Name of the upcoming event shown in the countdown",
+    )
+    event_datetime = models.DateTimeField(
+        help_text="Date and time of the event (used for the countdown timer)",
+    )
+    photo = models.ImageField(
+        upload_to="preteens/",
+        blank=True,
+        null=True,
+        help_text="Photo shown in the bento grid",
+    )
+
+    class Meta:
+        db_table = "preteens_content"
+        verbose_name = "Pre-Teens Event"
+        verbose_name_plural = "Pre-Teens Events"
+        ordering = ["event_datetime"]
+
+    def __str__(self):
+        return f"{self.event_name} — {self.event_datetime.strftime('%Y-%m-%d')}"

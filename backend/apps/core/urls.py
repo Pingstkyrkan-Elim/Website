@@ -48,6 +48,11 @@ urlpatterns = [
     path("mission/", views.MissionCountryListView.as_view(), name="mission-list"),
     # Second Hand
     path("second-hand/", views.secondhand_store, name="secondhand-store"),
+    # Pre-Teens (public — next upcoming event)
+    path("pre-teens/", views.preteens_content, name="preteens-content"),
+    # Portal — Pre-Teens CRUD (pre-teens group)
+    path("portal/pre-teens/", views.PortalPreTeensListCreateView.as_view(), name="portal-preteens-list"),
+    path("portal/pre-teens/<int:pk>/", views.PortalPreTeensDetailView.as_view(), name="portal-preteens-detail"),
     # Portal — event management (authenticated, kalender group)
     path(
         "portal/events/",

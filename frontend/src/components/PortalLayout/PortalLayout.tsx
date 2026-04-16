@@ -55,6 +55,12 @@ const NAV_ITEMS: NavEntry[] = [
     icon: <span style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '1rem', lineHeight: 1 }}>α</span>,
     permission: 'alpha',
   },
+  {
+    path: '/portal/pre-teens',
+    label: 'Pre-Teens',
+    icon: <span style={{ fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.02em' }}>PT</span>,
+    permission: 'pre-teens',
+  },
 ];
 
 const PAGE_TITLES: Record<string, string> = {
@@ -62,6 +68,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/portal/kalender': 'Kalender',
   '/portal/annonser': 'Annonser',
   '/portal/alpha': 'Alpha',
+  '/portal/pre-teens': 'Pre-Teens',
 };
 
 interface PortalLayoutProps {

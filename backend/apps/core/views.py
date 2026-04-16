@@ -16,6 +16,7 @@ from .models import (
     HistoryEntry,
     MissionCountry,
     NewsPost,
+    PreTeensContent,
     Program,
     SecondHandStore,
     Service,
@@ -32,6 +33,7 @@ from .serializers import (
     MissionCountrySerializer,
     NewsPostSerializer,
     PortalEventSerializer,
+    PreTeensContentSerializer,
     ProgramSerializer,
     SecondHandStoreSerializer,
     ServiceSerializer,
@@ -69,6 +71,17 @@ class IsAlphaUser(permissions.BasePermission):
             request.user
             and request.user.is_authenticated
             and request.user.groups.filter(name="alpha").exists()
+        )
+
+
+class IsPreTeensUser(permissions.BasePermission):
+    """Allow access only to users in the 'pre-teens' group"""
+
+    def has_permission(self, request, view):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.groups.filter(name="pre-teens").exists()
         )
 
 
@@ -344,3 +357,41 @@ class PortalEventDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Event.objects.select_related("created_by")
     serializer_class = PortalEventSerializer
     permission_classes = [IsKalenderUser]
+
+
+# ── Pre-Teens content (public GET + portal CRUD, pre-teens group) ─────────────
+
+
+@api_view(["GET"])
+@permission_classes([permissions.AllowAny])
+def preteens_content(request):
+    """Return the next upcoming Pre-Teens event (or the most recent past one)."""
+    from django.utils import timezone as tz
+
+    obj = (
+        PreTeensContent.objects.filter(event_datetime__gte=tz.now())
+        .order_by("event_datetime")
+        .first()
+    ) or PreTeensContent.objects.order_by("-event_datetime").first()
+
+    if obj is None:
+        return Response({})
+    serializer = PreTeensContentSerializer(obj, context={"request": request})
+    return Response(serializer.data)
+
+
+class PortalPreTeensListCreateView(generics.ListCreateAPIView):
+    """List all Pre-Teens events or create a new one (pre-teens group only)"""
+
+    queryset = PreTeensContent.objects.order_by("event_datetime")
+    serializer_class = PreTeensContentSerializer
+    permission_classes = [IsPreTeensUser]
+
+
+class PortalPreTeensDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Retrieve, update or delete a single Pre-Teens event (pre-teens group only)"""
+
+    queryset = PreTeensContent.objects.all()
+    serializer_class = PreTeensContentSerializer
+    permission_classes = [IsPreTeensUser]
+

@@ -10,6 +10,7 @@ from .models import (
     HistoryEntry,
     MissionCountry,
     NewsPost,
+    PreTeensContent,
     Program,
     SecondHandStore,
     Service,
@@ -263,6 +264,15 @@ class TeamMemberAdmin(admin.ModelAdmin):
     search_fields = ("name", "bio", "email")
     list_editable = ("is_active", "display_order")
     ordering = ("display_order", "name")
+
+
+@admin.register(PreTeensContent)
+class PreTeensContentAdmin(admin.ModelAdmin):
+    list_display = ("event_name", "event_datetime", "updated_at")
+    fieldsets = (
+        ("Nedräkning", {"fields": ("event_name", "event_datetime")}),
+        ("Foto", {"fields": ("photo",)}),
+    )
 
 
 @admin.register(SecondHandStore)

@@ -282,4 +282,46 @@ export const portalDeleteAlphaPhoto = async (id: number): Promise<void> => {
   await api.delete(`/portal/alpha-photos/${id}/`);
 };
 
+// ── Pre-Teens ─────────────────────────────────────────────────────────────────
+
+export interface PreTeensContent {
+  id: number;
+  event_name: string;
+  event_datetime: string; // ISO 8601
+  photo: string | null;
+  updated_at: string;
+}
+
+export const getPreTeensContent = async (): Promise<PreTeensContent> => {
+  const response = await api.get<PreTeensContent>('/pre-teens/');
+  return response.data;
+};
+
+export const portalGetPreTeensEvents = async (): Promise<PreTeensContent[]> => {
+  const response = await api.get<{ count: number; results: PreTeensContent[] } | PreTeensContent[]>('/portal/pre-teens/');
+  const data = response.data;
+  if (Array.isArray(data)) return data;
+  return (data as { results: PreTeensContent[] }).results ?? [];
+};
+
+// multipartHeaders: unset Content-Type so the browser sets it with the correct boundary
+const multipartHeaders = { 'Content-Type': undefined as unknown as string };
+
+export const portalCreatePreTeensEvent = async (data: FormData): Promise<PreTeensContent> => {
+  const response = await api.post<PreTeensContent>('/portal/pre-teens/', data, { headers: multipartHeaders });
+  return response.data;
+};
+
+export const portalUpdatePreTeensEvent = async (
+  id: number,
+  data: FormData
+): Promise<PreTeensContent> => {
+  const response = await api.patch<PreTeensContent>(`/portal/pre-teens/${id}/`, data, { headers: multipartHeaders });
+  return response.data;
+};
+
+export const portalDeletePreTeensEvent = async (id: number): Promise<void> => {
+  await api.delete(`/portal/pre-teens/${id}/`);
+};
+
 export default api;

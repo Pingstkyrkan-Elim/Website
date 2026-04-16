@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import {
   IconCalendar,
   IconClock,
   IconMapPin,
   IconUser,
 } from '../../components/Icons';
+import { getPreTeensContent } from '../../services/api';
 import {
   PTWrapper,
   HeroSection,
@@ -46,6 +48,7 @@ import {
   LightTitle,
   LightSubtitle,
   LightBulb,
+  LightToggleBtn,
   ClosingSection,
   ClosingLabel,
   ClosingTitle,
@@ -55,10 +58,11 @@ import {
   ClosingDot,
   ClosingCTA,
   SectionSep,
+  CountdownLabelUnder
 } from './PreTeensPage.styles';
 
-// ── Sleep Over countdown target — last week of June 2026 ──────────────────────
-const SLEEP_OVER = new Date('2026-06-26T18:00:00');
+// ── Fallback countdown target ─────────────────────────────────────────────────
+const FALLBACK_DATE = new Date('2026-06-26T18:00:00');
 
 function getRemaining(target: Date) {
   const diff = target.getTime() - Date.now();
@@ -100,9 +104,26 @@ function useInView(threshold = 0.12) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
+// ── Photo URL helper ──────────────────────────────────────────────────────────
+function photoUrl(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  if (raw.startsWith('http')) return raw;
+  if (raw.startsWith('/')) return `${process.env.REACT_APP_API_URL ?? 'http://localhost:8000'}${raw}`;
+  return `${process.env.REACT_APP_API_URL ?? 'http://localhost:8000'}/media/${raw}`;
+}
+
 const PreTeensPage: React.FC = () => {
   const [lightMode, setLightMode] = useState(false);
-  const countdown = useCountdown(SLEEP_OVER);
+
+  const { data: content } = useQuery('preteens-content', getPreTeensContent);
+
+  const eventDate = content?.event_datetime
+    ? new Date(content.event_datetime)
+    : FALLBACK_DATE;
+  const eventName = content?.event_name ?? 'Sleep Over';
+  const eventPhoto = photoUrl(content?.photo);
+
+  const countdown = useCountdown(eventDate);
 
   const bento   = useInView(0.06);
   const light   = useInView(0.12);
@@ -112,69 +133,107 @@ const PreTeensPage: React.FC = () => {
 
   return (
     <PTWrapper $light={lightMode}>
-
       {/* ── Hero ───────────────────────────────────────────────── */}
-      <HeroSection>
+      <HeroSection $light={lightMode}>
         <HeroImage />
         <HeroDuotone />
         <HeroOverlay />
         <HeroContent>
           <HeroLogoRow>
-            <img src="/images/preteens-logo.png" alt="Pre-Teens logo" />
+            <img src='/images/preteens-logo.png' alt='Pre-Teens logo' />
           </HeroLogoRow>
           <HeroEyebrow>Pingstkyrkan Elim · 10–13 år</HeroEyebrow>
           <HeroTitle>
             <span>HANS VERK</span>
-            <span className="outline">ÄR VI</span>
+            <span className='outline'>ÄR VI</span>
           </HeroTitle>
-          <HeroTagline>
-            Jesus är vår identitet · Efesierbrevet 2:10
-          </HeroTagline>
+          <HeroTagline>Jesus är vår identitet · Efesierbrevet 2:10</HeroTagline>
           <HeroCTARow>
-            <HeroCTA href="#kom-med">Kom &amp; se</HeroCTA>
-            <HeroCTASecondary href="#bento">Läs mer</HeroCTASecondary>
+            <HeroCTA href='#kom-med'>Kom &amp; se</HeroCTA>
+            <HeroCTASecondary href='#bento'>Läs mer</HeroCTASecondary>
           </HeroCTARow>
         </HeroContent>
       </HeroSection>
 
       {/* ── VÄRLDENS LJUS — interactive section ──────────────── */}
-      <LightSection
-        $light={lightMode}
-        onMouseEnter={() => setLightMode(true)}
-        onMouseLeave={() => setLightMode(false)}
-        ref={light.ref}
-      >
+      <LightSection $light={lightMode} ref={light.ref}>
         <LightBulb $light={lightMode}>
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-            <circle cx="12" cy="12" r="4"/>
+          <svg
+            width='36'
+            height='36'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1.5'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41' />
+            <circle cx='12' cy='12' r='4' />
           </svg>
         </LightBulb>
-        <LightHint $light={lightMode}>
-          Matteus 5:14 — Håll muspekaren här
-        </LightHint>
-        <LightTitle $light={lightMode}>
-          DU ÄR VÄRLDENS LJUS
-        </LightTitle>
+        <LightHint $light={lightMode}>Matteus 5:14</LightHint>
+        <LightTitle $light={lightMode}>DU ÄR VÄRLDENS LJUS</LightTitle>
         <LightSubtitle $light={lightMode}>
           {lightMode
-            ? 'En stad uppe på ett berg kan inte döljas. Lysa!'
-            : 'Håll muspekaren för att tända ljuset.'}
+            ? 'En stad uppe på ett berg kan inte döljas.'
+            : 'Du ska lysa som en stad på ett berg.'}
         </LightSubtitle>
+        <LightToggleBtn
+          $light={lightMode}
+          onClick={() => setLightMode(v => !v)}
+        >
+          {lightMode ? (
+            <>
+              <svg
+                width='15'
+                height='15'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' />
+              </svg>
+              Släck ljuset
+            </>
+          ) : (
+            <>
+              <svg
+                width='15'
+                height='15'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41' />
+                <circle cx='12' cy='12' r='4' />
+              </svg>
+              Tänd ljuset!
+            </>
+          )}
+        </LightToggleBtn>
       </LightSection>
 
       <SectionSep />
 
       {/* ── Bento Grid ─────────────────────────────────────────── */}
-      <BentoSection id="bento">
+      <BentoSection id='bento'>
         <BentoGrid ref={bento.ref}>
-
           {/* Big photo */}
           <BentoPhotoCard $visible={bento.visible}>
             <img
-              src="/images/preteens-2.avif"
-              alt="Pre-Teens"
-              onError={e => { (e.currentTarget as HTMLImageElement).src = '/images/preteens-hero.jpg'; }}
+              src={eventPhoto ?? '/images/preteens-2.avif'}
+              alt='Pre-Teens'
+              onError={e => {
+                (e.currentTarget as HTMLImageElement).src =
+                  '/images/preteens-hero.jpg';
+              }}
             />
           </BentoPhotoCard>
 
@@ -185,7 +244,7 @@ const PreTeensPage: React.FC = () => {
             <BentoAboutText>
               Vi är ett gäng unga människor mellan 10 och 13 år som träffas
               varje vecka för att ha kul, bygga vänskap och utforska vad det
-              betyder att vara skapad av Gud — med ett syfte.
+              betyder att vara skapad av Gud med ett syfte.
             </BentoAboutText>
           </BentoAboutCard>
 
@@ -198,79 +257,102 @@ const PreTeensPage: React.FC = () => {
           </BentoMeetingCard>
 
           {/* Countdown */}
-          <BentoCountdownCard $visible={bento.visible}>
-            <CountdownLabel>Räkna ner till</CountdownLabel>
-            <CountdownEvent>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{marginRight:8,verticalAlign:'middle',opacity:0.8}}>
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-            Sleep Over
-          </CountdownEvent>
+          <BentoCountdownCard $visible={bento.visible} $light={lightMode}>
+            <CountdownLabel $light={lightMode}>Räkna ner till</CountdownLabel>
+            <CountdownEvent $light={lightMode}>
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='1.8'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                style={{
+                  marginRight: 8,
+                  verticalAlign: 'middle',
+                  opacity: 0.8,
+                }}
+              >
+                <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' />
+              </svg>
+              {eventName}
+            </CountdownEvent>
             <CountdownNumbers>
               <CountdownUnit>
-                <CountdownNum key={countdown.days}>{pad(countdown.days)}</CountdownNum>
-                <CountdownUnitLabel>Dagar</CountdownUnitLabel>
+                <CountdownNum $light={lightMode} key={countdown.days}>
+                  {pad(countdown.days)}
+                </CountdownNum>
+                <CountdownUnitLabel $light={lightMode}>
+                  Dagar
+                </CountdownUnitLabel>
               </CountdownUnit>
               <CountdownUnit>
-                <CountdownNum key={`h${countdown.hours}`}>{pad(countdown.hours)}</CountdownNum>
-                <CountdownUnitLabel>Tim</CountdownUnitLabel>
+                <CountdownNum $light={lightMode} key={`h${countdown.hours}`}>
+                  {pad(countdown.hours)}
+                </CountdownNum>
+                <CountdownUnitLabel $light={lightMode}>Tim</CountdownUnitLabel>
               </CountdownUnit>
               <CountdownUnit>
-                <CountdownNum key={`m${countdown.minutes}`}>{pad(countdown.minutes)}</CountdownNum>
-                <CountdownUnitLabel>Min</CountdownUnitLabel>
+                <CountdownNum $light={lightMode} key={`m${countdown.minutes}`}>
+                  {pad(countdown.minutes)}
+                </CountdownNum>
+                <CountdownUnitLabel $light={lightMode}>Min</CountdownUnitLabel>
               </CountdownUnit>
               <CountdownUnit>
-                <CountdownNum key={`s${countdown.seconds}`}>{pad(countdown.seconds)}</CountdownNum>
-                <CountdownUnitLabel>Sek</CountdownUnitLabel>
+                <CountdownNum $light={lightMode} key={`s${countdown.seconds}`}>
+                  {pad(countdown.seconds)}
+                </CountdownNum>
+                <CountdownUnitLabel $light={lightMode}>Sek</CountdownUnitLabel>
               </CountdownUnit>
             </CountdownNumbers>
+            <CountdownLabelUnder $light={lightMode}>Det kommer att bli super roligt!</CountdownLabelUnder>
           </BentoCountdownCard>
 
           {/* Verse */}
-          <BentoVerseCard $visible={bento.visible}>
-            <VerseText>
-              Hans verk är vi, skapade i Kristus Jesus till goda gärningar
-              som Gud har förberett för att vi ska vandra i dem.
+          <BentoVerseCard $visible={bento.visible} $light={lightMode}>
+            <VerseText $light={lightMode}>
+              Hans verk är vi, skapade i Kristus Jesus till goda gärningar som
+              Gud har förberett för att vi ska vandra i dem.
             </VerseText>
-            <VerseRef>Efesierbrevet 2:10 · Svenska Folkbibeln</VerseRef>
+            <VerseRef $light={lightMode}>
+              Efesierbrevet 2:10 · Svenska Folkbibeln
+            </VerseRef>
           </BentoVerseCard>
-
         </BentoGrid>
       </BentoSection>
 
       <SectionSep />
 
       {/* ── Closing ────────────────────────────────────────────── */}
-      <ClosingSection id="kom-med" ref={closing.ref}>
-        <ClosingLabel>Välkommen</ClosingLabel>
-        <ClosingTitle>
-          GÖM DIG INTE.{'\n'}LYSA.
-        </ClosingTitle>
-        <ClosingSubtitle>
+      <ClosingSection id='kom-med' $light={lightMode} ref={closing.ref}>
+        <ClosingLabel $light={lightMode}>Välkommen</ClosingLabel>
+        <ClosingTitle $light={lightMode}>GÖM DIG INTE.{'\n'}LYS!</ClosingTitle>
+        <ClosingSubtitle $light={lightMode}>
           Alla är välkomna. Inga krav. Bara gemenskap.
         </ClosingSubtitle>
         <ClosingMeta>
-          <ClosingMetaItem>
+          <ClosingMetaItem $light={lightMode}>
             <IconCalendar size={15} /> <span>Varje torsdag</span>
           </ClosingMetaItem>
-          <ClosingDot />
-          <ClosingMetaItem>
+          <ClosingDot $light={lightMode} />
+          <ClosingMetaItem $light={lightMode}>
             <IconClock size={15} /> <span>Kl 17:30</span>
           </ClosingMetaItem>
-          <ClosingDot />
-          <ClosingMetaItem>
+          <ClosingDot $light={lightMode} />
+          <ClosingMetaItem $light={lightMode}>
             <IconMapPin size={15} /> <span>Pingstkyrkan Elim</span>
           </ClosingMetaItem>
-          <ClosingDot />
-          <ClosingMetaItem>
+          <ClosingDot $light={lightMode} />
+          <ClosingMetaItem $light={lightMode}>
             <IconUser size={15} /> <span>10–13 år</span>
           </ClosingMetaItem>
         </ClosingMeta>
-        <ClosingCTA href="mailto:info@pingstkyrkan.se?subject=Pre-Teens">
+        <ClosingCTA $light={lightMode} href='mailto:info@pingstkyrkan.se?subject=Pre-Teens'>
           Kontakta oss
         </ClosingCTA>
       </ClosingSection>
-
     </PTWrapper>
   );
 };

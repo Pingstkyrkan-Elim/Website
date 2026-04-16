@@ -15,10 +15,6 @@ const fadeIn = keyframes`
   to   { opacity: 1; }
 `;
 
-const pulseGlow = keyframes`
-  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
-  50%       { box-shadow: 0 0 32px 8px rgba(139, 92, 246, 0.2); }
-`;
 
 const tickIn = keyframes`
   0%   { transform: translateY(-8px) scale(0.9); opacity: 0; }
@@ -43,39 +39,41 @@ export const PTWrapper = styled.div<{ $light: boolean }>`
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
 
-export const HeroSection = styled.section`
+export const HeroSection = styled.section<{ $light: boolean }>`
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Logo gradient: cyan → violet → magenta */
-  background: linear-gradient(135deg, #18c5e8 0%, #7c3aed 52%, #ff3cac 100%);
 
-  /* Subtle noise texture for depth */
+  /* Photo layer */
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 20% 30%, rgba(255,255,255,0.10) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 50% at 80% 70%, rgba(0,0,0,0.12) 0%, transparent 60%);
-    pointer-events: none;
+    background: url('/images/preteens-hero.jpg') center 65% / cover no-repeat;
+    transform: scale(1.0);
+    animation: heroZoom 14s ease-in-out infinite alternate;
     z-index: 0;
   }
 
-  /* Fade hero bottom into the LightSection below */
+  @keyframes heroZoom {
+    from { transform: scale(1.0); }
+    to   { transform: scale(1.06); }
+  }
+
+  /* Gradient overlay — brand colours at ~70% opacity so photo bleeds through */
   &::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 280px;
-    background: linear-gradient(to bottom, transparent 0%, #0d0a1a 100%);
+    inset: 0;
+    background:
+      linear-gradient(to bottom, transparent 55%, ${({ $light }) => $light ? '#f0eeff' : '#0d0a1a'} 100%),
+      linear-gradient(135deg, rgba(24,197,232,0.68) 0%, rgba(124,58,237,0.62) 52%, rgba(255,60,172,0.68) 100%);
     pointer-events: none;
-    z-index: 0;
+    z-index: 1;
+    transition: background 0.6s ease;
   }
 `;
 
@@ -301,7 +299,7 @@ export const BentoPhotoCard = styled.div<{ $visible: boolean }>`
 export const BentoAboutCard = styled.div<{ $visible: boolean }>`
   ${bentoCard}
   grid-column: span 4;
-  background: #8b5cf6;
+  background: #ec5cf6;
   padding: 32px 28px;
   display: flex;
   flex-direction: column;
@@ -345,7 +343,7 @@ export const BentoAboutText = styled.p`
 export const BentoMeetingCard = styled.div<{ $visible: boolean }>`
   ${bentoCard}
   grid-column: span 3;
-  background: #fbbf24;
+  background: #bff178;
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
@@ -391,93 +389,132 @@ export const BentoMeetingPlace = styled.div`
   margin-top: 4px;
 `;
 
-// Countdown card
-export const BentoCountdownCard = styled.div<{ $visible: boolean }>`
+// Countdown card — neon cyan
+const pulseGlowCyan = keyframes`
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.0); }
+  50%       { box-shadow: 0 0 28px 6px rgba(0, 240, 255, 0.18); }
+`;
+
+export const BentoCountdownCard = styled.div<{ $visible: boolean; $light: boolean }>`
   ${bentoCard}
   grid-column: span 4;
-  background: #111118;
-  border: 1px solid rgba(139,92,246,0.2);
+  background: ${({ $light }) => $light
+    ? 'linear-gradient(145deg, #75dbf0 0%, #ffccf3 100%)'
+    : 'linear-gradient(145deg, #001a22 0%, #000e18 100%)'};
+  border: 1.5px solid rgba(0, 240, 255, ${({ $light }) => $light ? '0.7' : '0.45'});
   padding: 28px 24px;
-  animation: ${pulseGlow} 4s ease-in-out infinite;
-  transition: opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s;
+  animation: ${pulseGlowCyan} 3.5s ease-in-out infinite;
+  transition: opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s, background 0.5s ease, border-color 0.5s ease;
   ${({ $visible }) => $visible
     ? css`opacity: 1; transform: translateY(0);`
     : css`opacity: 0; transform: translateY(30px);`
   }
 
+  &:hover { box-shadow: 0 0 36px rgba(0,240,255,0.28); }
+
   @media (max-width: 900px) { grid-column: span 2; }
   @media (max-width: 560px) { grid-column: span 1; }
 `;
 
-export const CountdownLabel = styled.div`
+export const CountdownLabel = styled.div<{ $light?: boolean }>`
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #a78bfa;
-  margin-bottom: 16px;
+  color: ${({ $light }) => ($light ? '#d009bc' : '#00f0ff')};
+  margin-bottom: 25px;
+  text-shadow: ${({ $light }) =>
+    $light ? 'none' : '0 0 10px rgba(0,240,255,0.6)'};
+  transition: color 0.5s ease;
 `;
 
-export const CountdownEvent = styled.div`
+export const CountdownLabelUnder = styled.div<{ $light?: boolean }>`
+  font-size: 0.90rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: ${({ $light }) => ($light ? '#f72a2a' : '#e600ff')};
+  margin-bottom: 25px;
+  margin-top: 25px;
+  text-shadow: ${({ $light }) =>
+    $light ? 'none' : '0 0 10px rgba(229, 255, 0, 0.6)'};
+  transition: color 0.5s ease;
+`;
+
+export const CountdownEvent = styled.div<{ $light?: boolean }>`
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.8rem;
-  color: #f5f0ff;
-  margin-bottom: 20px;
+  color: ${({ $light }) => $light ? '#5b3cf6' : '#e0faff'};
+  margin-bottom: 30px;
   line-height: 1;
+  transition: color 0.5s ease;
 `;
 
 export const CountdownNumbers = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 10px;
 `;
 
 export const CountdownUnit = styled.div`
   text-align: center;
 `;
 
-export const CountdownNum = styled.div`
+export const CountdownNum = styled.div<{ $light?: boolean }>`
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2.2rem;
   line-height: 1;
-  color: #a78bfa;
+  color: ${({ $light }) => $light ? '#ee13f6' : '#00ff88'};
+  text-shadow: ${({ $light }) => $light ? 'none' : '0 0 14px rgba(255, 0, 76, 0.81)'};
   animation: ${tickIn} 0.3s ease;
+  transition: color 0.5s ease;
 `;
 
-export const CountdownUnitLabel = styled.div`
+export const CountdownUnitLabel = styled.div<{ $light?: boolean }>`
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(167,139,250,0.55);
+  color: ${({ $light }) => $light ? 'rgba(0,122,138,0.6)' : 'rgba(0, 240, 255, 0.5)'};
   margin-top: 4px;
+  transition: color 0.5s ease;
 `;
 
-// Verse card
-export const BentoVerseCard = styled.div<{ $visible: boolean }>`
+// Verse card — neon orange / amber
+const pulseGlowOrange = keyframes`
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 140, 30, 0.0); }
+  50%       { box-shadow: 0 0 28px 6px rgba(255, 140, 30, 0.18); }
+`;
+
+export const BentoVerseCard = styled.div<{ $visible: boolean; $light: boolean }>`
   ${bentoCard}
   grid-column: span 3;
-  background: linear-gradient(135deg, #1a0a2e 0%, #0f0920 100%);
-  border: 1px solid rgba(139,92,246,0.15);
+  background: ${({ $light }) => $light
+    ? 'linear-gradient(145deg, #f02fac84 0%, #ffedd0 100%)'
+    : 'linear-gradient(145deg, #1a000e 0%, #0f0700 100%)'};
+  border: 1.5px solid rgba(255, 140, 30, ${({ $light }) => $light ? '0.7' : '0.45'});
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: opacity 0.9s ease 0.4s, transform 0.9s ease 0.4s;
+  animation: ${pulseGlowOrange} 4s ease-in-out infinite 0.8s;
+  transition: opacity 0.9s ease 0.4s, transform 0.9s ease 0.4s, background 0.5s ease, border-color 0.5s ease;
   ${({ $visible }) => $visible
     ? css`opacity: 1; transform: translateY(0);`
     : css`opacity: 0; transform: translateY(30px);`
   }
 
+  &:hover { box-shadow: 0 0 36px rgba(255,140,30,0.28); }
+
   @media (max-width: 900px) { grid-column: span 1; }
 `;
 
-export const VerseText = styled.blockquote`
-  font-size: 0.88rem;
+export const VerseText = styled.blockquote<{ $light?: boolean }>`
+  font-size: 0.98rem;
   line-height: 1.72;
-  color: rgba(245,240,255,0.78);
+  color: ${({ $light }) => $light ? 'rgb(242, 7, 7)' : 'rgba(255,235,200,0.85)'};
   font-style: italic;
   margin: 0 0 12px;
+  transition: color 0.5s ease;
 
   &::before {
     content: '"';
@@ -485,18 +522,21 @@ export const VerseText = styled.blockquote`
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.5rem;
     line-height: 0.8;
-    color: #8b5cf6;
+    color: #ff8c1e;
+    text-shadow: ${({ $light }) => $light ? 'none' : '0 0 14px rgba(255,140,30,0.6)'};
     font-style: normal;
     margin-bottom: 8px;
   }
 `;
 
-export const VerseRef = styled.div`
+export const VerseRef = styled.div<{ $light?: boolean }>`
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #a78bfa;
+  color: ${({ $light }) => $light ? '#547605' : '#ff8c1e'};
+  text-shadow: ${({ $light }) => $light ? 'none' : '0 0 10px rgba(255,140,30,0.5)'};
+  transition: color 0.5s ease;
 `;
 
 // ── VÄRLDENS LJUS interactive section ────────────────────────────────────────
@@ -504,7 +544,6 @@ export const VerseRef = styled.div`
 export const LightSection = styled.section<{ $light: boolean }>`
   padding: 120px 48px;
   text-align: center;
-  cursor: default;
   position: relative;
   overflow: hidden;
   background: ${({ $light }) => $light ? '#f5f0ff' : '#0d0a1a'};
@@ -558,7 +597,7 @@ export const LightTitle = styled.h2<{ $light: boolean }>`
 export const LightSubtitle = styled.p<{ $light: boolean }>`
   font-size: 1rem;
   line-height: 1.75;
-  color: ${({ $light }) => $light ? 'rgba(9,9,15,0.6)' : 'rgba(245,240,255,0.5)'};
+  color: ${({ $light }) => $light ? 'rgba(66, 13, 241, 0.6)' : 'rgba(245,240,255,0.5)'};
   max-width: 460px;
   margin: 0 auto;
   transition: color 0.5s ease;
@@ -583,23 +622,79 @@ export const LightBulb = styled.div<{ $light: boolean }>`
   svg { width: 26px; height: 26px; }
 `;
 
+const bouncePop = keyframes`
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+`;
+
+const wiggle = keyframes`
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-6deg); }
+  75%       { transform: rotate(6deg); }
+`;
+
+export const LightToggleBtn = styled.button<{ $light: boolean }>`
+  margin-top: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 100px;
+  border: 2px solid ${({ $light }) => $light ? 'rgba(124,58,237,0.4)' : 'rgba(167,139,250,0.35)'};
+  background: ${({ $light }) => $light
+    ? 'rgba(124,58,237,0.1)'
+    : 'rgba(167,139,250,0.08)'};
+  color: ${({ $light }) => $light ? '#7c3aed' : '#a78bfa'};
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+
+  /* Subtle idle pulse to draw attention */
+  animation: ${({ $light }) => $light ? 'none' : css`${wiggle} 3s ease-in-out 1.5s infinite`};
+
+  &:hover {
+    background: ${({ $light }) => $light
+      ? 'rgba(124,58,237,0.18)'
+      : 'rgba(167,139,250,0.16)'};
+    border-color: ${({ $light }) => $light ? '#7c3aed' : '#a78bfa'};
+    box-shadow: 0 0 20px ${({ $light }) => $light
+      ? 'rgba(124,58,237,0.25)'
+      : 'rgba(167,139,250,0.2)'};
+  }
+
+  &:active {
+    animation: ${bouncePop} 0.35s ease forwards;
+  }
+
+  svg { flex-shrink: 0; }
+`;
+
 // ── Closing section ───────────────────────────────────────────────────────────
 
-export const ClosingSection = styled.section`
-  background: #09090f;
+export const ClosingSection = styled.section<{ $light: boolean }>`
+  background: ${({ $light }) => $light ? '#e8f06d' : '#09090f'};
   padding: 100px 48px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  transition: background 0.6s ease;
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 30% 50%, rgba(139,92,246,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 70% 50%, rgba(251,191,36,0.05) 0%, transparent 70%);
+    background: ${({ $light }) => $light
+      ? `radial-gradient(ellipse 60% 50% at 30% 50%, rgba(255,60,172,0.12) 0%, transparent 70%),
+         radial-gradient(ellipse 40% 40% at 70% 50%, rgba(24,197,232,0.10) 0%, transparent 70%)`
+      : `radial-gradient(ellipse 60% 50% at 30% 50%, rgba(139,92,246,0.07) 0%, transparent 70%),
+         radial-gradient(ellipse 40% 40% at 70% 50%, rgba(251,191,36,0.05) 0%, transparent 70%)`};
     pointer-events: none;
+    transition: background 0.6s ease;
   }
 
   @media (max-width: 768px) {
@@ -607,29 +702,32 @@ export const ClosingSection = styled.section`
   }
 `;
 
-export const ClosingLabel = styled.div`
+export const ClosingLabel = styled.div<{ $light: boolean }>`
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #a78bfa;
+  color: ${({ $light }) => $light ? '#f919f5' : '#a78bfa'};
   margin-bottom: 20px;
+  transition: color 0.5s ease;
 `;
 
-export const ClosingTitle = styled.h2`
+export const ClosingTitle = styled.h2<{ $light: boolean }>`
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(3rem, 9vw, 8rem);
   font-weight: 400;
   line-height: 0.92;
-  color: #f5f0ff;
+  color: ${({ $light }) => $light ? '#0a88dc' : '#f5f0ff'};
   margin: 0 0 16px;
+  transition: color 0.5s ease;
 `;
 
-export const ClosingSubtitle = styled.p`
+export const ClosingSubtitle = styled.p<{ $light: boolean }>`
   font-size: 0.95rem;
-  color: rgba(245,240,255,0.45);
+  color: ${({ $light }) => $light ? 'rgba(19, 98, 5, 0.93)' : 'rgba(245,240,255,0.45)'};
   letter-spacing: 0.08em;
   margin: 0 0 44px;
+  transition: color 0.5s ease;
 `;
 
 export const ClosingMeta = styled.div`
@@ -641,49 +739,53 @@ export const ClosingMeta = styled.div`
   margin-bottom: 48px;
 `;
 
-export const ClosingMetaItem = styled.div`
+export const ClosingMetaItem = styled.div<{ $light: boolean }>`
   display: flex;
   align-items: center;
   gap: 7px;
   font-size: 0.88rem;
   font-weight: 500;
-  color: rgba(245,240,255,0.6);
+  color: ${({ $light }) => $light ? 'rgba(26,0,80,0.75)' : 'rgba(245,240,255,0.6)'};
+  transition: color 0.5s ease;
 
-  svg { opacity: 0.55; flex-shrink: 0; }
+  svg { opacity: 0.7; flex-shrink: 0; }
 
   span {
-    color: #fbbf24;
+    color: ${({ $light }) => $light ? '#f1078c' : '#fbbf24'};
     font-weight: 700;
+    transition: color 0.5s ease;
   }
 `;
 
-export const ClosingDot = styled.div`
+export const ClosingDot = styled.div<{ $light: boolean }>`
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(245,240,255,0.2);
+  background: ${({ $light }) => $light ? 'rgba(26,0,80,0.3)' : 'rgba(245,240,255,0.2)'};
+  transition: background 0.5s ease;
 `;
 
-export const ClosingCTA = styled.a`
+export const ClosingCTA = styled.a<{ $light: boolean }>`
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 16px 40px;
-  background: transparent;
-  color: #f5f0ff;
+  background: ${({ $light }) => $light ? '#f728d1' : 'transparent'};
+  color: ${({ $light }) => $light ? '#e8f06d' : '#f5f0ff'};
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  border: 1.5px solid rgba(139,92,246,0.5);
+  border: 2px solid ${({ $light }) => $light ? '#cb0796' : 'rgba(139,92,246,0.5)'};
   border-radius: 100px;
-  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.2s, color 0.25s;
 
   &:hover {
-    background: rgba(139,92,246,0.12);
-    border-color: #8b5cf6;
-    box-shadow: 0 0 24px rgba(139,92,246,0.3);
+    background: ${({ $light }) => $light ? '#5b21b6' : 'rgba(139,92,246,0.12)'};
+    border-color: ${({ $light }) => $light ? '#5b21b6' : '#8b5cf6'};
+    box-shadow: 0 0 24px ${({ $light }) => $light ? 'rgba(124,58,237,0.4)' : 'rgba(139,92,246,0.3)'};
+    color: ${({ $light }) => $light ? '#e8f06d' : '#f5f0ff'};
     transform: translateY(-2px);
   }
 `;

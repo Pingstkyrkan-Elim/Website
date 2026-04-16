@@ -10,6 +10,7 @@ from .models import (
     HistoryEntry,
     MissionCountry,
     NewsPost,
+    PreTeensContent,
     Program,
     SecondHandStore,
     Service,
@@ -214,6 +215,13 @@ class AlphaProgramSerializer(serializers.ModelSerializer):
             "gallery",
             "updated_at",
         ]
+        read_only_fields = ["id", "updated_at"]
+
+
+class PreTeensContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PreTeensContent
+        fields = ["id", "event_name", "event_datetime", "photo", "updated_at"]
         read_only_fields = ["id", "updated_at"]
 
 

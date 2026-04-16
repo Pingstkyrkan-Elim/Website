@@ -33,6 +33,7 @@ import PortalDashboard from './pages/PortalDashboard/PortalDashboard';
 import PortalKalender from './pages/PortalKalender/PortalKalender';
 import PortalAnnonser from './pages/PortalAnnonser/PortalAnnonser';
 import PortalAlpha from './pages/PortalAlpha/PortalAlpha';
+import PortalPreTeens from './pages/PortalPreTeens/PortalPreTeens';
 import PreTeensPage from './pages/PreTeensPage/PreTeensPage';
 
 function ScrollToTop() {
@@ -304,6 +305,14 @@ function App() {
                 element={
                   <PortalRoute>
                     <PortalAlpha />
+                  </PortalRoute>
+                }
+              />
+              <Route
+                path='/portal/pre-teens'
+                element={
+                  <PortalRoute>
+                    <PortalPreTeens />
                   </PortalRoute>
                 }
               />

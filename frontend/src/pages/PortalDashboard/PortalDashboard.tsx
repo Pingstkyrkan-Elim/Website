@@ -69,6 +69,25 @@ const PORTAL_SECTIONS: PortalSection[] = [
     ),
     color: 'rgba(201, 120, 32, 0.1)',
   },
+  {
+    key: 'pre-teens',
+    permission: 'pre-teens',
+    path: '/portal/pre-teens',
+    label: 'Pre-Teens',
+    description:
+      'Uppdatera nedräkningsevenemang (namn och datum) samt fotot som visas i bento-griden på Pre-Teens-sidan.',
+    icon: (
+      <span style={{
+        fontSize: '1.1rem',
+        lineHeight: 1,
+        color: '#8b5cf6',
+        fontWeight: 700,
+      }}>
+        PT
+      </span>
+    ),
+    color: 'rgba(139, 92, 246, 0.1)',
+  },
 ];
 
 const PortalDashboard: React.FC = () => {
