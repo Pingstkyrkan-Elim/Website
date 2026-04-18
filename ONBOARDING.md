@@ -396,13 +396,37 @@ from django.contrib.auth.models import User  # ❌
 | GET | `/api/health/` | Publik | Hälsokontroll |
 | GET | `/api/v1/church-info/` | Publik | Församlingsinformation |
 | GET | `/api/v1/announcements/` | Publik | Annonser |
+| GET | `/api/v1/services/` | Publik | Gudstjänster |
+| GET | `/api/v1/services/upcoming/` | Publik | Kommande gudstjänster |
 | GET | `/api/v1/events/` | Publik | Evenemang |
+| GET | `/api/v1/events/<id>/` | Publik | Evenemangsdetalj |
 | GET | `/api/v1/news/` | Publik | Nyheter |
+| GET | `/api/v1/news/latest/` | Publik | Senaste nyheter |
+| GET | `/api/v1/news/<id>/` | Publik | Nyhetsdetalj |
 | GET | `/api/v1/programs/` | Publik | Program |
+| GET | `/api/v1/team/` | Publik | Teammedlemmar |
+| GET | `/api/v1/history/` | Publik | Historik |
+| GET | `/api/v1/alpha-program/` | Publik | Alpha-information |
+| GET | `/api/v1/pre-teens/` | Publik | Pre-Teens-innehåll |
+| GET | `/api/v1/mission/` | Publik | Missionsinformation |
+| GET | `/api/v1/second-hand/` | Publik | Second Hand-information |
+| POST | `/api/v1/contact/` | Publik | Skicka kontaktformulär |
+| POST | `/api/v1/donations/` | Publik | Donationsförfrågan |
 | POST | `/api/v1/users/auth/login/` | Publik | JWT-inloggning |
+| POST | `/api/v1/users/auth/refresh/` | Publik | Förnya JWT-token |
 | POST | `/api/v1/users/register/` | Publik | Registrering |
 | GET | `/api/v1/users/auth/me/` | Inloggad | Aktuell användare |
-| GET/PUT | `/api/v1/portal/events/` | Inloggad + grupp | Portal CRUD |
+| GET | `/api/v1/users/profile/` | Inloggad | Hämta profil |
+| PATCH | `/api/v1/users/profile/update/` | Inloggad | Uppdatera profil |
+| GET/POST | `/api/v1/portal/events/` | Inloggad + grupp | Lista/skapa evenemang |
+| GET/PUT/DELETE | `/api/v1/portal/events/<id>/` | Inloggad + grupp | Redigera/ta bort evenemang |
+| GET/POST | `/api/v1/portal/announcements/` | Inloggad + grupp | Lista/skapa annonser |
+| GET/PUT/DELETE | `/api/v1/portal/announcements/<id>/` | Inloggad + grupp | Redigera/ta bort annons |
+| GET/PUT | `/api/v1/portal/alpha-program/` | Inloggad + grupp | Hantera Alpha-innehåll |
+| GET/POST | `/api/v1/portal/alpha-photos/` | Inloggad + grupp | Hantera Alpha-bilder |
+| GET/PUT/DELETE | `/api/v1/portal/alpha-photos/<id>/` | Inloggad + grupp | Alpha-bilddetalj |
+| GET/POST | `/api/v1/portal/pre-teens/` | Inloggad + grupp | Hantera Pre-Teens |
+| GET/PUT/DELETE | `/api/v1/portal/pre-teens/<id>/` | Inloggad + grupp | Pre-Teens-detalj |
 
 ### JWT-autentisering
 

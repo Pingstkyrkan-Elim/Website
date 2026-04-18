@@ -131,17 +131,26 @@ Website/
 | Sida | Sökväg | Beskrivning |
 |---|---|---|
 | Startsida | `/` | Välkomst, gudstjänster, annonser |
-| Evenemang | `/evenemang` | Kalender och evenemangsdetaljer |
-| Nyheter | `/nyheter` | Artiklar och nyheter |
+| Om oss | `/about` | Information om församlingen |
+| Evenemang | `/events` | Kalender och evenemangsdetaljer |
+| Evenemangsdetalj | `/events/:id` | Detaljvy för ett evenemang |
+| Nyheter | `/news` | Artiklar och nyheter |
+| Nyhetsdetalj | `/news/:id` | Detaljvy för en nyhet |
 | Alpha | `/alpha` | Alpha-programinformation |
-| Program | `/program` | Aktiviteter och program |
+| Program | `/programs` | Aktiviteter och program |
+| Pre-Teens | `/programs/pre-teens` | Pre-Teens-verksamhet |
 | Mission | `/mission` | Missionärer och länder |
+| Landsdetalj | `/mission/country/:id` | Detaljvy för ett missionsland |
 | Historia | `/historia` | Församlingens historik |
-| Teamet | `/teamet` | Medarbetare och kontakt |
-| Second Hand | `/second-hand` | Butiksinformation |
-| Pre-Teens | `/pre-teens` | Pre-Teens-verksamhet |
-| Kontakt | `/kontakt` | Kontaktformulär |
-| Portal | `/portal` | Redaktionsportal (kräver inloggning) |
+| Teamet | `/team` | Medarbetare och kontakt |
+| Second Hand | `/pmu-second-hand` | Butiksinformation |
+| Kontakt | `/contact` | Kontaktformulär |
+| Portal — inloggning | `/portal/login` | Inloggning till redaktionsportalen |
+| Portal — dashboard | `/portal/dashboard` | Översikt (kräver inloggning) |
+| Portal — kalender | `/portal/kalender` | Evenemangshantering |
+| Portal — annonser | `/portal/annonser` | Annonshantering |
+| Portal — Alpha | `/portal/alpha` | Alpha-innehållshantering |
+| Portal — Pre-Teens | `/portal/pre-teens` | Pre-Teens-hantering |
 
 ---
 
@@ -152,23 +161,39 @@ Bas-URL: `/api/v1/`
 | Endpoint | Åtkomst | Beskrivning |
 |---|---|---|
 | `GET /api/health/` | Publik | Hälsokontroll |
-| `GET /church-info/` | Publik | Församlingsinformation |
-| `GET /announcements/` | Publik | Annonser |
-| `GET /events/` | Publik | Evenemang |
-| `GET /news/` | Publik | Nyheter |
-| `GET /programs/` | Publik | Program |
-| `GET /team/` | Publik | Teammedlemmar |
-| `GET /alpha-program/` | Publik | Alpha-information |
-| `GET /pre-teens/` | Publik | Pre-Teens-innehåll |
-| `GET /mission/` | Publik | Missionsinformation |
-| `GET /second-hand/` | Publik | Second Hand-information |
-| `POST /contact/` | Publik | Skicka kontaktformulär |
-| `POST /users/auth/login/` | Publik | Logga in (returnerar JWT) |
-| `POST /users/register/` | Publik | Registrera ny användare |
-| `GET /users/auth/me/` | Inloggad | Hämta inloggad användare |
-| `* /portal/events/` | Inloggad + grupp | Hantera evenemang |
-| `* /portal/announcements/` | Inloggad + grupp | Hantera annonser |
-| `* /portal/alpha-program/` | Inloggad + grupp | Hantera Alpha-innehåll |
+| `GET /api/v1/church-info/` | Publik | Församlingsinformation |
+| `GET /api/v1/announcements/` | Publik | Annonser |
+| `GET /api/v1/services/` | Publik | Gudstjänster |
+| `GET /api/v1/services/upcoming/` | Publik | Kommande gudstjänster |
+| `GET /api/v1/events/` | Publik | Evenemang |
+| `GET /api/v1/events/<id>/` | Publik | Evenemangsdetalj |
+| `GET /api/v1/news/` | Publik | Nyheter |
+| `GET /api/v1/news/latest/` | Publik | Senaste nyheter |
+| `GET /api/v1/news/<id>/` | Publik | Nyhetsdetalj |
+| `GET /api/v1/programs/` | Publik | Program |
+| `GET /api/v1/team/` | Publik | Teammedlemmar |
+| `GET /api/v1/history/` | Publik | Församlingens historik |
+| `GET /api/v1/alpha-program/` | Publik | Alpha-information |
+| `GET /api/v1/pre-teens/` | Publik | Pre-Teens-innehåll |
+| `GET /api/v1/mission/` | Publik | Missionsinformation |
+| `GET /api/v1/second-hand/` | Publik | Second Hand-information |
+| `POST /api/v1/contact/` | Publik | Skicka kontaktformulär |
+| `POST /api/v1/donations/` | Publik | Skicka donationsförfrågan |
+| `POST /api/v1/users/auth/login/` | Publik | Logga in (returnerar JWT) |
+| `POST /api/v1/users/auth/refresh/` | Publik | Förnya JWT-token |
+| `POST /api/v1/users/register/` | Publik | Registrera ny användare |
+| `GET /api/v1/users/auth/me/` | Inloggad | Hämta inloggad användare |
+| `GET /api/v1/users/profile/` | Inloggad | Hämta profil |
+| `PATCH /api/v1/users/profile/update/` | Inloggad | Uppdatera profil |
+| `GET/POST /api/v1/portal/events/` | Inloggad + grupp | Hantera evenemang |
+| `GET/PUT/DELETE /api/v1/portal/events/<id>/` | Inloggad + grupp | Evenemangsdetalj |
+| `GET/POST /api/v1/portal/announcements/` | Inloggad + grupp | Hantera annonser |
+| `GET/PUT/DELETE /api/v1/portal/announcements/<id>/` | Inloggad + grupp | Annonsdetalj |
+| `GET/PUT /api/v1/portal/alpha-program/` | Inloggad + grupp | Hantera Alpha-innehåll |
+| `GET/POST /api/v1/portal/alpha-photos/` | Inloggad + grupp | Hantera Alpha-bilder |
+| `GET/PUT/DELETE /api/v1/portal/alpha-photos/<id>/` | Inloggad + grupp | Alpha-bilddetalj |
+| `GET/POST /api/v1/portal/pre-teens/` | Inloggad + grupp | Hantera Pre-Teens |
+| `GET/PUT/DELETE /api/v1/portal/pre-teens/<id>/` | Inloggad + grupp | Pre-Teens-detalj |
 
 Fullständig API-dokumentation finns via Django Admin på `/admin/`.
 
