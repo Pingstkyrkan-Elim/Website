@@ -34,7 +34,9 @@ import PortalKalender from './pages/PortalKalender/PortalKalender';
 import PortalAnnonser from './pages/PortalAnnonser/PortalAnnonser';
 import PortalAlpha from './pages/PortalAlpha/PortalAlpha';
 import PortalPreTeens from './pages/PortalPreTeens/PortalPreTeens';
+import PortalUngdomar from './pages/PortalUngdomar/PortalUngdomar';
 import PreTeensPage from './pages/PreTeensPage/PreTeensPage';
+import UngdomarPage from './pages/UngdomarPage/UngdomarPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -262,6 +264,14 @@ function App() {
                   </Layout>
                 }
               />
+              <Route
+                path='/programs/ungdomstraffar'
+                element={
+                  <Layout>
+                    <UngdomarPage />
+                  </Layout>
+                }
+              />
 
               {/* ── Portal ─────────────────────────────────────────────── */}
               <Route
@@ -313,6 +323,14 @@ function App() {
                 element={
                   <PortalRoute>
                     <PortalPreTeens />
+                  </PortalRoute>
+                }
+              />
+              <Route
+                path='/portal/ungdomar'
+                element={
+                  <PortalRoute>
+                    <PortalUngdomar />
                   </PortalRoute>
                 }
               />

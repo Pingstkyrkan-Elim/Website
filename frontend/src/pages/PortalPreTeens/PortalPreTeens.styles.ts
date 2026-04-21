@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const PTPortalWrapper = styled.div`
   max-width: 860px;
+  width: 100%;
 `;
 
 // ── Event cards grid ──────────────────────────────────────────────────────────
@@ -11,6 +12,10 @@ export const EventsGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1rem;
   margin-bottom: 1.4rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const EventCard = styled.div`

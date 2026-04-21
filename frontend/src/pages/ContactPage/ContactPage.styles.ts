@@ -19,7 +19,7 @@ export const PageWrapper = styled.div`
   background: #f7f6f4;
   font-family: 'Inter', sans-serif;
   color: #1a1a1a;
-  overflow-x: hidden;
+  overflow-x: clip;
 `;
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
@@ -28,7 +28,7 @@ export const Hero = styled.section`
   min-height: 60vh;
   background:
     linear-gradient(rgba(10, 8, 6, 0.7), rgba(10, 8, 6, 0.7)),
-    url('/images/elim-church.png') center 40% / cover no-repeat fixed;
+    url('/images/kontakt-hero.avif') center 40% / cover no-repeat fixed;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -15,6 +15,8 @@ from .models import (
     SecondHandStore,
     Service,
     TeamMember,
+    UngdomarNews,
+    PreTeensNews,
 )
 
 
@@ -298,3 +300,21 @@ class SecondHandStoreAdmin(admin.ModelAdmin):
         ("Media", {"fields": ("images",)}),
         ("PMU", {"fields": ("pmu_url", "donation_info")}),
     )
+
+
+@admin.register(UngdomarNews)
+class UngdomarNewsAdmin(admin.ModelAdmin):
+    list_display = ("tag", "title", "is_active", "created_at")
+    list_filter = ("is_active",)
+    list_editable = ("is_active",)
+    search_fields = ("tag", "title", "description")
+    ordering = ("-created_at",)
+
+
+@admin.register(PreTeensNews)
+class PreTeensNewsAdmin(admin.ModelAdmin):
+    list_display = ("tag", "title", "is_active", "created_at")
+    list_filter = ("is_active",)
+    list_editable = ("is_active",)
+    search_fields = ("tag", "title", "description")
+    ordering = ("-created_at",)

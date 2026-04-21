@@ -571,3 +571,41 @@ class PreTeensContent(BaseModel):
 
     def __str__(self):
         return f"{self.event_name} — {self.event_datetime.strftime('%Y-%m-%d')}"
+
+
+class UngdomarNews(BaseModel):
+    """News and updates for Ungdomar (Youth) ministry"""
+
+    tag = models.CharField(max_length=80, help_text="Short label e.g. 'Nyhet', 'Event', 'Läger'")
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image = models.ImageField(upload_to="ungdomar/", blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "ungdomar_news"
+        ordering = ["-created_at"]
+        verbose_name = "Ungdomar News"
+        verbose_name_plural = "Ungdomar News"
+
+    def __str__(self):
+        return f"{self.tag} — {self.title}"
+
+
+class PreTeensNews(BaseModel):
+    """News and updates for Pre-Teens ministry"""
+
+    tag = models.CharField(max_length=80)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image = models.ImageField(upload_to="preteens_news/", blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "preteens_news"
+        ordering = ["-created_at"]
+        verbose_name = "Pre-Teens News"
+        verbose_name_plural = "Pre-Teens News"
+
+    def __str__(self):
+        return f"{self.tag} — {self.title}"

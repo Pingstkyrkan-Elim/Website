@@ -44,6 +44,11 @@ export const LoginCard = styled.div`
   animation: ${fadeIn} 0.4s ease;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 480px) {
+    padding: 2rem 1.4rem;
+    border-radius: 10px;
+  }
 `;
 
 export const LogoArea = styled.div`

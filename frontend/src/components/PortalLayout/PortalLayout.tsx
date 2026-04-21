@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { IconCalendar, IconClipboardList, IconHome } from '../Icons';
 import {
+  Backdrop,
   Breadcrumb,
+  HamburgerButton,
   LogoutButton,
   MainArea,
   NavIcon,
@@ -22,6 +24,7 @@ import {
   UserAvatar,
   UserInfo,
   UserName,
+  WebsiteLink,
 } from './PortalLayout.styles';
 
 interface NavEntry {
@@ -70,17 +73,21 @@ const NAV_ITEMS: NavEntry[] = [
     path: '/portal/pre-teens',
     label: 'Pre-Teens',
     icon: (
-      <span
-        style={{
-          fontWeight: 700,
-          fontSize: '0.75rem',
-          letterSpacing: '0.02em',
-        }}
-      >
+      <span style={{ fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.02em' }}>
         PT
       </span>
     ),
     permission: 'pre-teens',
+  },
+  {
+    path: '/portal/ungdomar',
+    label: 'Ungdomar',
+    icon: (
+      <span style={{ fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.02em' }}>
+        UG
+      </span>
+    ),
+    permission: 'ungdomar',
   },
 ];
 
@@ -90,6 +97,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/portal/annonser': 'Annonser',
   '/portal/alpha': 'Alpha',
   '/portal/pre-teens': 'Pre-Teens',
+  '/portal/ungdomar': 'Ungdomar',
 };
 
 interface PortalLayoutProps {
@@ -100,6 +108,12 @@ const PortalLayout: React.FC<PortalLayoutProps> = ({ children }) => {
   const { user, logout, hasPermission } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Close sidebar on route change
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
   const visibleNav = NAV_ITEMS.filter(
     item => !item.permission || hasPermission(item.permission)
@@ -118,7 +132,9 @@ const PortalLayout: React.FC<PortalLayoutProps> = ({ children }) => {
 
   return (
     <PortalWrapper>
-      <Sidebar>
+      <Backdrop $open={sidebarOpen} onClick={() => setSidebarOpen(false)} />
+
+      <Sidebar $open={sidebarOpen}>
         <SidebarHeader>
           <SidebarChurchName>Pingstkyrkan Elim</SidebarChurchName>
           <SidebarPortalLabel>Innehållsportal</SidebarPortalLabel>
@@ -141,6 +157,16 @@ const PortalLayout: React.FC<PortalLayoutProps> = ({ children }) => {
         </SidebarNav>
 
         <SidebarFooter>
+          <WebsiteLink href='/' target='_blank' rel='noopener noreferrer'>
+            <NavIcon>
+              <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
+                <circle cx='12' cy='12' r='10' />
+                <line x1='2' y1='12' x2='22' y2='12' />
+                <path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z' />
+              </svg>
+            </NavIcon>
+            Visa webbplatsen
+          </WebsiteLink>
           <UserInfo>
             <UserAvatar>{initials}</UserAvatar>
             <UserName>{user?.full_name ?? user?.email}</UserName>
@@ -169,6 +195,16 @@ const PortalLayout: React.FC<PortalLayoutProps> = ({ children }) => {
 
       <MainArea>
         <TopBar>
+          <HamburgerButton
+            aria-label='Öppna meny'
+            onClick={() => setSidebarOpen(o => !o)}
+          >
+            <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round'>
+              <line x1='3' y1='6' x2='21' y2='6' />
+              <line x1='3' y1='12' x2='21' y2='12' />
+              <line x1='3' y1='18' x2='21' y2='18' />
+            </svg>
+          </HamburgerButton>
           <Breadcrumb>
             Portal &rsaquo; <span>{currentTitle}</span>
           </Breadcrumb>

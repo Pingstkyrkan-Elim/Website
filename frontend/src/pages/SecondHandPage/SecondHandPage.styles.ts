@@ -24,17 +24,14 @@ export const PageWrapper = styled.div`
   background: #f7f6f4;
   font-family: 'Inter', sans-serif;
   color: #1a1a1a;
-  overflow-x: hidden;
+  overflow-x: clip;
 `;
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
 
 export const Hero = styled.section`
   min-height: 100vh;
-  background:
-    linear-gradient(rgba(10, 8, 6, 0.68), rgba(10, 8, 6, 0.68)),
-    url('/images/secondhand/store-hero.jpg') center center / cover no-repeat
-      fixed;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,9 +39,28 @@ export const Hero = styled.section`
   position: relative;
   padding: 6rem 2rem 5rem;
   text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/images/pmu-hero.webp') 15% center / cover no-repeat;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(10, 8, 6, 0.2), rgba(10, 8, 6, 0.68));
+    z-index: 0;
+  }
 `;
 
 export const HeroEyebrow = styled.div`
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
@@ -67,6 +83,8 @@ export const HeroEyebrow = styled.div`
 `;
 
 export const HeroTitle = styled.h1`
+  position: relative;
+  z-index: 1;
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(56px, 9vw, 120px);
   font-weight: 700;
@@ -79,6 +97,8 @@ export const HeroTitle = styled.h1`
 `;
 
 export const HeroTagline = styled.p`
+  position: relative;
+  z-index: 1;
   font-size: clamp(15px, 1.6vw, 19px);
   color: rgba(255, 255, 255, 0.6);
   max-width: 520px;
@@ -90,6 +110,8 @@ export const HeroTagline = styled.p`
 `;
 
 export const HeroBadges = styled.div`
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -113,6 +135,7 @@ export const HeroBadge = styled.div`
 
 export const HeroScroll = styled.div`
   position: absolute;
+  z-index: 1;
   bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);

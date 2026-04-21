@@ -15,6 +15,8 @@ from .models import (
     SecondHandStore,
     Service,
     TeamMember,
+    UngdomarNews,
+    PreTeensNews,
 )
 
 
@@ -258,3 +260,17 @@ class TeamMemberSerializer(serializers.ModelSerializer):
             "display_order",
         ]
         read_only_fields = ["id"]
+
+
+class UngdomarNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UngdomarNews
+        fields = ["id", "tag", "title", "description", "image", "is_active", "created_at", "updated_at"]
+        read_only_fields = ["id", "created_at", "updated_at"]
+
+
+class PreTeensNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PreTeensNews
+        fields = ["id", "tag", "title", "description", "image", "is_active", "created_at", "updated_at"]
+        read_only_fields = ["id", "created_at", "updated_at"]

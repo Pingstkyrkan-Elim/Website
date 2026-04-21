@@ -15,6 +15,10 @@ export const PageWrapper = styled.div`
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
   }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 export const PageHeader = styled.div`
@@ -87,6 +91,12 @@ export const AnnouncementRow = styled.div<{ $inactive?: boolean }>`
   &:hover {
     background: rgba(0, 0, 0, 0.02);
   }
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+  }
 `;
 
 export const AnnouncementInfo = styled.div`
@@ -124,6 +134,11 @@ export const RowActions = styled.div`
   display: flex;
   gap: 0.35rem;
   flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: flex-end;
+  }
 `;
 
 export const ActionBtn = styled.button<{ $variant?: 'danger' }>`
@@ -136,11 +151,19 @@ export const ActionBtn = styled.button<{ $variant?: 'danger' }>`
   color: ${({ $variant }) => ($variant === 'danger' ? '#b43c3c' : '#444')};
   font-size: 0.78rem;
   cursor: pointer;
+  min-height: 36px;
+  min-width: 44px;
   transition: all 0.15s;
 
   &:hover {
     background: ${({ $variant }) =>
       $variant === 'danger' ? 'rgba(180,60,60,0.08)' : 'rgba(0,0,0,0.05)'};
+  }
+
+  @media (max-width: 480px) {
+    flex: 1;
+    font-size: 0.82rem;
+    padding: 0.5rem 0.8rem;
   }
 `;
 

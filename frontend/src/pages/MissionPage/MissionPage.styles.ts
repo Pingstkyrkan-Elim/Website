@@ -22,7 +22,7 @@ export const PageWrapper = styled.div`
     #12100d;
   font-family: 'Inter', sans-serif;
   color: #ffffff;
-  overflow-x: hidden;
+  overflow-x: clip;
 `;
 
 // ── Hero ──────────────────────────────────────────────────────────────────────

@@ -86,4 +86,22 @@ urlpatterns = [
         views.PortalEventDetailView.as_view(),
         name="portal-event-detail",
     ),
+    # Pre-Teens news (public)
+    path("preteens-news/", views.PreTeensNewsListView.as_view(), name="preteens-news-list"),
+    # Portal — Pre-Teens news CRUD
+    path("portal/preteens-news/", views.PortalPreTeensNewsListCreateView.as_view(), name="portal-preteens-news-list"),
+    path("portal/preteens-news/<int:pk>/", views.PortalPreTeensNewsDetailView.as_view(), name="portal-preteens-news-detail"),
+    # Ungdomar news (public)
+    path("ungdomar-news/", views.UngdomarNewsListView.as_view(), name="ungdomar-news-list"),
+    # Portal — Ungdomar news CRUD (ungdomar group)
+    path(
+        "portal/ungdomar-news/",
+        views.PortalUngdomarNewsListCreateView.as_view(),
+        name="portal-ungdomar-news-list",
+    ),
+    path(
+        "portal/ungdomar-news/<int:pk>/",
+        views.PortalUngdomarNewsDetailView.as_view(),
+        name="portal-ungdomar-news-detail",
+    ),
 ]

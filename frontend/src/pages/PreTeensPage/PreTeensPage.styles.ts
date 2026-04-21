@@ -1,4 +1,8 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled, { css, keyframes, createGlobalStyle } from 'styled-components';
+
+export const PreTeensFonts = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+`;
 
 // ── Design tokens ─────────────────────────────────────────────────────────────
 // Dark base + electric violet accent + gold secondary
@@ -18,7 +22,7 @@ const fadeIn = keyframes`
 const tickIn = keyframes`
   0%   { transform: translateY(-8px) scale(0.9); opacity: 0; }
   100% { transform: translateY(0)    scale(1);   opacity: 1; }
-`;
+`; 
 
 const rotateSlow = keyframes`
   from { transform: rotate(0deg); }
@@ -31,7 +35,7 @@ export const PTWrapper = styled.div<{ $light: boolean }>`
   background: ${({ $light }) => ($light ? '#f0eeff' : '#09090f')};
   color: ${({ $light }) => ($light ? '#09090f' : '#f5f0ff')};
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family:
     'Inter',
     -apple-system,
@@ -958,4 +962,155 @@ export const SectionSep = styled.div`
     rgba(139, 92, 246, 0.2) 80%,
     transparent
   );
+`;
+
+// ── Pre-Teens News ────────────────────────────────────────────────────────────
+
+const ptNewsReveal = keyframes`
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
+
+export const PTNewsSection = styled.section`
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const PTNewsSectionLabel = styled.div<{ $light?: boolean }>`
+  font-family: 'Syne', 'Inter', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: ${({ $light }) => ($light ? '#f31cdd' : '#ec5cf6')};
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: ${({ $light }) =>
+      $light
+        ? 'linear-gradient(to right, #d009bc, #5b3cf6)'
+        : 'linear-gradient(to right, #ec5cf6, #06b8c5)'};
+    border-radius: 2px;
+  }
+`;
+
+export const PTNewsGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+interface PTNewsCardProps { $idx: number; $visible: boolean; $light?: boolean; }
+
+export const PTNewsCard = styled.div<PTNewsCardProps>`
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-radius: 18px;
+  overflow: hidden;
+  background: ${({ $light }) =>
+    $light
+      ? 'linear-gradient(135deg, #f0c6ff 0%, #c4d8ff 50%, #b0f0ff 100%)'
+      : 'linear-gradient(135deg, #2e0854 0%, #0a1650 55%, #003850 100%)'};
+  border: 1px solid ${({ $light }) =>
+    $light ? 'rgba(180,80,255,0.25)' : 'rgba(180,80,255,0.2)'};
+  box-shadow: ${({ $light }) =>
+    $light
+      ? '0 8px 32px rgba(124,58,237,0.15), 0 0 40px rgba(208,9,188,0.08)'
+      : '0 8px 40px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.15)'};
+  opacity: 0;
+  animation: ${({ $visible }) => $visible ? ptNewsReveal : 'none'} 0.6s cubic-bezier(0.22,1,0.36,1)
+    ${({ $idx }) => $idx * 0.1}s both;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    border-color: ${({ $light }) =>
+      $light ? 'rgba(124,58,237,0.45)' : 'rgba(180,80,255,0.5)'};
+    box-shadow: ${({ $light }) =>
+      $light
+        ? '0 12px 48px rgba(124,58,237,0.2), 0 0 60px rgba(208,9,188,0.12)'
+        : '0 12px 56px rgba(0,0,0,0.6), 0 0 60px rgba(124,58,237,0.25)'};
+    transform: translateY(-3px);
+  }
+`;
+
+export const PTNewsAccent = styled.div<{ $color: string }>`
+  width: 5px;
+  flex-shrink: 0;
+  background: ${({ $color }) => $color};
+  box-shadow: 0 0 16px ${({ $color }) => $color}90, 0 0 32px ${({ $color }) => $color}40;
+`;
+
+export const PTNewsImage = styled.img`
+  width: 170px;
+  flex-shrink: 0;
+  object-fit: cover;
+  display: block;
+  border-right: 1px solid rgba(0,0,0,0.06);
+  order: -1;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 160px;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+`;
+
+export const PTNewsBody = styled.div`
+  flex: 1;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+`;
+
+export const PTNewsTag = styled.span<{ $color: string }>`
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: ${({ $color }) => $color};
+  background: ${({ $color }) => $color}20;
+  border: 1px solid ${({ $color }) => $color}50;
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+  display: inline-block;
+  width: fit-content;
+`;
+
+export const PTNewsTitle = styled.h4<{ $light?: boolean }>`
+  font-family: 'Syne', 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: ${({ $light }) => ($light ? '#3b0080' : '#00f0ff')};
+  text-shadow: ${({ $light }) =>
+    $light ? 'none' : '0 0 20px rgba(0,240,255,0.5)'};
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+`;
+
+export const PTNewsDesc = styled.p<{ $light?: boolean }>`
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 450;
+  color: ${({ $light }) => ($light ? 'rgba(40,0,80,0.75)' : 'rgba(200,230,255,0.8)')};
+  margin: 0;
+  line-height: 1.7;
 `;

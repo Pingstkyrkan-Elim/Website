@@ -15,6 +15,10 @@ export const KalenderWrapper = styled.div`
   @media (max-width: 1100px) {
     grid-template-columns: 1fr;
   }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 // ── Page title ────────────────────────────────────────────────────────────────
@@ -110,6 +114,10 @@ export const WeekDays = styled.div`
   grid-template-columns: repeat(7, 1fr);
   padding: 0.5rem 0.8rem 0.3rem;
   gap: 2px;
+
+  @media (max-width: 480px) {
+    padding: 0.4rem 0.4rem 0.2rem;
+  }
 `;
 
 export const WeekDayLabel = styled.div`
@@ -120,6 +128,11 @@ export const WeekDayLabel = styled.div`
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.35);
   padding: 0.2rem 0;
+
+  @media (max-width: 480px) {
+    font-size: 0.6rem;
+    letter-spacing: 0;
+  }
 `;
 
 export const DaysGrid = styled.div`
@@ -129,6 +142,11 @@ export const DaysGrid = styled.div`
   gap: 2px;
   padding: 0 0.8rem 0.8rem;
   align-items: start;
+
+  @media (max-width: 480px) {
+    padding: 0 0.4rem 0.4rem;
+    gap: 1px;
+  }
 `;
 
 export const DayCell = styled.div<{
@@ -140,6 +158,12 @@ export const DayCell = styled.div<{
   min-height: 58px;
   border-radius: 8px;
   padding: 4px 5px;
+
+  @media (max-width: 480px) {
+    min-height: 40px;
+    padding: 3px 2px;
+    border-radius: 5px;
+  }
   align-self: stretch;
   cursor: pointer;
   background: ${({ $today, $selected }) =>
@@ -172,6 +196,10 @@ export const DayNumber = styled.div<{ $today?: boolean; $selected?: boolean }>`
   color: ${({ $selected }) => ($selected ? '#7a4a18' : 'rgba(0, 0, 0, 0.7)')};
   line-height: 1;
   margin-bottom: 3px;
+
+  @media (max-width: 480px) {
+    font-size: 0.65rem;
+  }
 `;
 
 export const DayEvents = styled.div`

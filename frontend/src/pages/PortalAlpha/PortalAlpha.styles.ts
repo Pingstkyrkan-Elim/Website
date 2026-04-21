@@ -23,6 +23,10 @@ export const NextAlphaRow = styled.div`
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 // ── Card preview ──────────────────────────────────────────────────────────────

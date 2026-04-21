@@ -39,7 +39,7 @@ export const OmOssWrapper = styled.div`
   background: #111009;
   color: #f0ead8;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family:
     'Inter',
     -apple-system,

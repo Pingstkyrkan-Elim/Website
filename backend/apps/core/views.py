@@ -21,6 +21,8 @@ from .models import (
     SecondHandStore,
     Service,
     TeamMember,
+    UngdomarNews,
+    PreTeensNews,
 )
 from .serializers import (
     AlphaPhotoSerializer,
@@ -38,6 +40,8 @@ from .serializers import (
     SecondHandStoreSerializer,
     ServiceSerializer,
     TeamMemberSerializer,
+    UngdomarNewsSerializer,
+    PreTeensNewsSerializer,
 )
 
 
@@ -394,4 +398,60 @@ class PortalPreTeensDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = PreTeensContent.objects.all()
     serializer_class = PreTeensContentSerializer
+    permission_classes = [IsPreTeensUser]
+
+
+class IsUngdomarUser(permissions.BasePermission):
+    """Allow access only to users in the 'ungdomar' group"""
+
+    def has_permission(self, request, view):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.groups.filter(name="ungdomar").exists()
+        )
+
+
+class UngdomarNewsListView(generics.ListAPIView):
+    """List all active Ungdomar news (public)"""
+
+    queryset = UngdomarNews.objects.filter(is_active=True)
+    serializer_class = UngdomarNewsSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class PortalUngdomarNewsListCreateView(generics.ListCreateAPIView):
+    """List all Ungdomar news or create a new one (ungdomar group only)"""
+
+    queryset = UngdomarNews.objects.order_by("-created_at")
+    serializer_class = UngdomarNewsSerializer
+    permission_classes = [IsUngdomarUser]
+
+
+class PortalUngdomarNewsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Retrieve, update or delete a single Ungdomar news item (ungdomar group only)"""
+
+    queryset = UngdomarNews.objects.all()
+    serializer_class = UngdomarNewsSerializer
+    permission_classes = [IsUngdomarUser]
+
+
+class PreTeensNewsListView(generics.ListAPIView):
+    """List all active Pre-Teens news (public)"""
+    queryset = PreTeensNews.objects.filter(is_active=True)
+    serializer_class = PreTeensNewsSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class PortalPreTeensNewsListCreateView(generics.ListCreateAPIView):
+    """List all Pre-Teens news or create a new one (pre-teens group only)"""
+    queryset = PreTeensNews.objects.order_by("-created_at")
+    serializer_class = PreTeensNewsSerializer
+    permission_classes = [IsPreTeensUser]
+
+
+class PortalPreTeensNewsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Retrieve, update or delete a Pre-Teens news item (pre-teens group only)"""
+    queryset = PreTeensNews.objects.all()
+    serializer_class = PreTeensNewsSerializer
     permission_classes = [IsPreTeensUser]

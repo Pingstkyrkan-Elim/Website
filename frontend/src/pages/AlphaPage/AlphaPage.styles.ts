@@ -28,7 +28,7 @@ export const MeshOrb = styled.div`
 export const AlphaWrapper = styled.div`
   min-height: 100vh;
   background: #ffffff;
-  overflow-x: hidden;
+  overflow-x: clip;
 `;
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
@@ -49,7 +49,7 @@ export const HeroSection = styled.section`
     content: '';
     position: absolute;
     inset: 0;
-    background: url('/images/alpha-hero.jpg') center 85px / cover no-repeat;
+    background: url('/images/alpha-hero-new.png') center 85px / cover no-repeat;
     z-index: 0;
   }
 

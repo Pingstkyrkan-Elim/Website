@@ -79,18 +79,25 @@ const PORTAL_SECTIONS: PortalSection[] = [
     description:
       'Uppdatera nedräkningsevenemang (namn och datum) samt fotot som visas i bento-griden på Pre-Teens-sidan.',
     icon: (
-      <span
-        style={{
-          fontSize: '1.1rem',
-          lineHeight: 1,
-          color: '#8b5cf6',
-          fontWeight: 700,
-        }}
-      >
+      <span style={{ fontSize: '1.1rem', lineHeight: 1, color: '#8b5cf6', fontWeight: 700 }}>
         PT
       </span>
     ),
     color: 'rgba(139, 92, 246, 0.1)',
+  },
+  {
+    key: 'ungdomar',
+    permission: 'ungdomar',
+    path: '/portal/ungdomar',
+    label: 'Ungdomar',
+    description:
+      'Skapa, redigera och ta bort nyheter som visas i Ungdomar-sidan. Lägg till etikett, rubrik, beskrivning och bild.',
+    icon: (
+      <span style={{ fontSize: '1.1rem', lineHeight: 1, color: '#ec4899', fontWeight: 700 }}>
+        UG
+      </span>
+    ),
+    color: 'rgba(236, 72, 153, 0.1)',
   },
 ];
 

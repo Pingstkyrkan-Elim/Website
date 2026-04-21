@@ -15,7 +15,7 @@ export const WelcomeHeader = styled.div`
 
 export const WelcomeGreeting = styled.h1`
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
   font-weight: 600;
   color: #1a1a2e;
   margin: 0 0 0.5rem;
@@ -44,6 +44,11 @@ export const CardsGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.2rem;
   margin-bottom: 2.4rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
 `;
 
 export const PermissionCard = styled.div`
@@ -102,6 +107,36 @@ export const CardCTA = styled.span`
 
   &::after {
     content: '→';
+  }
+`;
+
+export const WebsiteButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.55);
+  text-decoration: none;
+  transition:
+    box-shadow 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    color: #1a1a2e;
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &::after {
+    content: '↗';
+    font-size: 0.9rem;
   }
 `;
 

@@ -23,7 +23,7 @@ export const PageWrapper = styled.div`
   min-height: 100vh;
   background: #f8f7f4;
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 `;
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
@@ -31,8 +31,8 @@ export const PageWrapper = styled.div`
 export const Hero = styled.section`
   min-height: 100vh;
   background:
-    linear-gradient(rgba(8, 6, 4, 0.72), rgba(8, 6, 4, 0.72)),
-    url('/images/elim-church.png') center center / cover no-repeat fixed;
+    linear-gradient(rgba(8, 6, 4, 0.59), rgba(8, 6, 4, 0.67)),
+    url('/images/historia-hero.avif') center center / cover no-repeat fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +54,7 @@ export const HeroDecorYear = styled.div`
   font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(120px, 20vw, 280px);
   font-weight: 700;
-  color: rgba(107, 78, 7, 0.33);
+  color: rgba(109, 79, 2, 0.43);
   -webkit-text-stroke: 1px rgba(184, 134, 11, 0.4);
   letter-spacing: -0.05em;
   line-height: 1;

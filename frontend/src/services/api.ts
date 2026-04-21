@@ -323,9 +323,6 @@ export const portalGetPreTeensEvents = async (): Promise<PreTeensContent[]> => {
   return (data as { results: PreTeensContent[] }).results ?? [];
 };
 
-// multipartHeaders: unset Content-Type so the browser sets it with the correct boundary
-const multipartHeaders = { 'Content-Type': undefined as unknown as string };
-
 export const portalCreatePreTeensEvent = async (
   data: FormData
 ): Promise<PreTeensContent> => {
@@ -349,6 +346,87 @@ export const portalUpdatePreTeensEvent = async (
 
 export const portalDeletePreTeensEvent = async (id: number): Promise<void> => {
   await api.delete(`/portal/pre-teens/${id}/`);
+};
+
+// multipartHeaders: unset Content-Type so the browser sets it with the correct boundary
+const multipartHeaders = { 'Content-Type': undefined as unknown as string };
+
+// ── Ungdomar News ─────────────────────────────────────────────────────────────
+
+export interface UngdomarNews {
+  id: number;
+  tag: string;
+  title: string;
+  description: string;
+  image: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export const getUngdomarNews = async (): Promise<UngdomarNews[]> => {
+  const response = await api.get<{ count: number; results: UngdomarNews[] } | UngdomarNews[]>('/ungdomar-news/');
+  return Array.isArray(response.data) ? response.data : (response.data as any).results ?? [];
+};
+
+export const portalGetUngdomarNews = async (): Promise<UngdomarNews[]> => {
+  const response = await api.get<{ count: number; results: UngdomarNews[] } | UngdomarNews[]>('/portal/ungdomar-news/');
+  return Array.isArray(response.data) ? response.data : (response.data as any).results ?? [];
+};
+
+export const portalCreateUngdomarNews = async (data: FormData): Promise<UngdomarNews> => {
+  const response = await api.post<UngdomarNews>('/portal/ungdomar-news/', data, {
+    headers: multipartHeaders,
+  });
+  return response.data;
+};
+
+export const portalUpdateUngdomarNews = async (id: number, data: FormData): Promise<UngdomarNews> => {
+  const response = await api.patch<UngdomarNews>(`/portal/ungdomar-news/${id}/`, data, {
+    headers: multipartHeaders,
+  });
+  return response.data;
+};
+
+export const portalDeleteUngdomarNews = async (id: number): Promise<void> => {
+  await api.delete(`/portal/ungdomar-news/${id}/`);
+};
+
+// ── Pre-Teens News ────────────────────────────────────────────────────────────
+
+export interface PreTeensNews {
+  id: number;
+  tag: string;
+  title: string;
+  description: string;
+  image: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export const getPreTeensNews = async (): Promise<PreTeensNews[]> => {
+  const res = await api.get<{ count: number; results: PreTeensNews[] } | PreTeensNews[]>('/preteens-news/');
+  return Array.isArray(res.data) ? res.data : (res.data as any).results ?? [];
+};
+
+export const portalGetPreTeensNews = async (): Promise<PreTeensNews[]> => {
+  const res = await api.get<{ count: number; results: PreTeensNews[] } | PreTeensNews[]>('/portal/preteens-news/');
+  return Array.isArray(res.data) ? res.data : (res.data as any).results ?? [];
+};
+
+export const portalCreatePreTeensNews = async (data: FormData): Promise<PreTeensNews> => {
+  const res = await api.post<PreTeensNews>('/portal/preteens-news/', data, { headers: multipartHeaders });
+  return res.data;
+};
+
+export const portalUpdatePreTeensNews = async (id: number, data: FormData): Promise<PreTeensNews> => {
+  const res = await api.patch<PreTeensNews>(`/portal/preteens-news/${id}/`, data, { headers: multipartHeaders });
+  return res.data;
+};
+
+export const portalDeletePreTeensNews = async (id: number): Promise<void> => {
+  await api.delete(`/portal/preteens-news/${id}/`);
 };
 
 export default api;

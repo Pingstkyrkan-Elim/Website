@@ -1,16 +1,35 @@
 import styled from 'styled-components';
 
+const SIDEBAR_W = '240px';
+const MOBILE_BP = '768px';
+
 export const PortalWrapper = styled.div`
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: #f2efe9;
 `;
 
 // ── Sidebar ───────────────────────────────────────────────────────────────────
 
-export const Sidebar = styled.aside`
-  width: 240px;
-  min-width: 240px;
+export const Backdrop = styled.div<{ $open: boolean }>`
+  display: none;
+
+  @media (max-width: ${MOBILE_BP}) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    opacity: ${({ $open }) => ($open ? 1 : 0)};
+    pointer-events: ${({ $open }) => ($open ? 'all' : 'none')};
+    transition: opacity 0.25s ease;
+  }
+`;
+
+export const Sidebar = styled.aside<{ $open?: boolean }>`
+  width: ${SIDEBAR_W};
+  min-width: ${SIDEBAR_W};
   background: #12171f;
   display: flex;
   flex-direction: column;
@@ -20,6 +39,11 @@ export const Sidebar = styled.aside`
   bottom: 0;
   z-index: 100;
   border-right: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.25s ease;
+
+  @media (max-width: ${MOBILE_BP}) {
+    transform: ${({ $open }) => ($open ? 'translateX(0)' : 'translateX(-100%)')};
+  }
 `;
 
 export const SidebarHeader = styled.div`
@@ -69,7 +93,7 @@ export const NavItem = styled.button<{ $active?: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.65rem 0.8rem;
+  padding: 0.75rem 0.8rem;
   border-radius: 7px;
   border: none;
   background: ${({ $active }) =>
@@ -83,6 +107,7 @@ export const NavItem = styled.button<{ $active?: boolean }>`
     background 0.15s,
     color 0.15s;
   position: relative;
+  min-height: 44px;
 
   ${({ $active }) =>
     $active &&
@@ -151,6 +176,33 @@ export const UserName = styled.div`
   text-overflow: ellipsis;
 `;
 
+export const WebsiteLink = styled.a`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  min-height: 44px;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+`;
+
 export const LogoutButton = styled.button`
   width: 100%;
   display: flex;
@@ -163,6 +215,7 @@ export const LogoutButton = styled.button`
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.85rem;
   cursor: pointer;
+  min-height: 44px;
   transition:
     background 0.15s,
     color 0.15s;
@@ -178,10 +231,15 @@ export const LogoutButton = styled.button`
 
 export const MainArea = styled.main`
   flex: 1;
-  margin-left: 240px;
+  margin-left: ${SIDEBAR_W};
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+
+  @media (max-width: ${MOBILE_BP}) {
+    margin-left: 0;
+  }
 `;
 
 export const TopBar = styled.div`
@@ -191,10 +249,37 @@ export const TopBar = styled.div`
   display: flex;
   align-items: center;
   padding: 0 2rem;
-  gap: 0.5rem;
+  gap: 0.75rem;
   position: sticky;
   top: 0;
   z-index: 50;
+
+  @media (max-width: ${MOBILE_BP}) {
+    padding: 0 1rem;
+  }
+`;
+
+export const HamburgerButton = styled.button`
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  @media (max-width: ${MOBILE_BP}) {
+    display: flex;
+  }
 `;
 
 export const Breadcrumb = styled.div`
@@ -209,5 +294,9 @@ export const Breadcrumb = styled.div`
 
 export const PageContent = styled.div`
   flex: 1;
-  padding: 2.4rem 2.4rem;
+  padding: 2.4rem;
+
+  @media (max-width: ${MOBILE_BP}) {
+    padding: 1.2rem 1rem;
+  }
 `;

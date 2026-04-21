@@ -5,7 +5,7 @@ export const EventsContainer = styled.div`
   background: url('/images/Gudtjanst.jpeg') center center / cover fixed;
   background-color: #6a4820;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 
   @media (max-width: 768px) {
     background-attachment: scroll;

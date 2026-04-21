@@ -6,7 +6,7 @@ import {
   IconMapPin,
   IconUser,
 } from '../../components/Icons';
-import { getPreTeensContent } from '../../services/api';
+import { getPreTeensContent, getPreTeensNews, PreTeensNews } from '../../services/api';
 import {
   PTWrapper,
   HeroSection,
@@ -59,6 +59,17 @@ import {
   ClosingCTA,
   SectionSep,
   CountdownLabelUnder,
+  PreTeensFonts,
+  PTNewsSection,
+  PTNewsSectionLabel,
+  PTNewsGrid,
+  PTNewsCard,
+  PTNewsAccent,
+  PTNewsImage,
+  PTNewsBody,
+  PTNewsTag,
+  PTNewsTitle,
+  PTNewsDesc,
 } from './PreTeensPage.styles';
 
 // ── Fallback countdown target ─────────────────────────────────────────────────
@@ -118,10 +129,20 @@ function photoUrl(raw: string | null | undefined): string | null {
   return `${process.env.REACT_APP_API_URL ?? 'http://localhost:8000'}/media/${raw}`;
 }
 
+const PT_TAG_COLORS: Record<string, string> = {
+  default: '#ec5cf6', nyhet: '#ec5cf6', event: '#00f0ff',
+  läger: '#bff178', info: '#7c3aed', viktigt: '#ff6b6b',
+};
+function ptTagColor(tag: string) {
+  return PT_TAG_COLORS[tag.toLowerCase()] ?? PT_TAG_COLORS.default;
+}
+
 const PreTeensPage: React.FC = () => {
   const [lightMode, setLightMode] = useState(false);
+  const [newsVisible, setNewsVisible] = useState(false);
 
   const { data: content } = useQuery('preteens-content', getPreTeensContent);
+  const { data: newsList = [] } = useQuery<PreTeensNews[]>('preteens-news', getPreTeensNews);
 
   const eventDate = content?.event_datetime
     ? new Date(content.event_datetime)
@@ -135,10 +156,15 @@ const PreTeensPage: React.FC = () => {
   const light = useInView(0.12);
   const closing = useInView(0.12);
 
+  useEffect(() => {
+    if (newsList.length > 0) setNewsVisible(true);
+  }, [newsList]);
+
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
     <PTWrapper $light={lightMode}>
+      <PreTeensFonts />
       {/* ── Hero ───────────────────────────────────────────────── */}
       <HeroSection $light={lightMode}>
         <HeroImage />
@@ -330,6 +356,31 @@ const PreTeensPage: React.FC = () => {
           </BentoVerseCard>
         </BentoGrid>
       </BentoSection>
+
+      <SectionSep />
+
+      {/* ── Pre-Teens News ─────────────────────────────────────── */}
+      {newsList.length > 0 && (
+        <PTNewsSection>
+          <PTNewsSectionLabel $light={lightMode}>Aktuellt</PTNewsSectionLabel>
+          <PTNewsGrid>
+            {newsList.map((item, idx) => {
+              const color = ptTagColor(item.tag);
+              return (
+                <PTNewsCard key={item.id} $idx={idx} $visible={newsVisible} $light={lightMode}>
+                  <PTNewsAccent $color={color} />
+                  {item.image && <PTNewsImage src={item.image} alt={item.title} />}
+                  <PTNewsBody>
+                    <PTNewsTag $color={color}>{item.tag}</PTNewsTag>
+                    <PTNewsTitle $light={lightMode}>{item.title}</PTNewsTitle>
+                    <PTNewsDesc $light={lightMode}>{item.description}</PTNewsDesc>
+                  </PTNewsBody>
+                </PTNewsCard>
+              );
+            })}
+          </PTNewsGrid>
+        </PTNewsSection>
+      )}
 
       <SectionSep />
 
