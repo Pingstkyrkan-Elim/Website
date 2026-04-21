@@ -52,6 +52,14 @@ const ticker = keyframes`
   to   { transform: translateX(-50%); }
 `;
 
+const colorCycle = keyframes`
+  0%   { color: #8b5cf6; }
+  25%  { color: #ec4899; }
+  50%  { color: #06b6d4; }
+  75%  { color: #84cc16; }
+  100% { color: #8b5cf6; }
+`;
+
 // ── Page wrapper ──────────────────────────────────────────────────────────────
 
 export const PageWrapper = styled.div`
@@ -136,11 +144,48 @@ export const FloatOrb = styled.div<{ $color: string; $size: number; $x: number; 
   z-index: 0;
 `;
 
+export const WatermarkLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+`;
+
+export const WatermarkText = styled.span<{
+  $top: string;
+  $left: string;
+  $rotate: number;
+  $size: string;
+  $opacity: number;
+  $delay: number;
+  $duration: number;
+  $blur?: number;
+}>`
+  position: absolute;
+  top: ${({ $top }) => $top};
+  left: ${({ $left }) => $left};
+  transform: rotate(${({ $rotate }) => $rotate}deg);
+  font-family: 'Syne', 'Space Grotesk', sans-serif;
+  font-size: ${({ $size }) => $size};
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  user-select: none;
+  color: #8b5cf6;
+  opacity: ${({ $opacity }) => $opacity};
+  -webkit-text-stroke: 1.5px currentColor;
+  -webkit-text-fill-color: transparent;
+  filter: blur(${({ $blur = 0 }) => $blur}px) drop-shadow(0 0 18px currentColor);
+  animation: ${colorCycle} ${({ $duration }) => $duration}s linear infinite;
+  animation-delay: -${({ $delay }) => $delay}s;
+`;
+
 export const HeroContent = styled.div`
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 900px;
+  width: min(96vw, 1200px);
 `;
 
 export const HeroTag = styled.div`
@@ -171,7 +216,7 @@ export const HeroTag = styled.div`
 
 export const HeroTitle = styled.h1`
   font-family: 'Syne', 'Space Grotesk', sans-serif;
-  font-size: clamp(3rem, 11vw, 11rem);
+  font-size: clamp(3rem, 11vw, 9.5rem);
   font-weight: 800;
   line-height: 0.88;
   letter-spacing: -0.04em;
@@ -201,7 +246,7 @@ export const HeroTitle = styled.h1`
 
 export const HeroSub = styled.p`
   font-size: clamp(1rem, 2.5vw, 1.35rem);
-  color: rgba(255,255,255,0.55);
+  color: rgba(255, 255, 255, 0.58);
   max-width: 540px;
   margin: 0 auto 2.5rem;
   line-height: 1.65;
@@ -490,8 +535,8 @@ export const StatNum = styled.div`
 `;
 
 export const StatLabel = styled.div`
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.4);
+  font-size: 0.80rem;
+  color: rgba(255, 255, 255, 0.44);
   font-weight: 500;
 `;
 

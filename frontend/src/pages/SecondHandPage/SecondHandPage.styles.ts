@@ -392,40 +392,103 @@ export const AboutVisual = styled.div`
 `;
 
 export const AboutCard = styled.div`
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  background: #070707;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
   padding: 2.5rem;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
-`;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.61);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
-export const AboutCardStat = styled.div`
-  text-align: center;
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-
-  &:last-child {
-    border-bottom: none;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
   }
 `;
 
-export const AboutCardStatNumber = styled.div`
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #f0c040, #b8860b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1;
-  margin-bottom: 0.4rem;
+export const FacebookIconRing = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(184, 135, 11, 0.19);
+  border: 1px solid rgba(184, 134, 11, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  color: rgba(220, 160, 8, 0.83);
 `;
 
-export const AboutCardStatLabel = styled.div`
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+export const FacebookCardHandle = styled.div`
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #888;
+  color: rgba(209, 153, 12, 0.6);
+  margin-bottom: 0.8rem;
+`;
+
+export const FacebookCardTitle = styled.h3`
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+`;
+
+export const FacebookCardBody = styled.p`
+  font-size: 1.0rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  flex: 1;
+`;
+
+export const FacebookCardDivider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 1.8rem 0;
+`;
+
+export const FacebookCardButton = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #f0c040, #b8860b);
+  color: #1a1000;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1.4rem;
+  border-radius: 100px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  ${AboutCard}:hover & {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+  }
+`;
+
+export const FacebookWatermark = styled.div`
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+  opacity: 0.06;
+  pointer-events: none;
+  color: #ffffff;
 `;
 
 // ── Donate CTA ────────────────────────────────────────────────────────────────

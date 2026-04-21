@@ -75,6 +75,8 @@ import {
   TickerBar,
   TickerInner,
   TickerItem,
+  WatermarkLayer,
+  WatermarkText,
 } from './UngdomarPage.styles';
 
 // ── Countdown ─────────────────────────────────────────────────────────────────
@@ -279,11 +281,19 @@ const UngdomarPage: React.FC = () => {
         <FloatOrb $color="rgba(139,92,246,0.5)" $size={400} $x={-5}  $y={10}  $delay={0} />
         <FloatOrb $color="rgba(236,72,153,0.4)" $size={300} $x={75}  $y={60}  $delay={2} />
         <FloatOrb $color="rgba(6,182,212,0.35)" $size={250} $x={60}  $y={-10} $delay={1} />
+        <WatermarkLayer>
+          <WatermarkText $top="0%"  $left="-2%" $rotate={-7}  $size="13vw" $opacity={0.28} $delay={0}  $duration={9}  $blur={0}>UNGDOMAR</WatermarkText>
+          <WatermarkText $top="22%" $left="-4%" $rotate={4}   $size="16vw" $opacity={0.18} $delay={6}  $duration={12} $blur={1}>UNGDOMAR</WatermarkText>
+          <WatermarkText $top="46%" $left="-1%" $rotate={-11} $size="11vw" $opacity={0.24} $delay={3}  $duration={8}  $blur={0}>UNGDOMAR</WatermarkText>
+          <WatermarkText $top="68%" $left="-3%" $rotate={6}   $size="14vw" $opacity={0.16} $delay={9}  $duration={11} $blur={2}>UNGDOMAR</WatermarkText>
+          <WatermarkText $top="85%" $left="-2%" $rotate={-4}  $size="10vw" $opacity={0.2}  $delay={4}  $duration={7}  $blur={0}>UNGDOMAR</WatermarkText>
+        </WatermarkLayer>
+
         <HeroContent>
           <HeroTag><span />Pingstkyrkan Elim · 13+ år</HeroTag>
           <HeroTitle data-text="UNGDOMAR">UNGDOMAR</HeroTitle>
           <HeroSub>
-            Vi är ett gäng ungdomar som gillar att hänga, skratta, fråga stora frågor och leva livet fullt ut tillsammans.
+            Vi är ett gäng ungdomar som gillar att hänga, skratta, fråga stora frågor och leva livet fullt ut tillsammans och med JESUS i centrum.
           </HeroSub>
           <HeroCTARow>
             <CTAPrimary href="/contact">Häng med oss</CTAPrimary>
@@ -334,7 +344,7 @@ const UngdomarPage: React.FC = () => {
             </SectionBody>
             <StatsRow>
               <StatBox><StatNum>13+</StatNum><StatLabel>Ålder</StatLabel></StatBox>
-              <StatBox><StatNum>Fre</StatNum><StatLabel>Varje vecka</StatLabel></StatBox>
+              <StatBox><StatNum>Fredag</StatNum><StatLabel>Varje vecka</StatLabel></StatBox>
               <StatBox><StatNum>19:00</StatNum><StatLabel>Vi börjar</StatLabel></StatBox>
               <StatBox><StatNum>100%</StatNum><StatLabel>Välkommen</StatLabel></StatBox>
             </StatsRow>

@@ -5,6 +5,7 @@ import { SecondHandStore } from '../../types';
 import {
   IconChevronLeft,
   IconChevronRight,
+  IconFacebook,
   IconImage,
   IconMail,
   IconMapPin,
@@ -14,9 +15,13 @@ import {
 } from '../../components/Icons';
 import {
   AboutCard,
-  AboutCardStat,
-  AboutCardStatLabel,
-  AboutCardStatNumber,
+  FacebookCardButton,
+  FacebookCardBody,
+  FacebookCardDivider,
+  FacebookCardHandle,
+  FacebookCardTitle,
+  FacebookIconRing,
+  FacebookWatermark,
   AboutInner,
   AboutSection,
   AboutText,
@@ -257,21 +262,30 @@ const SecondHandPage: React.FC = () => {
           </AboutText>
 
           <AboutVisual>
-            <AboutCard>
-              <AboutCardStat>
-                <AboutCardStatNumber>50%</AboutCardStatNumber>
-                <AboutCardStatLabel>
-                  Till PMU:s biståndsarbete
-                </AboutCardStatLabel>
-              </AboutCardStat>
-              <AboutCardStat>
-                <AboutCardStatNumber>50%</AboutCardStatNumber>
-                <AboutCardStatLabel>Till Pingstkyrkan Elim</AboutCardStatLabel>
-              </AboutCardStat>
-              <AboutCardStat>
-                <AboutCardStatNumber>100+</AboutCardStatNumber>
-                <AboutCardStatLabel>PMU-butiker i Sverige</AboutCardStatLabel>
-              </AboutCardStat>
+            <AboutCard
+              as='a'
+              href='https://www.facebook.com/pmusecondhandtrelleborg?locale=sv_SE'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <FacebookIconRing>
+                <IconFacebook size={20} color='rgba(184,134,11,0.8)' />
+              </FacebookIconRing>
+              <FacebookCardHandle>Följ oss</FacebookCardHandle>
+              <FacebookCardTitle>Se våra senaste fynd</FacebookCardTitle>
+              <FacebookCardBody>
+                Nya artiklar kommer in varje vecka. Besök vår Facebook-sida
+                för uppdateringar, nyheter och de senaste fynden direkt från
+                butiken.
+              </FacebookCardBody>
+              <FacebookCardDivider />
+              <FacebookCardButton>
+                <IconFacebook size={14} color='#1a1000' />
+                Öppna på Facebook
+              </FacebookCardButton>
+              <FacebookWatermark>
+                <IconFacebook size={160} color='#ffffff' />
+              </FacebookWatermark>
             </AboutCard>
           </AboutVisual>
         </AboutInner>
